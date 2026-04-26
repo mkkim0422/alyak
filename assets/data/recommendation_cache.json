@@ -1,0 +1,4759 @@
+{
+  "generated_at": "2026-04-26",
+  "version": "1.0",
+  "archetypes": [
+    {
+      "id": 1,
+      "label": "비흡연,음주없음,균형,피로",
+      "smoker": false,
+      "drinker": false,
+      "diet": "balanced",
+      "symptom_id": "sym008"
+    },
+    {
+      "id": 2,
+      "label": "비흡연,음주없음,균형,면역",
+      "smoker": false,
+      "drinker": false,
+      "diet": "balanced",
+      "symptom_id": "sym024"
+    },
+    {
+      "id": 3,
+      "label": "비흡연,가끔음주,균형,피로",
+      "smoker": false,
+      "drinker": true,
+      "drinking_frequency": "monthly",
+      "diet": "balanced",
+      "symptom_id": "sym008"
+    },
+    {
+      "id": 4,
+      "label": "흡연,주음주,육류,피로",
+      "smoker": true,
+      "smoking_amount": "heavy",
+      "drinker": true,
+      "drinking_frequency": "weekly",
+      "diet": "meat",
+      "symptom_id": "sym008"
+    },
+    {
+      "id": 5,
+      "label": "흡연,자주음주,육류,간건강",
+      "smoker": true,
+      "smoking_amount": "heavy",
+      "drinker": true,
+      "drinking_frequency": "frequent",
+      "diet": "meat"
+    },
+    {
+      "id": 6,
+      "label": "비흡연,음주없음,채식,피로",
+      "smoker": false,
+      "drinker": false,
+      "diet": "vegetarian",
+      "symptom_id": "sym008"
+    },
+    {
+      "id": 7,
+      "label": "비흡연,음주없음,채식,빈혈",
+      "smoker": false,
+      "drinker": false,
+      "diet": "vegetarian",
+      "symptom_id": "sym031"
+    },
+    {
+      "id": 8,
+      "label": "비흡연,가끔음주,육류,관절",
+      "smoker": false,
+      "drinker": true,
+      "drinking_frequency": "monthly",
+      "diet": "meat",
+      "symptom_id": "sym006"
+    },
+    {
+      "id": 9,
+      "label": "비흡연,음주없음,균형,수면",
+      "smoker": false,
+      "drinker": false,
+      "diet": "balanced",
+      "symptom_id": "sym032"
+    },
+    {
+      "id": 10,
+      "label": "비흡연,음주없음,균형,눈건강",
+      "smoker": false,
+      "drinker": false,
+      "diet": "balanced",
+      "symptom_id": "sym037"
+    },
+    {
+      "id": 11,
+      "label": "비흡연,음주없음,균형,피부",
+      "smoker": false,
+      "drinker": false,
+      "diet": "balanced",
+      "symptom_id": "sym015"
+    },
+    {
+      "id": 12,
+      "label": "비흡연,가끔음주,균형,집중력",
+      "smoker": false,
+      "drinker": true,
+      "drinking_frequency": "monthly",
+      "diet": "balanced",
+      "symptom_id": "sym010"
+    },
+    {
+      "id": 13,
+      "label": "흡연,음주없음,균형,폐건강",
+      "smoker": true,
+      "smoking_amount": "heavy",
+      "drinker": false,
+      "diet": "balanced"
+    },
+    {
+      "id": 14,
+      "label": "비흡연,자주음주,육류,간건강",
+      "smoker": false,
+      "drinker": true,
+      "drinking_frequency": "frequent",
+      "diet": "meat"
+    },
+    {
+      "id": 15,
+      "label": "비흡연,음주없음,균형,소화",
+      "smoker": false,
+      "drinker": false,
+      "diet": "balanced",
+      "symptom_id": "sym021"
+    },
+    {
+      "id": 16,
+      "label": "비흡연,음주없음,균형,체중",
+      "smoker": false,
+      "drinker": false,
+      "diet": "balanced"
+    },
+    {
+      "id": 17,
+      "label": "비흡연,음주없음,채식,단백질",
+      "smoker": false,
+      "drinker": false,
+      "diet": "vegetarian"
+    },
+    {
+      "id": 18,
+      "label": "흡연,가끔음주,균형,피로",
+      "smoker": true,
+      "smoking_amount": "light",
+      "drinker": true,
+      "drinking_frequency": "monthly",
+      "diet": "balanced",
+      "symptom_id": "sym008"
+    },
+    {
+      "id": 19,
+      "label": "비흡연,음주없음,육류,심혈관",
+      "smoker": false,
+      "drinker": false,
+      "diet": "meat"
+    },
+    {
+      "id": 20,
+      "label": "비흡연,음주없음,균형,스트레스",
+      "smoker": false,
+      "drinker": false,
+      "diet": "balanced",
+      "symptom_id": "sym034"
+    }
+  ],
+  "entries": {
+    "newborn_male_breastMilk": {
+      "must_take": [
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "오메가3(DHA)"
+      ],
+      "consider": [
+        "유산균(프로바이오틱스)",
+        "칼슘",
+        "비타민K2",
+        "마그네슘",
+        "비타민E",
+        "루테인",
+        "코엔자임Q10"
+      ]
+    },
+    "newborn_male_formula": {
+      "must_take": [
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "오메가3(DHA)"
+      ],
+      "consider": [
+        "유산균(프로바이오틱스)",
+        "칼슘",
+        "비타민K2",
+        "마그네슘",
+        "비타민E",
+        "루테인",
+        "코엔자임Q10"
+      ]
+    },
+    "newborn_female_breastMilk": {
+      "must_take": [
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "오메가3(DHA)"
+      ],
+      "consider": [
+        "유산균(프로바이오틱스)",
+        "칼슘",
+        "비타민K2",
+        "마그네슘",
+        "비타민E",
+        "루테인",
+        "코엔자임Q10"
+      ]
+    },
+    "newborn_female_formula": {
+      "must_take": [
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "오메가3(DHA)"
+      ],
+      "consider": [
+        "유산균(프로바이오틱스)",
+        "칼슘",
+        "비타민K2",
+        "마그네슘",
+        "비타민E",
+        "루테인",
+        "코엔자임Q10"
+      ]
+    },
+    "toddler_male_picky_no": {
+      "must_take": [
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "칼슘",
+        "아연"
+      ],
+      "consider": [
+        "유산균(프로바이오틱스)",
+        "비타민K2",
+        "마그네슘"
+      ]
+    },
+    "toddler_male_picky_yes": {
+      "must_take": [
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "종합비타민",
+        "칼슘"
+      ],
+      "consider": [
+        "아연",
+        "유산균(프로바이오틱스)",
+        "비타민K2",
+        "마그네슘"
+      ]
+    },
+    "toddler_female_picky_no": {
+      "must_take": [
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "칼슘",
+        "아연"
+      ],
+      "consider": [
+        "유산균(프로바이오틱스)",
+        "비타민K2",
+        "마그네슘"
+      ]
+    },
+    "toddler_female_picky_yes": {
+      "must_take": [
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "종합비타민",
+        "칼슘"
+      ],
+      "consider": [
+        "아연",
+        "유산균(프로바이오틱스)",
+        "비타민K2",
+        "마그네슘"
+      ]
+    },
+    "child_male_picky_no": {
+      "must_take": [
+        "비타민D",
+        "칼슘"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "오메가3",
+        "종합비타민",
+        "비타민K2",
+        "마그네슘",
+        "비타민E",
+        "루테인",
+        "코엔자임Q10"
+      ]
+    },
+    "child_male_picky_yes": {
+      "must_take": [
+        "비타민D",
+        "칼슘"
+      ],
+      "highly_recommended": [
+        "종합비타민"
+      ],
+      "consider": [
+        "오메가3",
+        "비타민K2",
+        "마그네슘",
+        "비타민E",
+        "루테인",
+        "코엔자임Q10"
+      ]
+    },
+    "child_female_picky_no": {
+      "must_take": [
+        "비타민D",
+        "칼슘"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "오메가3",
+        "종합비타민",
+        "비타민K2",
+        "마그네슘",
+        "비타민E",
+        "루테인",
+        "코엔자임Q10"
+      ]
+    },
+    "child_female_picky_yes": {
+      "must_take": [
+        "비타민D",
+        "칼슘"
+      ],
+      "highly_recommended": [
+        "종합비타민"
+      ],
+      "consider": [
+        "오메가3",
+        "비타민K2",
+        "마그네슘",
+        "비타민E",
+        "루테인",
+        "코엔자임Q10"
+      ]
+    },
+    "teen_male_stress_low": {
+      "must_take": [
+        "비타민D",
+        "칼슘"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "오메가3",
+        "비타민B군",
+        "종합비타민",
+        "비타민K2",
+        "마그네슘",
+        "비타민E",
+        "루테인",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "teen_male_stress_high": {
+      "must_take": [
+        "비타민D",
+        "칼슘"
+      ],
+      "highly_recommended": [
+        "마그네슘",
+        "비타민B군"
+      ],
+      "consider": [
+        "오메가3",
+        "종합비타민",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "teen_female_stress_low": {
+      "must_take": [
+        "비타민D",
+        "칼슘"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "철분",
+        "오메가3",
+        "비타민B군",
+        "엽산",
+        "비타민C",
+        "비타민K2",
+        "마그네슘",
+        "비타민E",
+        "루테인",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "teen_female_stress_high": {
+      "must_take": [
+        "비타민D",
+        "칼슘"
+      ],
+      "highly_recommended": [
+        "마그네슘",
+        "비타민B군"
+      ],
+      "consider": [
+        "철분",
+        "오메가3",
+        "엽산",
+        "비타민C",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_male_1": {
+      "must_take": [
+        "종합비타민",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_male_2": {
+      "must_take": [
+        "종합비타민",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C"
+      ],
+      "consider": [
+        "오메가3",
+        "비타민B군",
+        "마그네슘",
+        "철분",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_male_3": {
+      "must_take": [
+        "종합비타민",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_male_4": {
+      "must_take": [
+        "종합비타민",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC",
+        "밀크씨슬",
+        "비타민B군"
+      ],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "철분",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_male_5": {
+      "must_take": [
+        "종합비타민",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC",
+        "밀크씨슬",
+        "비타민B1(티아민)"
+      ],
+      "consider": [
+        "비타민B군",
+        "오메가3",
+        "마그네슘",
+        "철분",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_male_6": {
+      "must_take": [
+        "종합비타민",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_male_7": {
+      "must_take": [
+        "종합비타민",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "철분",
+        "비타민B군"
+      ],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_male_8": {
+      "must_take": [
+        "종합비타민",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "글루코사민",
+        "오메가3"
+      ],
+      "consider": [
+        "비타민B군",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "MSM",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_male_9": {
+      "must_take": [
+        "종합비타민",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "마그네슘"
+      ],
+      "consider": [
+        "오메가3",
+        "비타민B군",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_male_10": {
+      "must_take": [
+        "종합비타민",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "루테인"
+      ],
+      "consider": [
+        "오메가3",
+        "비타민B군",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "지아잔틴",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_male_11": {
+      "must_take": [
+        "종합비타민",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "히알루론산",
+        "오메가3"
+      ],
+      "consider": [
+        "비타민B군",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_male_12": {
+      "must_take": [
+        "종합비타민",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "오메가3",
+        "비타민B군"
+      ],
+      "consider": [
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_male_13": {
+      "must_take": [
+        "종합비타민",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC"
+      ],
+      "consider": [
+        "오메가3",
+        "비타민B군",
+        "마그네슘",
+        "철분",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_male_14": {
+      "must_take": [
+        "종합비타민",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "밀크씨슬",
+        "비타민B1(티아민)",
+        "비타민B군"
+      ],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_male_15": {
+      "must_take": [
+        "종합비타민",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "유산균(프로바이오틱스)",
+        "비타민B군"
+      ],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_male_16": {
+      "must_take": [
+        "종합비타민",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "오메가3",
+        "비타민B군",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_male_17": {
+      "must_take": [
+        "종합비타민",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "오메가3",
+        "비타민B군",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_male_18": {
+      "must_take": [
+        "종합비타민",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "비타민B군"
+      ],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "철분",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_male_19": {
+      "must_take": [
+        "종합비타민",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "오메가3",
+        "비타민B군",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_male_20": {
+      "must_take": [
+        "종합비타민",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군",
+        "마그네슘"
+      ],
+      "consider": [
+        "오메가3",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_female_1": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "유산균(프로바이오틱스)",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_female_2": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C"
+      ],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "유산균(프로바이오틱스)",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_female_3": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "유산균(프로바이오틱스)",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_female_4": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군",
+        "비타민C",
+        "NAC",
+        "밀크씨슬"
+      ],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "유산균(프로바이오틱스)",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_female_5": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC",
+        "밀크씨슬",
+        "비타민B군"
+      ],
+      "consider": [
+        "비타민B1(티아민)",
+        "엽산",
+        "오메가3",
+        "유산균(프로바이오틱스)",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_female_6": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "유산균(프로바이오틱스)",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_female_7": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "유산균(프로바이오틱스)",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_female_8": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "글루코사민",
+        "오메가3"
+      ],
+      "consider": [
+        "엽산",
+        "유산균(프로바이오틱스)",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "MSM",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_female_9": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "마그네슘"
+      ],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "유산균(프로바이오틱스)",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_female_10": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "루테인"
+      ],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "유산균(프로바이오틱스)",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "지아잔틴",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_female_11": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "히알루론산",
+        "오메가3"
+      ],
+      "consider": [
+        "엽산",
+        "유산균(프로바이오틱스)",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_female_12": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군",
+        "오메가3"
+      ],
+      "consider": [
+        "엽산",
+        "유산균(프로바이오틱스)",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_female_13": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC"
+      ],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "유산균(프로바이오틱스)",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_female_14": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "밀크씨슬",
+        "비타민B군",
+        "비타민B1(티아민)"
+      ],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "유산균(프로바이오틱스)",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_female_15": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "유산균(프로바이오틱스)"
+      ],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_female_16": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "유산균(프로바이오틱스)",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_female_17": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "유산균(프로바이오틱스)",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_female_18": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군",
+        "비타민C"
+      ],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "유산균(프로바이오틱스)",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_female_19": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "유산균(프로바이오틱스)",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "twenties_female_20": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군",
+        "마그네슘"
+      ],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "유산균(프로바이오틱스)",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_male_1": {
+      "must_take": [
+        "비타민D",
+        "오메가3"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "마그네슘",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_male_2": {
+      "must_take": [
+        "비타민D",
+        "오메가3"
+      ],
+      "highly_recommended": [
+        "비타민C"
+      ],
+      "consider": [
+        "비타민B군",
+        "마그네슘",
+        "밀크씨슬",
+        "철분",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_male_3": {
+      "must_take": [
+        "비타민D",
+        "오메가3"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "마그네슘",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_male_4": {
+      "must_take": [
+        "비타민D",
+        "오메가3"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC",
+        "비타민B군",
+        "밀크씨슬"
+      ],
+      "consider": [
+        "마그네슘",
+        "철분",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_male_5": {
+      "must_take": [
+        "비타민D",
+        "오메가3"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC",
+        "비타민B1(티아민)",
+        "비타민B군"
+      ],
+      "consider": [
+        "밀크씨슬",
+        "마그네슘",
+        "철분",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_male_6": {
+      "must_take": [
+        "비타민D",
+        "오메가3"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "마그네슘",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_male_7": {
+      "must_take": [
+        "비타민D",
+        "오메가3"
+      ],
+      "highly_recommended": [
+        "철분",
+        "비타민B군"
+      ],
+      "consider": [
+        "마그네슘",
+        "밀크씨슬",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_male_8": {
+      "must_take": [
+        "비타민D",
+        "오메가3"
+      ],
+      "highly_recommended": [
+        "글루코사민"
+      ],
+      "consider": [
+        "비타민B군",
+        "마그네슘",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "MSM",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_male_9": {
+      "must_take": [
+        "비타민D",
+        "오메가3"
+      ],
+      "highly_recommended": [
+        "마그네슘"
+      ],
+      "consider": [
+        "비타민B군",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_male_10": {
+      "must_take": [
+        "비타민D",
+        "오메가3"
+      ],
+      "highly_recommended": [
+        "루테인"
+      ],
+      "consider": [
+        "비타민B군",
+        "마그네슘",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "지아잔틴",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_male_11": {
+      "must_take": [
+        "비타민D",
+        "오메가3"
+      ],
+      "highly_recommended": [
+        "히알루론산"
+      ],
+      "consider": [
+        "비타민B군",
+        "마그네슘",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_male_12": {
+      "must_take": [
+        "비타민D",
+        "오메가3"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "마그네슘",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_male_13": {
+      "must_take": [
+        "비타민D",
+        "오메가3"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC"
+      ],
+      "consider": [
+        "비타민B군",
+        "마그네슘",
+        "밀크씨슬",
+        "철분",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_male_14": {
+      "must_take": [
+        "비타민D",
+        "오메가3"
+      ],
+      "highly_recommended": [
+        "비타민B1(티아민)",
+        "비타민B군",
+        "밀크씨슬"
+      ],
+      "consider": [
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_male_15": {
+      "must_take": [
+        "비타민D",
+        "오메가3"
+      ],
+      "highly_recommended": [
+        "유산균(프로바이오틱스)",
+        "비타민B군"
+      ],
+      "consider": [
+        "마그네슘",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_male_16": {
+      "must_take": [
+        "비타민D",
+        "오메가3"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "비타민B군",
+        "마그네슘",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_male_17": {
+      "must_take": [
+        "비타민D",
+        "오메가3"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "비타민B군",
+        "마그네슘",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_male_18": {
+      "must_take": [
+        "비타민D",
+        "오메가3"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "비타민B군"
+      ],
+      "consider": [
+        "마그네슘",
+        "밀크씨슬",
+        "철분",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_male_19": {
+      "must_take": [
+        "비타민D",
+        "오메가3"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "비타민B군",
+        "마그네슘",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_male_20": {
+      "must_take": [
+        "비타민D",
+        "오메가3"
+      ],
+      "highly_recommended": [
+        "비타민B군",
+        "마그네슘"
+      ],
+      "consider": [
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_female_1": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "콜라겐",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_female_2": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C"
+      ],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "콜라겐",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_female_3": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "콜라겐",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_female_4": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군",
+        "비타민C",
+        "NAC",
+        "밀크씨슬"
+      ],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "콜라겐",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_female_5": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC",
+        "밀크씨슬",
+        "비타민B군"
+      ],
+      "consider": [
+        "비타민B1(티아민)",
+        "엽산",
+        "오메가3",
+        "콜라겐",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_female_6": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "콜라겐",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_female_7": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "콜라겐",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_female_8": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "글루코사민",
+        "오메가3"
+      ],
+      "consider": [
+        "엽산",
+        "콜라겐",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "MSM",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_female_9": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "마그네슘"
+      ],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "콜라겐",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_female_10": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "루테인"
+      ],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "콜라겐",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "히알루론산",
+        "지아잔틴",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_female_11": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "히알루론산",
+        "오메가3"
+      ],
+      "consider": [
+        "엽산",
+        "콜라겐",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_female_12": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군",
+        "오메가3"
+      ],
+      "consider": [
+        "엽산",
+        "콜라겐",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_female_13": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC"
+      ],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "콜라겐",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_female_14": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "밀크씨슬",
+        "비타민B군",
+        "비타민B1(티아민)"
+      ],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "콜라겐",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_female_15": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "유산균(프로바이오틱스)"
+      ],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "콜라겐",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_female_16": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "콜라겐",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_female_17": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "콜라겐",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_female_18": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군",
+        "비타민C"
+      ],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "콜라겐",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_female_19": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "콜라겐",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "thirties_female_20": {
+      "must_take": [
+        "철분",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군",
+        "마그네슘"
+      ],
+      "consider": [
+        "엽산",
+        "오메가3",
+        "콜라겐",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "forties_male_1": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "마그네슘",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌"
+      ]
+    },
+    "forties_male_2": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "비타민B군",
+        "마그네슘",
+        "밀크씨슬",
+        "철분",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌"
+      ]
+    },
+    "forties_male_3": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "마그네슘",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌"
+      ]
+    },
+    "forties_male_4": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC",
+        "비타민B군",
+        "밀크씨슬"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "마그네슘",
+        "철분",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌"
+      ]
+    },
+    "forties_male_5": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC",
+        "비타민B1(티아민)",
+        "비타민B군"
+      ],
+      "consider": [
+        "밀크씨슬",
+        "코엔자임Q10",
+        "마그네슘",
+        "철분",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌"
+      ]
+    },
+    "forties_male_6": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "마그네슘",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌"
+      ]
+    },
+    "forties_male_7": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "철분",
+        "비타민B군"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "마그네슘",
+        "밀크씨슬",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌"
+      ]
+    },
+    "forties_male_8": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "글루코사민"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "비타민B군",
+        "마그네슘",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "MSM",
+        "루테인",
+        "L-테아닌"
+      ]
+    },
+    "forties_male_9": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "마그네슘"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "비타민B군",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌"
+      ]
+    },
+    "forties_male_10": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "루테인"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "비타민B군",
+        "마그네슘",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "지아잔틴",
+        "L-테아닌"
+      ]
+    },
+    "forties_male_11": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "히알루론산"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "비타민B군",
+        "마그네슘",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌"
+      ]
+    },
+    "forties_male_12": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "마그네슘",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌"
+      ]
+    },
+    "forties_male_13": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "비타민B군",
+        "마그네슘",
+        "밀크씨슬",
+        "철분",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌"
+      ]
+    },
+    "forties_male_14": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B1(티아민)",
+        "비타민B군",
+        "밀크씨슬"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌"
+      ]
+    },
+    "forties_male_15": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "유산균(프로바이오틱스)",
+        "비타민B군"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "마그네슘",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌"
+      ]
+    },
+    "forties_male_16": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "코엔자임Q10",
+        "비타민B군",
+        "마그네슘",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌"
+      ]
+    },
+    "forties_male_17": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "코엔자임Q10",
+        "비타민B군",
+        "마그네슘",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌"
+      ]
+    },
+    "forties_male_18": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "비타민B군"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "마그네슘",
+        "밀크씨슬",
+        "철분",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌"
+      ]
+    },
+    "forties_male_19": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "코엔자임Q10",
+        "비타민B군",
+        "마그네슘",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌"
+      ]
+    },
+    "forties_male_20": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군",
+        "마그네슘"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "밀크씨슬",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌"
+      ]
+    },
+    "forties_female_1": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "콜라겐",
+        "감마리놀렌산",
+        "비타민K2",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "forties_female_2": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C"
+      ],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "콜라겐",
+        "감마리놀렌산",
+        "철분",
+        "비타민K2",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "forties_female_3": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "콜라겐",
+        "감마리놀렌산",
+        "비타민K2",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "forties_female_4": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군",
+        "비타민C",
+        "NAC",
+        "밀크씨슬"
+      ],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "콜라겐",
+        "감마리놀렌산",
+        "철분",
+        "비타민K2",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "forties_female_5": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC",
+        "밀크씨슬",
+        "비타민B군"
+      ],
+      "consider": [
+        "비타민B1(티아민)",
+        "오메가3",
+        "마그네슘",
+        "콜라겐",
+        "감마리놀렌산",
+        "철분",
+        "비타민K2",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "forties_female_6": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "콜라겐",
+        "감마리놀렌산",
+        "비타민K2",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "forties_female_7": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "철분"
+      ],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "콜라겐",
+        "감마리놀렌산",
+        "비타민C",
+        "비타민K2",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "forties_female_8": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "글루코사민"
+      ],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "콜라겐",
+        "감마리놀렌산",
+        "비타민K2",
+        "비타민E",
+        "MSM",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "forties_female_9": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "마그네슘"
+      ],
+      "consider": [
+        "오메가3",
+        "콜라겐",
+        "감마리놀렌산",
+        "비타민K2",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "forties_female_10": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "루테인"
+      ],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "콜라겐",
+        "감마리놀렌산",
+        "비타민K2",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "지아잔틴",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "forties_female_11": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "히알루론산"
+      ],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "콜라겐",
+        "감마리놀렌산",
+        "비타민K2",
+        "비타민E",
+        "비타민C",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "forties_female_12": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "콜라겐",
+        "감마리놀렌산",
+        "비타민K2",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "forties_female_13": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC"
+      ],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "콜라겐",
+        "감마리놀렌산",
+        "철분",
+        "비타민K2",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "forties_female_14": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "밀크씨슬",
+        "비타민B군",
+        "비타민B1(티아민)"
+      ],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "콜라겐",
+        "감마리놀렌산",
+        "비타민K2",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "forties_female_15": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "유산균(프로바이오틱스)"
+      ],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "콜라겐",
+        "감마리놀렌산",
+        "비타민K2",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "forties_female_16": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "콜라겐",
+        "감마리놀렌산",
+        "비타민K2",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "forties_female_17": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "콜라겐",
+        "감마리놀렌산",
+        "비타민K2",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "forties_female_18": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군",
+        "비타민C"
+      ],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "콜라겐",
+        "감마리놀렌산",
+        "철분",
+        "비타민K2",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "forties_female_19": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "오메가3",
+        "마그네슘",
+        "콜라겐",
+        "감마리놀렌산",
+        "비타민K2",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "forties_female_20": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군",
+        "마그네슘"
+      ],
+      "consider": [
+        "오메가3",
+        "콜라겐",
+        "감마리놀렌산",
+        "비타민K2",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "fifties_male_1": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "쏘팔메토",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬"
+      ]
+    },
+    "fifties_male_2": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "비타민B군",
+        "쏘팔메토",
+        "마그네슘",
+        "철분",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬"
+      ]
+    },
+    "fifties_male_3": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "쏘팔메토",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬"
+      ]
+    },
+    "fifties_male_4": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC",
+        "밀크씨슬",
+        "비타민B군"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "쏘팔메토",
+        "마그네슘",
+        "철분",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌"
+      ]
+    },
+    "fifties_male_5": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC",
+        "밀크씨슬",
+        "비타민B1(티아민)"
+      ],
+      "consider": [
+        "비타민B군",
+        "코엔자임Q10",
+        "쏘팔메토",
+        "마그네슘",
+        "철분",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌"
+      ]
+    },
+    "fifties_male_6": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "쏘팔메토",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬"
+      ]
+    },
+    "fifties_male_7": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "철분",
+        "비타민B군"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "쏘팔메토",
+        "마그네슘",
+        "비타민C",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬"
+      ]
+    },
+    "fifties_male_8": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "글루코사민"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "비타민B군",
+        "쏘팔메토",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "MSM",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬"
+      ]
+    },
+    "fifties_male_9": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "마그네슘"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "비타민B군",
+        "쏘팔메토",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬"
+      ]
+    },
+    "fifties_male_10": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "루테인"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "비타민B군",
+        "쏘팔메토",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "지아잔틴",
+        "L-테아닌",
+        "밀크씨슬"
+      ]
+    },
+    "fifties_male_11": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "히알루론산"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "비타민B군",
+        "쏘팔메토",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬"
+      ]
+    },
+    "fifties_male_12": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "쏘팔메토",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬"
+      ]
+    },
+    "fifties_male_13": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "비타민B군",
+        "쏘팔메토",
+        "마그네슘",
+        "철분",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬"
+      ]
+    },
+    "fifties_male_14": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "밀크씨슬",
+        "비타민B1(티아민)",
+        "비타민B군"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "쏘팔메토",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌"
+      ]
+    },
+    "fifties_male_15": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "유산균(프로바이오틱스)",
+        "비타민B군"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "쏘팔메토",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬"
+      ]
+    },
+    "fifties_male_16": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "코엔자임Q10",
+        "비타민B군",
+        "쏘팔메토",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬"
+      ]
+    },
+    "fifties_male_17": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "코엔자임Q10",
+        "비타민B군",
+        "쏘팔메토",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬"
+      ]
+    },
+    "fifties_male_18": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "비타민B군"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "쏘팔메토",
+        "마그네슘",
+        "철분",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬"
+      ]
+    },
+    "fifties_male_19": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "코엔자임Q10",
+        "비타민B군",
+        "쏘팔메토",
+        "마그네슘",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬"
+      ]
+    },
+    "fifties_male_20": {
+      "must_take": [
+        "오메가3",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군",
+        "마그네슘"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "쏘팔메토",
+        "칼슘",
+        "비타민K2",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬"
+      ]
+    },
+    "fifties_female_1": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "비타민K2",
+        "오메가3",
+        "석류추출물(이소플라본)",
+        "감마리놀렌산",
+        "콜라겐",
+        "마그네슘",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "fifties_female_2": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C"
+      ],
+      "consider": [
+        "비타민K2",
+        "오메가3",
+        "석류추출물(이소플라본)",
+        "감마리놀렌산",
+        "콜라겐",
+        "철분",
+        "마그네슘",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "코엔자임Q10"
+      ]
+    },
+    "fifties_female_3": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "비타민K2",
+        "오메가3",
+        "석류추출물(이소플라본)",
+        "감마리놀렌산",
+        "콜라겐",
+        "마그네슘",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "fifties_female_4": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군",
+        "비타민C",
+        "NAC",
+        "밀크씨슬"
+      ],
+      "consider": [
+        "비타민K2",
+        "오메가3",
+        "석류추출물(이소플라본)",
+        "감마리놀렌산",
+        "콜라겐",
+        "철분",
+        "마그네슘",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "코엔자임Q10"
+      ]
+    },
+    "fifties_female_5": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC",
+        "밀크씨슬",
+        "비타민B군"
+      ],
+      "consider": [
+        "비타민B1(티아민)",
+        "비타민K2",
+        "오메가3",
+        "석류추출물(이소플라본)",
+        "감마리놀렌산",
+        "콜라겐",
+        "철분",
+        "마그네슘",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "코엔자임Q10"
+      ]
+    },
+    "fifties_female_6": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군"
+      ],
+      "consider": [
+        "비타민K2",
+        "오메가3",
+        "석류추출물(이소플라본)",
+        "감마리놀렌산",
+        "콜라겐",
+        "마그네슘",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "fifties_female_7": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "철분"
+      ],
+      "consider": [
+        "비타민K2",
+        "오메가3",
+        "석류추출물(이소플라본)",
+        "감마리놀렌산",
+        "콜라겐",
+        "비타민C",
+        "마그네슘",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "코엔자임Q10"
+      ]
+    },
+    "fifties_female_8": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "글루코사민",
+        "오메가3"
+      ],
+      "consider": [
+        "비타민K2",
+        "석류추출물(이소플라본)",
+        "감마리놀렌산",
+        "콜라겐",
+        "마그네슘",
+        "비타민E",
+        "MSM",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "코엔자임Q10"
+      ]
+    },
+    "fifties_female_9": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "마그네슘"
+      ],
+      "consider": [
+        "비타민K2",
+        "오메가3",
+        "석류추출물(이소플라본)",
+        "감마리놀렌산",
+        "콜라겐",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "코엔자임Q10"
+      ]
+    },
+    "fifties_female_10": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "루테인"
+      ],
+      "consider": [
+        "비타민K2",
+        "오메가3",
+        "석류추출물(이소플라본)",
+        "감마리놀렌산",
+        "콜라겐",
+        "마그네슘",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "지아잔틴",
+        "코엔자임Q10"
+      ]
+    },
+    "fifties_female_11": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "히알루론산",
+        "오메가3"
+      ],
+      "consider": [
+        "비타민K2",
+        "석류추출물(이소플라본)",
+        "감마리놀렌산",
+        "콜라겐",
+        "마그네슘",
+        "비타민E",
+        "비타민C",
+        "루테인",
+        "코엔자임Q10"
+      ]
+    },
+    "fifties_female_12": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군",
+        "오메가3"
+      ],
+      "consider": [
+        "비타민K2",
+        "석류추출물(이소플라본)",
+        "감마리놀렌산",
+        "콜라겐",
+        "마그네슘",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "fifties_female_13": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC"
+      ],
+      "consider": [
+        "비타민K2",
+        "오메가3",
+        "석류추출물(이소플라본)",
+        "감마리놀렌산",
+        "콜라겐",
+        "철분",
+        "마그네슘",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "코엔자임Q10"
+      ]
+    },
+    "fifties_female_14": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "밀크씨슬",
+        "비타민B군",
+        "비타민B1(티아민)"
+      ],
+      "consider": [
+        "비타민K2",
+        "오메가3",
+        "석류추출물(이소플라본)",
+        "감마리놀렌산",
+        "콜라겐",
+        "마그네슘",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "코엔자임Q10"
+      ]
+    },
+    "fifties_female_15": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "유산균(프로바이오틱스)"
+      ],
+      "consider": [
+        "비타민K2",
+        "오메가3",
+        "석류추출물(이소플라본)",
+        "감마리놀렌산",
+        "콜라겐",
+        "마그네슘",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "코엔자임Q10"
+      ]
+    },
+    "fifties_female_16": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "비타민K2",
+        "오메가3",
+        "석류추출물(이소플라본)",
+        "감마리놀렌산",
+        "콜라겐",
+        "마그네슘",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "코엔자임Q10"
+      ]
+    },
+    "fifties_female_17": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "비타민K2",
+        "오메가3",
+        "석류추출물(이소플라본)",
+        "감마리놀렌산",
+        "콜라겐",
+        "마그네슘",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "코엔자임Q10"
+      ]
+    },
+    "fifties_female_18": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군",
+        "비타민C"
+      ],
+      "consider": [
+        "비타민K2",
+        "오메가3",
+        "석류추출물(이소플라본)",
+        "감마리놀렌산",
+        "콜라겐",
+        "철분",
+        "마그네슘",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "fifties_female_19": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "비타민K2",
+        "오메가3",
+        "석류추출물(이소플라본)",
+        "감마리놀렌산",
+        "콜라겐",
+        "마그네슘",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "코엔자임Q10"
+      ]
+    },
+    "fifties_female_20": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민B군",
+        "마그네슘"
+      ],
+      "consider": [
+        "비타민K2",
+        "오메가3",
+        "석류추출물(이소플라본)",
+        "감마리놀렌산",
+        "콜라겐",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬",
+        "코엔자임Q10"
+      ]
+    },
+    "elderly_male_1": {
+      "must_take": [
+        "비타민D",
+        "비타민B군"
+      ],
+      "highly_recommended": [
+        "코엔자임Q10"
+      ],
+      "consider": [
+        "오메가3",
+        "칼슘",
+        "비타민K2",
+        "쏘팔메토",
+        "마그네슘",
+        "비타민E",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_male_2": {
+      "must_take": [
+        "비타민D",
+        "비타민B군"
+      ],
+      "highly_recommended": [
+        "비타민C"
+      ],
+      "consider": [
+        "오메가3",
+        "코엔자임Q10",
+        "칼슘",
+        "비타민K2",
+        "쏘팔메토",
+        "철분",
+        "마그네슘",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_male_3": {
+      "must_take": [
+        "비타민D",
+        "비타민B군"
+      ],
+      "highly_recommended": [
+        "코엔자임Q10"
+      ],
+      "consider": [
+        "오메가3",
+        "칼슘",
+        "비타민K2",
+        "쏘팔메토",
+        "마그네슘",
+        "비타민E",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_male_4": {
+      "must_take": [
+        "비타민D",
+        "비타민B군"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC",
+        "밀크씨슬"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "오메가3",
+        "칼슘",
+        "비타민K2",
+        "쏘팔메토",
+        "철분",
+        "마그네슘",
+        "비타민E",
+        "콜라겐",
+        "루테인"
+      ]
+    },
+    "elderly_male_5": {
+      "must_take": [
+        "비타민D",
+        "비타민B군"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC",
+        "밀크씨슬"
+      ],
+      "consider": [
+        "비타민B1(티아민)",
+        "오메가3",
+        "코엔자임Q10",
+        "칼슘",
+        "비타민K2",
+        "쏘팔메토",
+        "철분",
+        "마그네슘",
+        "비타민E",
+        "콜라겐",
+        "루테인"
+      ]
+    },
+    "elderly_male_6": {
+      "must_take": [
+        "비타민D",
+        "비타민B군"
+      ],
+      "highly_recommended": [
+        "코엔자임Q10"
+      ],
+      "consider": [
+        "오메가3",
+        "칼슘",
+        "비타민K2",
+        "쏘팔메토",
+        "마그네슘",
+        "비타민E",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_male_7": {
+      "must_take": [
+        "비타민D",
+        "비타민B군"
+      ],
+      "highly_recommended": [
+        "철분"
+      ],
+      "consider": [
+        "오메가3",
+        "코엔자임Q10",
+        "칼슘",
+        "비타민K2",
+        "쏘팔메토",
+        "비타민C",
+        "마그네슘",
+        "비타민E",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_male_8": {
+      "must_take": [
+        "비타민D",
+        "비타민B군"
+      ],
+      "highly_recommended": [
+        "글루코사민"
+      ],
+      "consider": [
+        "오메가3",
+        "코엔자임Q10",
+        "칼슘",
+        "비타민K2",
+        "쏘팔메토",
+        "마그네슘",
+        "비타민E",
+        "MSM",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_male_9": {
+      "must_take": [
+        "비타민D",
+        "비타민B군"
+      ],
+      "highly_recommended": [
+        "마그네슘"
+      ],
+      "consider": [
+        "오메가3",
+        "코엔자임Q10",
+        "칼슘",
+        "비타민K2",
+        "쏘팔메토",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_male_10": {
+      "must_take": [
+        "비타민D",
+        "비타민B군"
+      ],
+      "highly_recommended": [
+        "루테인"
+      ],
+      "consider": [
+        "오메가3",
+        "코엔자임Q10",
+        "칼슘",
+        "비타민K2",
+        "쏘팔메토",
+        "마그네슘",
+        "비타민E",
+        "지아잔틴",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_male_11": {
+      "must_take": [
+        "비타민D",
+        "비타민B군"
+      ],
+      "highly_recommended": [
+        "히알루론산"
+      ],
+      "consider": [
+        "오메가3",
+        "코엔자임Q10",
+        "칼슘",
+        "비타민K2",
+        "쏘팔메토",
+        "마그네슘",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_male_12": {
+      "must_take": [
+        "비타민D",
+        "비타민B군"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "오메가3",
+        "코엔자임Q10",
+        "칼슘",
+        "비타민K2",
+        "쏘팔메토",
+        "마그네슘",
+        "비타민E",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_male_13": {
+      "must_take": [
+        "비타민D",
+        "비타민B군"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC"
+      ],
+      "consider": [
+        "오메가3",
+        "코엔자임Q10",
+        "칼슘",
+        "비타민K2",
+        "쏘팔메토",
+        "철분",
+        "마그네슘",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_male_14": {
+      "must_take": [
+        "비타민D",
+        "비타민B군"
+      ],
+      "highly_recommended": [
+        "밀크씨슬",
+        "비타민B1(티아민)"
+      ],
+      "consider": [
+        "오메가3",
+        "코엔자임Q10",
+        "칼슘",
+        "비타민K2",
+        "쏘팔메토",
+        "마그네슘",
+        "비타민E",
+        "루테인"
+      ]
+    },
+    "elderly_male_15": {
+      "must_take": [
+        "비타민D",
+        "비타민B군"
+      ],
+      "highly_recommended": [
+        "유산균(프로바이오틱스)"
+      ],
+      "consider": [
+        "오메가3",
+        "코엔자임Q10",
+        "칼슘",
+        "비타민K2",
+        "쏘팔메토",
+        "마그네슘",
+        "비타민E",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_male_16": {
+      "must_take": [
+        "비타민D",
+        "비타민B군"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "오메가3",
+        "코엔자임Q10",
+        "칼슘",
+        "비타민K2",
+        "쏘팔메토",
+        "마그네슘",
+        "비타민E",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_male_17": {
+      "must_take": [
+        "비타민D",
+        "비타민B군"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "오메가3",
+        "코엔자임Q10",
+        "칼슘",
+        "비타민K2",
+        "쏘팔메토",
+        "마그네슘",
+        "비타민E",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_male_18": {
+      "must_take": [
+        "비타민D",
+        "비타민B군"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "코엔자임Q10"
+      ],
+      "consider": [
+        "오메가3",
+        "칼슘",
+        "비타민K2",
+        "쏘팔메토",
+        "철분",
+        "마그네슘",
+        "비타민E",
+        "콜라겐",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_male_19": {
+      "must_take": [
+        "비타민D",
+        "비타민B군"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "오메가3",
+        "코엔자임Q10",
+        "칼슘",
+        "비타민K2",
+        "쏘팔메토",
+        "마그네슘",
+        "비타민E",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_male_20": {
+      "must_take": [
+        "비타민D",
+        "비타민B군"
+      ],
+      "highly_recommended": [
+        "마그네슘"
+      ],
+      "consider": [
+        "오메가3",
+        "코엔자임Q10",
+        "칼슘",
+        "비타민K2",
+        "쏘팔메토",
+        "비타민E",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_female_1": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "코엔자임Q10"
+      ],
+      "consider": [
+        "비타민K2",
+        "비타민B군",
+        "오메가3",
+        "콜라겐",
+        "마그네슘",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_female_2": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C"
+      ],
+      "consider": [
+        "비타민K2",
+        "비타민B군",
+        "오메가3",
+        "코엔자임Q10",
+        "콜라겐",
+        "철분",
+        "마그네슘",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_female_3": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "코엔자임Q10"
+      ],
+      "consider": [
+        "비타민K2",
+        "비타민B군",
+        "오메가3",
+        "콜라겐",
+        "마그네슘",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_female_4": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC",
+        "밀크씨슬"
+      ],
+      "consider": [
+        "코엔자임Q10",
+        "비타민K2",
+        "비타민B군",
+        "오메가3",
+        "콜라겐",
+        "철분",
+        "마그네슘",
+        "비타민E",
+        "히알루론산",
+        "루테인"
+      ]
+    },
+    "elderly_female_5": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC",
+        "밀크씨슬"
+      ],
+      "consider": [
+        "비타민B1(티아민)",
+        "비타민K2",
+        "비타민B군",
+        "오메가3",
+        "코엔자임Q10",
+        "콜라겐",
+        "철분",
+        "마그네슘",
+        "비타민E",
+        "히알루론산",
+        "루테인"
+      ]
+    },
+    "elderly_female_6": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "코엔자임Q10"
+      ],
+      "consider": [
+        "비타민K2",
+        "비타민B군",
+        "오메가3",
+        "콜라겐",
+        "마그네슘",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_female_7": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "철분"
+      ],
+      "consider": [
+        "비타민K2",
+        "비타민B군",
+        "오메가3",
+        "코엔자임Q10",
+        "콜라겐",
+        "비타민C",
+        "마그네슘",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_female_8": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "글루코사민",
+        "오메가3"
+      ],
+      "consider": [
+        "비타민K2",
+        "비타민B군",
+        "코엔자임Q10",
+        "콜라겐",
+        "마그네슘",
+        "비타민E",
+        "MSM",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_female_9": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "마그네슘"
+      ],
+      "consider": [
+        "비타민K2",
+        "비타민B군",
+        "오메가3",
+        "코엔자임Q10",
+        "콜라겐",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_female_10": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "루테인"
+      ],
+      "consider": [
+        "비타민K2",
+        "비타민B군",
+        "오메가3",
+        "코엔자임Q10",
+        "콜라겐",
+        "마그네슘",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "지아잔틴",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_female_11": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "히알루론산",
+        "오메가3"
+      ],
+      "consider": [
+        "비타민K2",
+        "비타민B군",
+        "코엔자임Q10",
+        "콜라겐",
+        "마그네슘",
+        "비타민E",
+        "비타민C",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_female_12": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "오메가3"
+      ],
+      "consider": [
+        "비타민K2",
+        "비타민B군",
+        "코엔자임Q10",
+        "콜라겐",
+        "마그네슘",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_female_13": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "NAC"
+      ],
+      "consider": [
+        "비타민K2",
+        "비타민B군",
+        "오메가3",
+        "코엔자임Q10",
+        "콜라겐",
+        "철분",
+        "마그네슘",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_female_14": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "밀크씨슬",
+        "비타민B1(티아민)"
+      ],
+      "consider": [
+        "비타민K2",
+        "비타민B군",
+        "오메가3",
+        "코엔자임Q10",
+        "콜라겐",
+        "마그네슘",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인"
+      ]
+    },
+    "elderly_female_15": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "유산균(프로바이오틱스)"
+      ],
+      "consider": [
+        "비타민K2",
+        "비타민B군",
+        "오메가3",
+        "코엔자임Q10",
+        "콜라겐",
+        "마그네슘",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_female_16": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "비타민K2",
+        "비타민B군",
+        "오메가3",
+        "코엔자임Q10",
+        "콜라겐",
+        "마그네슘",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_female_17": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "비타민K2",
+        "비타민B군",
+        "오메가3",
+        "코엔자임Q10",
+        "콜라겐",
+        "마그네슘",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_female_18": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "비타민C",
+        "코엔자임Q10"
+      ],
+      "consider": [
+        "비타민K2",
+        "비타민B군",
+        "오메가3",
+        "콜라겐",
+        "철분",
+        "마그네슘",
+        "비타민E",
+        "히알루론산",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_female_19": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [],
+      "consider": [
+        "비타민K2",
+        "비타민B군",
+        "오메가3",
+        "코엔자임Q10",
+        "콜라겐",
+        "마그네슘",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "밀크씨슬"
+      ]
+    },
+    "elderly_female_20": {
+      "must_take": [
+        "칼슘",
+        "비타민D"
+      ],
+      "highly_recommended": [
+        "마그네슘"
+      ],
+      "consider": [
+        "비타민K2",
+        "비타민B군",
+        "오메가3",
+        "코엔자임Q10",
+        "콜라겐",
+        "비타민E",
+        "비타민C",
+        "히알루론산",
+        "루테인",
+        "L-테아닌",
+        "밀크씨슬"
+      ]
+    }
+  }
+}

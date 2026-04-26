@@ -1,0 +1,701 @@
+{
+  "version": "1.0",
+  "type_legend": {
+    "A": "영양결핍 가능성 — 영양제·생활습관 조정으로 도움이 될 수 있어요",
+    "B": "의료 권고 — 영양제보다 의료 전문가 진단이 우선이에요"
+  },
+  "symptoms": [
+    {
+      "symptom_id": "sym001",
+      "symptom": "눈이 자꾸 떨려요",
+      "keywords": ["눈 떨림", "눈 경련", "눈꺼풀 떨림", "안검 경련"],
+      "category": "근육/신경",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s004", "supplement_name": "마그네슘", "relevance": "primary", "explanation": "마그네슘은 근육·신경 기능에 관여해요. 눈 떨림은 마그네슘이 부족할 때 자주 보이는 증상 중 하나예요", "safe_expression": "눈 떨림이 있을 때 마그네슘을 찾는 분들이 많아요" },
+        { "supplement_id": "s011", "supplement_name": "비타민B군", "relevance": "secondary", "explanation": "비타민B군은 신경 기능 유지에 함께 작용해요", "safe_expression": "비타민B군도 신경 건강에 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["카페인을 줄이면 마그네슘 소모가 줄어요", "수면이 부족하면 증상이 잦아질 수 있어요"],
+      "when_to_see_doctor": "2주 이상 지속되거나 얼굴 전체로 퍼지면 병원을 방문하세요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym002",
+      "symptom": "자다가 다리에 쥐가 나요",
+      "keywords": ["다리 쥐", "야간 쥐", "종아리 쥐", "근경련"],
+      "category": "근육/신경",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s004", "supplement_name": "마그네슘", "relevance": "primary", "explanation": "근육 이완에 마그네슘이 관여해요", "safe_expression": "야간 쥐가 잦을 때 마그네슘을 찾는 분들이 많아요" },
+        { "supplement_id": "s007", "supplement_name": "칼슘", "relevance": "secondary", "explanation": "근수축에는 칼슘도 필요해요", "safe_expression": "칼슘 균형도 함께 살펴보면 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["수분을 충분히 드세요", "취침 전 종아리 스트레칭이 도움이 될 수 있어요"],
+      "when_to_see_doctor": "통증이 심하거나 매일 반복되면 병원 진료를 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym003",
+      "symptom": "손발이 자주 저려요",
+      "keywords": ["손 저림", "발 저림", "손발 저림", "말초 저림"],
+      "category": "근육/신경",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s011", "supplement_name": "비타민B군", "relevance": "primary", "explanation": "B12·B6 등은 말초신경 기능에 관여해요", "safe_expression": "손발 저림이 있을 때 비타민B군을 찾는 분들이 많아요" },
+        { "supplement_id": "s004", "supplement_name": "마그네슘", "relevance": "secondary", "explanation": "신경 안정에 함께 작용해요", "safe_expression": "마그네슘도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["같은 자세를 오래 유지하지 말고 자주 움직이세요"],
+      "when_to_see_doctor": "한쪽만 지속되거나 힘이 빠지면 병원을 방문하세요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym004",
+      "symptom": "근육에 자주 경련이 와요",
+      "keywords": ["근육 경련", "근육통", "쥐"],
+      "category": "근육/신경",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s004", "supplement_name": "마그네슘", "relevance": "primary", "explanation": "근육 이완에 핵심 미네랄이에요", "safe_expression": "근경련이 있을 때 마그네슘을 찾는 분들이 많아요" },
+        { "supplement_id": "s007", "supplement_name": "칼슘", "relevance": "secondary", "explanation": "근수축·이완 균형에 함께 작용해요", "safe_expression": "칼슘도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["전해질 음료로 수분·미네랄을 함께 보충하세요"],
+      "when_to_see_doctor": "운동과 무관하게 자주 반복되면 병원 진료를 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym005",
+      "symptom": "다리가 무겁고 잘 부어요",
+      "keywords": ["다리 무거움", "다리 부종", "하지 부종"],
+      "category": "근육/신경",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s004", "supplement_name": "마그네슘", "relevance": "primary", "explanation": "혈관·근육 이완에 도움이 될 수 있어요", "safe_expression": "다리 피로가 있을 때 마그네슘을 찾는 분들이 많아요" },
+        { "supplement_id": "s037", "supplement_name": "빌베리추출물", "relevance": "secondary", "explanation": "혈관·순환 보조에 도움이 될 수 있어요", "safe_expression": "빌베리추출물도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["하루에 한 번 다리를 심장 위로 올리고 쉬어 보세요"],
+      "when_to_see_doctor": "한쪽만 붓거나 통증이 심하면 즉시 병원을 방문하세요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym006",
+      "symptom": "관절이 뻑뻑하고 아파요",
+      "keywords": ["관절 통증", "관절 뻑뻑", "무릎 통증"],
+      "category": "근육/신경",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s024", "supplement_name": "글루코사민", "relevance": "primary", "explanation": "관절 연골 영양 보조에 도움이 될 수 있어요", "safe_expression": "관절 케어로 글루코사민을 찾는 분들이 많아요" },
+        { "supplement_id": "s025", "supplement_name": "MSM", "relevance": "secondary", "explanation": "관절 통증 보조 효과가 보고돼요", "safe_expression": "MSM도 도움이 될 수 있어요" },
+        { "supplement_id": "s001", "supplement_name": "오메가3", "relevance": "secondary", "explanation": "항염 보조에 도움이 될 수 있어요", "safe_expression": "오메가3도 함께 권장하는 경우가 많아요" }
+      ],
+      "lifestyle_tips": ["체중 관리와 가벼운 근력 운동이 도움이 될 수 있어요"],
+      "when_to_see_doctor": "관절이 붓거나 열감이 있으면 병원을 방문하세요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym007",
+      "symptom": "허리가 자주 아파요",
+      "keywords": ["허리 통증", "요통"],
+      "category": "근육/신경",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s003", "supplement_name": "비타민D", "relevance": "primary", "explanation": "근골격계 건강에 비타민D가 관여해요", "safe_expression": "허리 케어로 비타민D를 함께 점검하는 분들이 많아요" },
+        { "supplement_id": "s004", "supplement_name": "마그네슘", "relevance": "secondary", "explanation": "근육 이완에 도움이 될 수 있어요", "safe_expression": "마그네슘도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["코어 근육 강화 스트레칭이 도움이 될 수 있어요"],
+      "when_to_see_doctor": "다리로 통증이 뻗치거나 근력 저하가 있으면 병원을 방문하세요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym008",
+      "symptom": "만성적으로 피곤해요",
+      "keywords": ["만성 피로", "피곤", "기력 없음"],
+      "category": "피로/에너지",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s011", "supplement_name": "비타민B군", "relevance": "primary", "explanation": "에너지 대사에 핵심 비타민이에요", "safe_expression": "피로감이 있을 때 비타민B군을 찾는 분들이 많아요" },
+        { "supplement_id": "s012", "supplement_name": "코엔자임Q10", "relevance": "secondary", "explanation": "세포 에너지 생산을 돕는다는 보고가 있어요", "safe_expression": "코엔자임Q10도 도움이 될 수 있어요" },
+        { "supplement_id": "s006", "supplement_name": "철분", "relevance": "conditional", "explanation": "빈혈이 있을 때 피로감과 관련이 있을 수 있어요", "safe_expression": "철분 부족 가능성이 있다면 함께 점검을 권장해요" }
+      ],
+      "lifestyle_tips": ["수면 7시간 이상, 규칙적인 식사·운동을 권장해요"],
+      "when_to_see_doctor": "휴식·수면을 충분히 해도 1개월 이상 피로가 이어지면 병원 진료를 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym009",
+      "symptom": "아침에 일어나기가 너무 힘들어요",
+      "keywords": ["아침 피곤", "기상 피로", "일어나기 힘듦"],
+      "category": "피로/에너지",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s003", "supplement_name": "비타민D", "relevance": "primary", "explanation": "비타민D 부족이 피로감과 관련이 있을 수 있어요", "safe_expression": "비타민D를 함께 점검하는 분들이 많아요" },
+        { "supplement_id": "s011", "supplement_name": "비타민B군", "relevance": "primary", "explanation": "에너지 대사에 함께 작용해요", "safe_expression": "비타민B군이 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["취침·기상 시간을 일정하게 유지해 보세요"],
+      "when_to_see_doctor": "일상생활이 힘들 정도라면 병원 진료를 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym010",
+      "symptom": "집중이 잘 안 돼요",
+      "keywords": ["집중력 저하", "산만", "주의력 저하"],
+      "category": "피로/에너지",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s011", "supplement_name": "비타민B군", "relevance": "primary", "explanation": "신경·에너지 대사에 관여해요", "safe_expression": "비타민B군을 찾는 분들이 많아요" },
+        { "supplement_id": "s001", "supplement_name": "오메가3", "relevance": "secondary", "explanation": "DHA가 두뇌 기능에 도움이 될 수 있어요", "safe_expression": "오메가3도 도움이 될 수 있어요" },
+        { "supplement_id": "s026", "supplement_name": "L-테아닌", "relevance": "secondary", "explanation": "안정적 집중에 도움이 될 수 있어요", "safe_expression": "L-테아닌도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["규칙적 수면과 짧은 산책이 집중에 도움이 될 수 있어요"],
+      "when_to_see_doctor": "일상·업무에 큰 지장이 있으면 병원 진료를 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym011",
+      "symptom": "기억력이 예전 같지 않아요",
+      "keywords": ["기억력 감퇴", "건망증"],
+      "category": "피로/에너지",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s001", "supplement_name": "오메가3", "relevance": "primary", "explanation": "DHA가 두뇌 기능에 도움이 될 수 있어요", "safe_expression": "기억력 케어로 오메가3를 찾는 분들이 많아요" },
+        { "supplement_id": "s035", "supplement_name": "포스파티딜세린", "relevance": "secondary", "explanation": "인지 보조 자료가 있어요", "safe_expression": "포스파티딜세린도 도움이 될 수 있어요" },
+        { "supplement_id": "s036", "supplement_name": "은행잎추출물", "relevance": "secondary", "explanation": "혈류·인지 보조에 권장되는 경우가 있어요", "safe_expression": "은행잎추출물도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["새로운 학습·운동이 인지 건강에 도움이 될 수 있어요"],
+      "when_to_see_doctor": "일상에 영향이 크거나 빠르게 진행되면 병원을 방문하세요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym012",
+      "symptom": "몸에 힘이 없고 무기력해요",
+      "keywords": ["무기력함", "기운 없음", "기력 저하"],
+      "category": "피로/에너지",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s003", "supplement_name": "비타민D", "relevance": "primary", "explanation": "비타민D 부족과 무기력이 관련 있을 수 있어요", "safe_expression": "비타민D 점검을 권장하는 경우가 많아요" },
+        { "supplement_id": "s031", "supplement_name": "홍삼", "relevance": "secondary", "explanation": "활력 보조에 도움이 될 수 있어요", "safe_expression": "홍삼도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["햇빛 노출과 가벼운 운동을 시도해 보세요"],
+      "when_to_see_doctor": "일상생활이 어려울 정도면 병원 진료를 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym013",
+      "symptom": "머리가 자꾸 빠져요",
+      "keywords": ["탈모", "머리 빠짐"],
+      "category": "피부/모발",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s019", "supplement_name": "비오틴", "relevance": "primary", "explanation": "모발 케어 영양소로 알려져 있어요", "safe_expression": "탈모 케어로 비오틴을 찾는 분들이 많아요" },
+        { "supplement_id": "s006", "supplement_name": "철분", "relevance": "secondary", "explanation": "철분 부족 시 모발 약화가 동반될 수 있어요", "safe_expression": "철분도 함께 점검을 권장해요" },
+        { "supplement_id": "s010", "supplement_name": "아연", "relevance": "secondary", "explanation": "두피 건강에 함께 작용해요", "safe_expression": "아연도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["과도한 다이어트는 탈모를 악화시킬 수 있어요"],
+      "when_to_see_doctor": "갑작스럽거나 부분 탈모가 있으면 피부과를 방문하세요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym014",
+      "symptom": "머리카락이 점점 얇아져요",
+      "keywords": ["머리카락 얇아짐", "모발 가늘어짐"],
+      "category": "피부/모발",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s018", "supplement_name": "콜라겐", "relevance": "primary", "explanation": "모발 단백질 영양에 도움이 될 수 있어요", "safe_expression": "콜라겐을 찾는 분들이 많아요" },
+        { "supplement_id": "s019", "supplement_name": "비오틴", "relevance": "primary", "explanation": "모발 케어 영양소로 알려져 있어요", "safe_expression": "비오틴도 함께 권장돼요" }
+      ],
+      "lifestyle_tips": ["충분한 단백질 섭취와 두피 마사지가 도움이 될 수 있어요"],
+      "when_to_see_doctor": "급격한 변화가 있으면 피부과 상담을 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym015",
+      "symptom": "피부가 너무 건조해요",
+      "keywords": ["피부 건조", "건조 피부"],
+      "category": "피부/모발",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s001", "supplement_name": "오메가3", "relevance": "primary", "explanation": "피부 장벽 보조에 도움이 될 수 있어요", "safe_expression": "피부 건조에 오메가3를 찾는 분들이 많아요" },
+        { "supplement_id": "s040", "supplement_name": "히알루론산", "relevance": "primary", "explanation": "피부 보습에 도움이 될 수 있어요", "safe_expression": "히알루론산도 도움이 될 수 있어요" },
+        { "supplement_id": "s015", "supplement_name": "비타민E", "relevance": "secondary", "explanation": "피부 항산화에 함께 작용해요", "safe_expression": "비타민E도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["하루 1.5L 이상 수분 섭취와 보습제 사용을 권장해요"],
+      "when_to_see_doctor": "가려움·진물이 동반되면 피부과 상담을 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym016",
+      "symptom": "피부가 자꾸 일어나요",
+      "keywords": ["피부 각질", "각질 일어남"],
+      "category": "피부/모발",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s020", "supplement_name": "비타민A", "relevance": "primary", "explanation": "피부 점막 재생에 비타민A가 관여해요", "safe_expression": "각질 케어로 비타민A를 찾는 분들이 많아요" },
+        { "supplement_id": "s001", "supplement_name": "오메가3", "relevance": "secondary", "explanation": "피부 장벽 보조에 도움이 될 수 있어요", "safe_expression": "오메가3도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["과한 클렌징을 줄이고 보습을 강화해 보세요"],
+      "when_to_see_doctor": "넓게 번지거나 가려움이 심하면 피부과 상담을 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym017",
+      "symptom": "손톱이 자꾸 부러져요",
+      "keywords": ["손톱 부러짐", "손톱 약함"],
+      "category": "피부/모발",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s019", "supplement_name": "비오틴", "relevance": "primary", "explanation": "손톱 케어 영양소로 알려져 있어요", "safe_expression": "비오틴을 찾는 분들이 많아요" },
+        { "supplement_id": "s018", "supplement_name": "콜라겐", "relevance": "secondary", "explanation": "단백질 영양 보조에 도움이 될 수 있어요", "safe_expression": "콜라겐도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["손톱 영양제와 함께 단백질 식단을 챙겨 보세요"],
+      "when_to_see_doctor": "변색·통증이 동반되면 피부과 상담을 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym018",
+      "symptom": "입술이 자꾸 갈라져요",
+      "keywords": ["입술 갈라짐", "입술 트임"],
+      "category": "피부/모발",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s011", "supplement_name": "비타민B군", "relevance": "primary", "explanation": "B2 등이 입술·점막 건강에 관여해요", "safe_expression": "비타민B군을 찾는 분들이 많아요" }
+      ],
+      "lifestyle_tips": ["립밤·수분 섭취로 보습을 유지해 보세요"],
+      "when_to_see_doctor": "출혈·궤양이 반복되면 병원 진료를 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym019",
+      "symptom": "입꼬리가 자주 갈라져요",
+      "keywords": ["입꼬리 갈라짐", "구각염"],
+      "category": "피부/모발",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s011", "supplement_name": "비타민B군", "relevance": "primary", "explanation": "B2·B3 부족과 관련이 있을 수 있어요", "safe_expression": "비타민B군을 찾는 분들이 많아요" },
+        { "supplement_id": "s006", "supplement_name": "철분", "relevance": "secondary", "explanation": "철분 부족과도 관련이 있을 수 있어요", "safe_expression": "철분 점검도 권장돼요" }
+      ],
+      "lifestyle_tips": ["입꼬리 보습과 마스크 위생을 챙기세요"],
+      "when_to_see_doctor": "곰팡이·세균 감염 의심 시 피부과를 방문하세요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym020",
+      "symptom": "이를 닦을 때 잇몸에서 피가 나요",
+      "keywords": ["잇몸 출혈", "잇몸 피"],
+      "category": "피부/모발",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s005", "supplement_name": "비타민C", "relevance": "primary", "explanation": "잇몸 콜라겐 합성에 비타민C가 관여해요", "safe_expression": "잇몸 케어로 비타민C를 찾는 분들이 많아요" },
+        { "supplement_id": "s044", "supplement_name": "프로폴리스", "relevance": "secondary", "explanation": "구강 건강 보조에 도움이 될 수 있어요", "safe_expression": "프로폴리스도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["부드러운 칫솔 사용과 정기 스케일링을 권장해요"],
+      "when_to_see_doctor": "출혈이 잦거나 통증이 있으면 치과를 방문하세요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym021",
+      "symptom": "소화가 잘 안 돼요",
+      "keywords": ["소화 불량", "더부룩함", "위 불편"],
+      "category": "소화/면역",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s009", "supplement_name": "유산균(프로바이오틱스)", "relevance": "primary", "explanation": "장 환경 개선에 도움이 될 수 있어요", "safe_expression": "유산균을 찾는 분들이 많아요" },
+        { "supplement_id": "s011", "supplement_name": "비타민B군", "relevance": "secondary", "explanation": "소화 효소 활성에 함께 작용해요", "safe_expression": "비타민B군도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["식사를 천천히, 자기 전 야식을 줄여 보세요"],
+      "when_to_see_doctor": "체중 감소·통증 동반 시 병원 진료를 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym022",
+      "symptom": "변비가 심해요",
+      "keywords": ["변비", "배변 어려움"],
+      "category": "소화/면역",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s009", "supplement_name": "유산균(프로바이오틱스)", "relevance": "primary", "explanation": "장 운동·환경 개선에 도움이 될 수 있어요", "safe_expression": "유산균을 찾는 분들이 많아요" },
+        { "supplement_id": "s004", "supplement_name": "마그네슘", "relevance": "secondary", "explanation": "장 운동 보조 효과가 알려져 있어요", "safe_expression": "마그네슘도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["섬유소·물 섭취를 늘리고 규칙적 배변 습관을 만들어 보세요"],
+      "when_to_see_doctor": "혈변·심한 통증이 있으면 병원을 방문하세요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym023",
+      "symptom": "설사를 자주 해요",
+      "keywords": ["설사 잦음", "묽은 변"],
+      "category": "소화/면역",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s009", "supplement_name": "유산균(프로바이오틱스)", "relevance": "primary", "explanation": "장 환경 회복에 도움이 될 수 있어요", "safe_expression": "유산균을 찾는 분들이 많아요" },
+        { "supplement_id": "s041", "supplement_name": "글루타민", "relevance": "secondary", "explanation": "장 점막 회복에 도움이 될 수 있어요", "safe_expression": "글루타민도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["수분·전해질 보충을 우선해 주세요"],
+      "when_to_see_doctor": "혈변·고열·1주 이상 지속 시 병원 진료를 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym024",
+      "symptom": "면역력이 떨어진 것 같아요",
+      "keywords": ["면역력 저하", "잔병치레"],
+      "category": "소화/면역",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s003", "supplement_name": "비타민D", "relevance": "primary", "explanation": "면역 조절에 비타민D가 관여해요", "safe_expression": "비타민D를 찾는 분들이 많아요" },
+        { "supplement_id": "s005", "supplement_name": "비타민C", "relevance": "primary", "explanation": "면역 보조에 도움이 될 수 있어요", "safe_expression": "비타민C도 함께 권장돼요" },
+        { "supplement_id": "s010", "supplement_name": "아연", "relevance": "secondary", "explanation": "면역 세포 기능에 함께 작용해요", "safe_expression": "아연도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["수면·운동·스트레스 관리가 가장 큰 영향을 줘요"],
+      "when_to_see_doctor": "감염이 반복·악화되면 병원 진료를 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym025",
+      "symptom": "감기에 자주 걸려요",
+      "keywords": ["감기 잦음", "감기 자주 걸림"],
+      "category": "소화/면역",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s005", "supplement_name": "비타민C", "relevance": "primary", "explanation": "감염 회복 보조에 도움이 될 수 있어요", "safe_expression": "비타민C를 찾는 분들이 많아요" },
+        { "supplement_id": "s003", "supplement_name": "비타민D", "relevance": "primary", "explanation": "비타민D 부족과 감기 빈도 관련 자료가 있어요", "safe_expression": "비타민D도 함께 권장돼요" },
+        { "supplement_id": "s044", "supplement_name": "프로폴리스", "relevance": "secondary", "explanation": "면역 보조에 도움이 될 수 있어요", "safe_expression": "프로폴리스도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["손 씻기·환기 같은 기본 위생도 큰 도움이 돼요"],
+      "when_to_see_doctor": "고열·호흡곤란이 있으면 병원을 방문하세요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym026",
+      "symptom": "상처가 잘 안 아물어요",
+      "keywords": ["상처 회복 느림", "치유 지연"],
+      "category": "소화/면역",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s010", "supplement_name": "아연", "relevance": "primary", "explanation": "상처 회복에 아연이 관여해요", "safe_expression": "아연을 찾는 분들이 많아요" },
+        { "supplement_id": "s005", "supplement_name": "비타민C", "relevance": "primary", "explanation": "콜라겐 합성에 비타민C가 필요해요", "safe_expression": "비타민C도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["당뇨·흡연이 회복을 늦출 수 있어요"],
+      "when_to_see_doctor": "감염 의심 시(고름·열감) 병원을 방문하세요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym027",
+      "symptom": "생리통이 너무 심해요",
+      "keywords": ["생리통", "월경통"],
+      "category": "여성 특화",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s004", "supplement_name": "마그네슘", "relevance": "primary", "explanation": "근수축 완화에 도움이 될 수 있어요", "safe_expression": "생리통 케어로 마그네슘을 찾는 분들이 많아요" },
+        { "supplement_id": "s001", "supplement_name": "오메가3", "relevance": "secondary", "explanation": "항염 보조에 도움이 될 수 있어요", "safe_expression": "오메가3도 도움이 될 수 있어요" },
+        { "supplement_id": "s047", "supplement_name": "감마리놀렌산", "relevance": "secondary", "explanation": "PMS·월경 관련 보조 자료가 있어요", "safe_expression": "감마리놀렌산도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["복부 온찜질과 가벼운 스트레칭이 도움이 될 수 있어요"],
+      "when_to_see_doctor": "일상생활이 어렵거나 진통제로도 안 잡히면 산부인과 진료를 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym028",
+      "symptom": "생리 주기가 자꾸 불규칙해요",
+      "keywords": ["생리 불규칙", "주기 이상"],
+      "category": "여성 특화",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s047", "supplement_name": "감마리놀렌산", "relevance": "primary", "explanation": "여성 호르몬 균형 보조에 도움이 될 수 있어요", "safe_expression": "감마리놀렌산을 찾는 분들이 많아요" },
+        { "supplement_id": "s011", "supplement_name": "비타민B군", "relevance": "secondary", "explanation": "스트레스·호르몬 대사에 함께 작용해요", "safe_expression": "비타민B군도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["체중·스트레스 변동이 주기에 영향을 줄 수 있어요"],
+      "when_to_see_doctor": "3개월 이상 불규칙하거나 출혈이 잦으면 산부인과 진료를 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym029",
+      "symptom": "갱년기 증상이 힘들어요",
+      "keywords": ["갱년기", "안면홍조", "야간 발한"],
+      "category": "여성 특화",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s030", "supplement_name": "석류추출물(이소플라본)", "relevance": "primary", "explanation": "갱년기 보조 자료가 있어요", "safe_expression": "갱년기 케어로 석류추출물을 찾는 분들이 많아요" },
+        { "supplement_id": "s007", "supplement_name": "칼슘", "relevance": "primary", "explanation": "골 건강 케어를 함께 권장하는 경우가 많아요", "safe_expression": "칼슘과 비타민D도 함께 권장돼요" },
+        { "supplement_id": "s047", "supplement_name": "감마리놀렌산", "relevance": "secondary", "explanation": "갱년기 PMS 보조 자료가 있어요", "safe_expression": "감마리놀렌산도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["규칙적 운동과 칼슘·비타민D 식단이 도움이 될 수 있어요"],
+      "when_to_see_doctor": "심한 우울감·불면이 동반되면 병원 진료를 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym030",
+      "symptom": "자주 붓는 느낌이에요",
+      "keywords": ["붓기", "부종"],
+      "category": "여성 특화",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s037", "supplement_name": "빌베리추출물", "relevance": "primary", "explanation": "혈관·순환 보조에 도움이 될 수 있어요", "safe_expression": "붓기 케어로 빌베리추출물을 찾는 분들이 많아요" },
+        { "supplement_id": "s004", "supplement_name": "마그네슘", "relevance": "secondary", "explanation": "혈관·근육 이완에 함께 작용해요", "safe_expression": "마그네슘도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["나트륨 섭취를 줄이고 다리 운동을 늘려 보세요"],
+      "when_to_see_doctor": "한쪽만 붓거나 통증이 있으면 즉시 병원을 방문하세요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym031",
+      "symptom": "어지럽고 얼굴이 창백해요",
+      "keywords": ["빈혈", "어지러움", "창백"],
+      "category": "여성 특화",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s006", "supplement_name": "철분", "relevance": "primary", "explanation": "빈혈은 철분 부족과 관련이 있을 수 있어요", "safe_expression": "철분을 찾는 분들이 많아요" },
+        { "supplement_id": "s014", "supplement_name": "엽산", "relevance": "secondary", "explanation": "조혈에 함께 작용해요", "safe_expression": "엽산도 도움이 될 수 있어요" },
+        { "supplement_id": "s011", "supplement_name": "비타민B군", "relevance": "secondary", "explanation": "B12 부족도 빈혈과 관련이 있어요", "safe_expression": "B군 점검도 권장돼요" }
+      ],
+      "lifestyle_tips": ["갑자기 일어날 때 천천히 일어나 어지러움을 줄여 보세요"],
+      "when_to_see_doctor": "실신·심한 어지러움이 있으면 즉시 병원을 방문하세요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym032",
+      "symptom": "잠을 자도 개운하지 않아요",
+      "keywords": ["수면 질 나쁨", "비효율 수면"],
+      "category": "수면/스트레스",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s004", "supplement_name": "마그네슘", "relevance": "primary", "explanation": "근육 이완·수면 질에 도움이 될 수 있어요", "safe_expression": "수면 케어로 마그네슘을 찾는 분들이 많아요" },
+        { "supplement_id": "s026", "supplement_name": "L-테아닌", "relevance": "secondary", "explanation": "이완·수면 보조에 도움이 될 수 있어요", "safe_expression": "L-테아닌도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["취침 1시간 전 화면 사용을 줄여 보세요"],
+      "when_to_see_doctor": "수면 무호흡 의심·낮 졸림이 심하면 병원 진료를 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym033",
+      "symptom": "잠들기가 어려워요",
+      "keywords": ["잠들기 어려움", "입면 장애"],
+      "category": "수면/스트레스",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s004", "supplement_name": "마그네슘", "relevance": "primary", "explanation": "이완에 도움이 될 수 있어요", "safe_expression": "마그네슘을 찾는 분들이 많아요" },
+        { "supplement_id": "s026", "supplement_name": "L-테아닌", "relevance": "primary", "explanation": "수면 진입 보조에 도움이 될 수 있어요", "safe_expression": "L-테아닌을 찾는 분들이 많아요" }
+      ],
+      "lifestyle_tips": ["기상·취침 시간을 일정하게 유지하고 카페인을 오후엔 줄여 보세요"],
+      "when_to_see_doctor": "1개월 이상 입면 장애가 이어지면 병원 진료를 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym034",
+      "symptom": "스트레스가 너무 심해요",
+      "keywords": ["스트레스", "긴장"],
+      "category": "수면/스트레스",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s011", "supplement_name": "비타민B군", "relevance": "primary", "explanation": "스트레스 시 소모가 늘어요", "safe_expression": "스트레스 케어로 비타민B군을 찾는 분들이 많아요" },
+        { "supplement_id": "s004", "supplement_name": "마그네슘", "relevance": "primary", "explanation": "신경 안정 보조에 도움이 될 수 있어요", "safe_expression": "마그네슘도 도움이 될 수 있어요" },
+        { "supplement_id": "s026", "supplement_name": "L-테아닌", "relevance": "secondary", "explanation": "이완 보조에 도움이 될 수 있어요", "safe_expression": "L-테아닌도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["호흡·짧은 산책·수면이 가장 큰 도움이 돼요"],
+      "when_to_see_doctor": "우울감·자해 생각이 있으면 즉시 전문가 상담을 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym035",
+      "symptom": "불안한 마음이 자주 들어요",
+      "keywords": ["불안감", "초조"],
+      "category": "수면/스트레스",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s004", "supplement_name": "마그네슘", "relevance": "primary", "explanation": "신경 안정에 도움이 될 수 있어요", "safe_expression": "마그네슘을 찾는 분들이 많아요" },
+        { "supplement_id": "s026", "supplement_name": "L-테아닌", "relevance": "secondary", "explanation": "이완에 도움이 될 수 있어요", "safe_expression": "L-테아닌도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["꾸준한 유산소 운동이 도움이 될 수 있어요"],
+      "when_to_see_doctor": "공황·일상 영향이 크면 전문가 상담을 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym036",
+      "symptom": "사소한 일에도 예민해져요",
+      "keywords": ["예민함", "신경질"],
+      "category": "수면/스트레스",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s011", "supplement_name": "비타민B군", "relevance": "primary", "explanation": "신경 대사에 함께 작용해요", "safe_expression": "비타민B군을 찾는 분들이 많아요" },
+        { "supplement_id": "s004", "supplement_name": "마그네슘", "relevance": "secondary", "explanation": "신경 안정 보조에 도움이 될 수 있어요", "safe_expression": "마그네슘도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["충분한 수면·규칙적 식사가 가장 큰 도움이 돼요"],
+      "when_to_see_doctor": "감정 조절이 어렵거나 일상에 영향이 크면 전문가 상담을 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym037",
+      "symptom": "눈이 자주 피로해요",
+      "keywords": ["눈 피로", "안구 피로"],
+      "category": "눈/시력",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s008", "supplement_name": "루테인", "relevance": "primary", "explanation": "눈 피로·황반 보호에 도움이 될 수 있어요", "safe_expression": "눈 피로에 루테인을 찾는 분들이 많아요" },
+        { "supplement_id": "s033", "supplement_name": "아스타잔틴", "relevance": "secondary", "explanation": "눈 항산화 보조에 도움이 될 수 있어요", "safe_expression": "아스타잔틴도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["20-20-20 규칙(20분마다 20피트 거리 20초 보기)을 시도해 보세요"],
+      "when_to_see_doctor": "통증·시야 변화가 있으면 안과를 방문하세요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym038",
+      "symptom": "눈이 자주 건조해요",
+      "keywords": ["눈 건조", "안구 건조"],
+      "category": "눈/시력",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s001", "supplement_name": "오메가3", "relevance": "primary", "explanation": "눈물막·눈 보습에 도움이 될 수 있어요", "safe_expression": "안구건조에 오메가3를 찾는 분들이 많아요" },
+        { "supplement_id": "s020", "supplement_name": "비타민A", "relevance": "secondary", "explanation": "눈 점막 건강에 함께 작용해요", "safe_expression": "비타민A도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["인공눈물과 함께 화면 사용 중 자주 깜박이세요"],
+      "when_to_see_doctor": "충혈·통증이 지속되면 안과를 방문하세요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym039",
+      "symptom": "시력이 점점 안 좋아지는 것 같아요",
+      "keywords": ["시력 저하", "눈 침침"],
+      "category": "눈/시력",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s008", "supplement_name": "루테인", "relevance": "primary", "explanation": "황반 보호에 도움이 될 수 있어요", "safe_expression": "루테인을 찾는 분들이 많아요" },
+        { "supplement_id": "s037", "supplement_name": "빌베리추출물", "relevance": "secondary", "explanation": "야간 시력·눈 피로 보조 자료가 있어요", "safe_expression": "빌베리추출물도 도움이 될 수 있어요" }
+      ],
+      "lifestyle_tips": ["정기 안과 검진을 권장해요"],
+      "when_to_see_doctor": "갑작스러운 시야 결손·번쩍임이 있으면 즉시 안과를 방문하세요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym040",
+      "symptom": "빛에 너무 민감해져요",
+      "keywords": ["빛 민감", "눈부심"],
+      "category": "눈/시력",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s008", "supplement_name": "루테인", "relevance": "primary", "explanation": "청색광 차단·황반 보호에 함께 작용해요", "safe_expression": "루테인을 찾는 분들이 많아요" }
+      ],
+      "lifestyle_tips": ["야외에서 선글라스를 사용해 보세요"],
+      "when_to_see_doctor": "두통·메스꺼움이 동반되면 병원을 방문하세요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym041",
+      "symptom": "아이가 또래보다 키가 잘 안 자라요",
+      "keywords": ["성장 더딤", "키 작음"],
+      "category": "어린이 특화",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s003", "supplement_name": "비타민D", "relevance": "primary", "explanation": "성장기 뼈 건강에 비타민D가 관여해요", "safe_expression": "어린이 비타민D를 찾는 분들이 많아요. 어린이 용량은 반드시 확인하세요" },
+        { "supplement_id": "s007", "supplement_name": "칼슘", "relevance": "primary", "explanation": "성장기 골 형성에 칼슘이 필요해요", "safe_expression": "칼슘도 함께 권장돼요. 어린이 용량은 반드시 확인하세요" }
+      ],
+      "lifestyle_tips": ["수면·운동·균형 식단이 성장에 큰 영향을 줘요"],
+      "when_to_see_doctor": "성장 곡선에서 크게 벗어나면 소아과 진료를 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym042",
+      "symptom": "아이가 입맛이 없어요",
+      "keywords": ["식욕 부진", "입맛 없음"],
+      "category": "어린이 특화",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s010", "supplement_name": "아연", "relevance": "primary", "explanation": "미각·식욕 조절에 아연이 관여해요", "safe_expression": "아이 식욕 케어로 아연을 찾는 분들이 많아요. 어린이 용량은 반드시 확인하세요" },
+        { "supplement_id": "s002", "supplement_name": "종합비타민", "relevance": "secondary", "explanation": "기본 영양 부족 보완에 도움이 될 수 있어요", "safe_expression": "어린이 종합비타민도 도움이 될 수 있어요. 어린이 용량은 반드시 확인하세요" }
+      ],
+      "lifestyle_tips": ["식사 환경을 즐겁게 만들고 간식을 줄여 보세요"],
+      "when_to_see_doctor": "체중 감소·피로가 동반되면 소아과 진료를 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym043",
+      "symptom": "아이가 공부에 집중을 잘 못해요",
+      "keywords": ["집중력 부족", "학습 집중"],
+      "category": "어린이 특화",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s001", "supplement_name": "오메가3", "relevance": "primary", "explanation": "DHA가 두뇌 기능에 도움이 될 수 있어요", "safe_expression": "어린이 오메가3를 찾는 분들이 많아요. 어린이 용량은 반드시 확인하세요" },
+        { "supplement_id": "s011", "supplement_name": "비타민B군", "relevance": "secondary", "explanation": "신경 대사에 함께 작용해요", "safe_expression": "비타민B군도 도움이 될 수 있어요. 어린이 용량은 반드시 확인하세요" }
+      ],
+      "lifestyle_tips": ["짧은 학습·휴식 사이클과 충분한 수면을 권장해요"],
+      "when_to_see_doctor": "학습·일상에 큰 지장이 있으면 소아청소년과 상담을 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym044",
+      "symptom": "아이가 잔병치레가 잦아요",
+      "keywords": ["면역 약함", "잔병치레", "어린이 감기"],
+      "category": "어린이 특화",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s003", "supplement_name": "비타민D", "relevance": "primary", "explanation": "어린이 면역 케어에 함께 권장돼요", "safe_expression": "어린이 비타민D를 찾는 분들이 많아요. 어린이 용량은 반드시 확인하세요" },
+        { "supplement_id": "s009", "supplement_name": "유산균(프로바이오틱스)", "relevance": "primary", "explanation": "장 건강·면역 보조에 도움이 될 수 있어요", "safe_expression": "어린이 유산균도 도움이 될 수 있어요. 어린이 용량은 반드시 확인하세요" },
+        { "supplement_id": "s010", "supplement_name": "아연", "relevance": "secondary", "explanation": "면역 보조에 함께 작용해요", "safe_expression": "아연도 도움이 될 수 있어요. 어린이 용량은 반드시 확인하세요" }
+      ],
+      "lifestyle_tips": ["수면·손 씻기 습관이 면역에 큰 도움이 돼요"],
+      "when_to_see_doctor": "고열·호흡곤란이 있으면 즉시 병원을 방문하세요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym045",
+      "symptom": "아이 뼈가 약한 것 같아요",
+      "keywords": ["뼈 약함", "골 약화", "어린이 골밀도"],
+      "category": "어린이 특화",
+      "type": "A",
+      "related_supplements": [
+        { "supplement_id": "s007", "supplement_name": "칼슘", "relevance": "primary", "explanation": "성장기 골 형성에 핵심 미네랄이에요", "safe_expression": "어린이 칼슘을 찾는 분들이 많아요. 어린이 용량은 반드시 확인하세요" },
+        { "supplement_id": "s003", "supplement_name": "비타민D", "relevance": "primary", "explanation": "칼슘 흡수에 비타민D가 필요해요", "safe_expression": "비타민D도 함께 권장돼요. 어린이 용량은 반드시 확인하세요" }
+      ],
+      "lifestyle_tips": ["햇빛 노출과 야외 활동을 늘려 보세요"],
+      "when_to_see_doctor": "잦은 골절·통증이 있으면 소아과 진료를 권장해요",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym_b001",
+      "symptom": "가슴이 아파요",
+      "keywords": ["흉통", "가슴 통증", "심장 통증"],
+      "category": "의료 권고",
+      "type": "B",
+      "medical_message": "이 증상은 영양제보다 의료 전문가 진단이 우선이에요. 가까운 병원이나 응급실을 방문해 주세요.",
+      "urgency": "high",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym_b002",
+      "symptom": "갑자기 머리가 매우 아프고 어지러워요",
+      "keywords": ["갑작스러운 두통", "심한 두통", "어지러움"],
+      "category": "의료 권고",
+      "type": "B",
+      "medical_message": "갑작스럽고 심한 두통은 즉시 병원이나 응급실을 방문해 주세요. 영양제로 조절할 수 있는 증상이 아니에요.",
+      "urgency": "high",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym_b003",
+      "symptom": "숨이 차고 호흡이 힘들어요",
+      "keywords": ["호흡 곤란", "숨참"],
+      "category": "의료 권고",
+      "type": "B",
+      "medical_message": "호흡곤란은 즉시 응급실 진료가 필요할 수 있어요. 가까운 병원·응급실을 방문해 주세요.",
+      "urgency": "high",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym_b004",
+      "symptom": "피를 토했어요",
+      "keywords": ["토혈", "피 토함"],
+      "category": "의료 권고",
+      "type": "B",
+      "medical_message": "토혈은 즉시 응급실 방문이 필요해요. 영양제로 다룰 수 있는 증상이 아니에요.",
+      "urgency": "high",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    },
+    {
+      "symptom_id": "sym_b005",
+      "symptom": "의식이 흐릿하고 정신이 없어요",
+      "keywords": ["의식 흐림", "혼미"],
+      "category": "의료 권고",
+      "type": "B",
+      "medical_message": "의식 변화는 즉시 응급실 방문이 필요해요. 영양제로 다룰 수 있는 증상이 아니에요.",
+      "urgency": "high",
+      "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요"
+    }
+  ],
+  "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요. 전문가 상담을 권장드려요."
+}

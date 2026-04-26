@@ -1,0 +1,331 @@
+{
+  "description": "사용자 프로필 기반 보충제 추천 규칙. 의학적 조언을 대체하지 않으며, 만성 질환자나 약물 복용자는 의사 상담 필수.",
+  "profile_dimensions": {
+    "age_group": ["child (1-12)", "teen (13-17)", "adult (18-59)", "elderly (60+)"],
+    "gender": ["male", "female"],
+    "smoking": [true, false],
+    "drinking": ["none", "light", "heavy"],
+    "diet": ["meat-heavy", "balanced", "vegetarian"]
+  },
+  "profiles": [
+    {
+      "id": 1,
+      "label": "성인 남성, 흡연, 육류 위주 식단",
+      "criteria": {
+        "age_group": "adult",
+        "gender": "male",
+        "smoking": true,
+        "drinking": "any",
+        "diet": "meat-heavy"
+      },
+      "must_take": [
+        "Vitamin C",
+        "Vitamin E",
+        "Omega-3",
+        "Coenzyme Q10",
+        "Vitamin D"
+      ],
+      "recommended": [
+        "Astaxanthin",
+        "Lutein",
+        "Selenium",
+        "Multivitamin",
+        "Curcumin",
+        "Garlic Extract"
+      ],
+      "avoid": [
+        "Beta-carotene (high dose)",
+        "Vitamin A (high dose)",
+        "Iron (unless deficient)"
+      ],
+      "reason": "흡연은 체내 산화 스트레스를 크게 증가시키고 비타민 C를 빠르게 고갈시키므로 항산화 보충이 필수입니다. 육류 위주 식단은 포화지방과 콜레스테롤이 높아 오메가-3와 코엔자임 Q10으로 심혈관 건강을 보호해야 합니다. 단, 흡연자에게 고용량 베타카로틴은 폐암 위험을 높인다는 연구 결과가 있어 반드시 피해야 하며, 비타민 A 과다 섭취도 동일한 이유로 주의가 필요합니다. 육식 식단은 이미 철분이 충분하므로 추가 철분 보충은 과부하 위험이 있습니다."
+    },
+    {
+      "id": 2,
+      "label": "성인 여성, 비흡연, 균형 잡힌 식단",
+      "criteria": {
+        "age_group": "adult",
+        "gender": "female",
+        "smoking": false,
+        "drinking": "none-to-light",
+        "diet": "balanced"
+      },
+      "must_take": [
+        "Vitamin D",
+        "Calcium",
+        "Iron",
+        "Folic Acid",
+        "Omega-3"
+      ],
+      "recommended": [
+        "Magnesium",
+        "Probiotics",
+        "Vitamin C",
+        "Multivitamin",
+        "Collagen",
+        "Vitamin B Complex"
+      ],
+      "avoid": [
+        "Saw Palmetto",
+        "고용량 비타민 A (가임기)"
+      ],
+      "reason": "성인 여성은 월경으로 인한 철분 손실이 지속되므로 철분 보충이 필요하며, 비타민 C와 함께 섭취 시 흡수율이 향상됩니다. 임신 가능성을 고려해 엽산을 미리 보충하는 것이 권장됩니다. 골다공증 예방을 위해 30대부터 칼슘과 비타민 D를 함께 섭취해야 골 손실을 늦출 수 있습니다. 쏘팔메토는 남성 전립선용 호르몬 작용 보충제로 여성에게는 부적합합니다. 가임기 여성은 고용량 비타민 A의 기형 유발 위험을 피해야 합니다."
+    },
+    {
+      "id": 3,
+      "label": "어린이 (5-12세)",
+      "criteria": {
+        "age_group": "child",
+        "gender": "any",
+        "smoking": false,
+        "drinking": "none",
+        "diet": "any"
+      },
+      "must_take": [
+        "Vitamin D",
+        "Calcium",
+        "Multivitamin (children's formula)"
+      ],
+      "recommended": [
+        "Omega-3 (children's dose)",
+        "Probiotics",
+        "Vitamin C",
+        "Iron (편식 시)",
+        "Zinc"
+      ],
+      "avoid": [
+        "Lutein",
+        "Coenzyme Q10",
+        "Glucosamine",
+        "Chondroitin",
+        "MSM",
+        "Saw Palmetto",
+        "Ginseng",
+        "Red Ginseng",
+        "Ashwagandha",
+        "Rhodiola",
+        "Melatonin (의사 처방 외)",
+        "GABA",
+        "5-HTP",
+        "SAM-e",
+        "Creatine",
+        "Whey Protein",
+        "BCAA",
+        "L-Carnitine",
+        "Resveratrol",
+        "Curcumin (high dose)",
+        "Evening Primrose Oil",
+        "Milk Thistle"
+      ],
+      "reason": "성장기 어린이는 뼈 형성과 면역계 발달에 비타민 D, 칼슘이 필수이며, 한국 어린이는 실내 생활 증가로 비타민 D 결핍이 흔합니다. 오메가-3는 두뇌 발달에 도움되나 반드시 어린이 용량을 지켜야 합니다. 성인용 보충제 다수는 어린이 안전성 데이터가 부족하거나 호르몬, 신경계에 영향을 줄 수 있어 피해야 합니다. 특히 인삼류, 운동 보충제, 수면 보조제, 호르몬 작용 허브는 의사 처방 없이 절대 금지입니다."
+    },
+    {
+      "id": 4,
+      "label": "노인 60+, 가벼운 음주",
+      "criteria": {
+        "age_group": "elderly",
+        "gender": "any",
+        "smoking": false,
+        "drinking": "light",
+        "diet": "any"
+      },
+      "must_take": [
+        "Vitamin D",
+        "Calcium",
+        "Vitamin B12",
+        "Omega-3",
+        "Vitamin K2"
+      ],
+      "recommended": [
+        "Coenzyme Q10",
+        "Magnesium",
+        "Lutein",
+        "Probiotics",
+        "Vitamin B Complex",
+        "Glucosamine",
+        "Chondroitin",
+        "Curcumin",
+        "Astaxanthin",
+        "Milk Thistle"
+      ],
+      "avoid": [
+        "Iron (남성 또는 폐경 후 여성, 결핍 없을 시)",
+        "고용량 비타민 E (출혈 위험)",
+        "Ginkgo Biloba (항응고제 복용 시)"
+      ],
+      "reason": "60세 이후 위산 분비 감소로 비타민 B12 흡수가 떨어지고, 골밀도 손실이 가속화되므로 칼슘, 비타민 D, K2를 함께 보충해야 칼슘이 혈관이 아닌 뼈로 정확히 가게 됩니다. 코엔자임 Q10은 나이가 들수록 자체 생산이 감소하며 스타틴 복용자에게 특히 유익합니다. 황반변성 예방을 위해 루테인이 권장되며, 관절 건강을 위한 글루코사민/콘드로이친도 도움됩니다. 노인은 다약제 복용이 흔하므로 출혈 위험이 있는 보충제는 신중히 선택해야 합니다."
+    },
+    {
+      "id": 5,
+      "label": "10대 여성 (13-17세)",
+      "criteria": {
+        "age_group": "teen",
+        "gender": "female",
+        "smoking": false,
+        "drinking": "none",
+        "diet": "any"
+      },
+      "must_take": [
+        "Iron",
+        "Calcium",
+        "Vitamin D",
+        "Folic Acid"
+      ],
+      "recommended": [
+        "Multivitamin",
+        "Omega-3",
+        "Magnesium",
+        "Vitamin B Complex",
+        "Probiotics",
+        "Zinc"
+      ],
+      "avoid": [
+        "Creatine",
+        "BCAA (고용량)",
+        "Whey Protein (식사 대체 목적)",
+        "Saw Palmetto",
+        "Melatonin (의사 처방 외)",
+        "Ashwagandha",
+        "Rhodiola",
+        "5-HTP",
+        "Ginseng (고용량)",
+        "Resveratrol",
+        "고용량 비타민 A"
+      ],
+      "reason": "초경 시작 후 철분 손실이 늘어 청소년기 여성의 철분 결핍성 빈혈이 흔하며, 학업 집중력과도 직결됩니다. 골량은 18-20세에 최대치에 도달하므로 이 시기 칼슘과 비타민 D 섭취가 평생 골 건강을 결정합니다. 한국 10대는 햇빛 노출 부족과 다이어트로 비타민 D 결핍률이 매우 높습니다. 성장기에는 호르몬, 신경계에 작용하는 보충제와 운동 퍼포먼스용 보충제는 안전성 데이터가 부족해 피해야 합니다."
+    },
+    {
+      "id": 6,
+      "label": "성인 여성, 채식주의자",
+      "criteria": {
+        "age_group": "adult",
+        "gender": "female",
+        "smoking": false,
+        "drinking": "any",
+        "diet": "vegetarian"
+      },
+      "must_take": [
+        "Vitamin B12",
+        "Iron",
+        "Vitamin D",
+        "Omega-3 (algae-based)",
+        "Calcium",
+        "Zinc"
+      ],
+      "recommended": [
+        "Vitamin B Complex",
+        "Folic Acid",
+        "Selenium",
+        "Magnesium",
+        "Probiotics",
+        "Spirulina",
+        "Chlorella"
+      ],
+      "avoid": [
+        "Whey Protein (유제품 비섭취 시)",
+        "Collagen (동물성)",
+        "Saw Palmetto"
+      ],
+      "reason": "비타민 B12는 동물성 식품에만 존재하므로 채식주의자는 반드시 보충해야 하며, 결핍 시 신경 손상을 일으킬 수 있습니다. 식물성 철분(비헴철)은 흡수율이 낮아 비타민 C와 함께 섭취해야 하며, 여성은 월경 손실까지 더해져 보충이 더욱 중요합니다. 식물성 식단의 EPA/DHA가 부족하므로 조류 유래 오메가-3가 필수이며, 아연과 셀레늄도 식물성 식품에서 흡수율이 낮아 보충이 권장됩니다. 유청 단백질과 동물성 콜라겐은 식단 원칙에 맞지 않으므로 피하고, 식물성 대안을 선택하세요."
+    },
+    {
+      "id": 7,
+      "label": "성인 남성, 과음",
+      "criteria": {
+        "age_group": "adult",
+        "gender": "male",
+        "smoking": false,
+        "drinking": "heavy",
+        "diet": "any"
+      },
+      "must_take": [
+        "Vitamin B Complex",
+        "Vitamin B1 (Thiamine)",
+        "Folic Acid",
+        "Magnesium",
+        "Milk Thistle"
+      ],
+      "recommended": [
+        "Vitamin C",
+        "Vitamin E",
+        "Zinc",
+        "Selenium",
+        "Omega-3",
+        "Curcumin",
+        "Probiotics",
+        "Vitamin D"
+      ],
+      "avoid": [
+        "Vitamin A (고용량, 간 부담)",
+        "Iron (간 손상 가속화)",
+        "Niacin (고용량)",
+        "Kava",
+        "Acetaminophen 함유 보충제"
+      ],
+      "reason": "과음은 비타민 B군, 특히 티아민(B1) 결핍을 일으켜 베르니케 뇌증 같은 심각한 신경 손상의 원인이 될 수 있으므로 보충이 필수입니다. 알코올은 마그네슘과 엽산도 고갈시킵니다. 밀크씨슬의 실리마린은 간세포 보호와 재생을 돕는 가장 잘 연구된 간 보호 성분입니다. 반면 알코올로 이미 손상된 간에 비타민 A 고용량, 철분 과잉, 고용량 나이아신은 추가 부담을 주어 간 독성을 악화시킬 수 있어 반드시 피해야 합니다. 근본적으로 음주량 감소가 가장 중요합니다."
+    },
+    {
+      "id": 8,
+      "label": "임산부 (보너스)",
+      "criteria": {
+        "age_group": "adult",
+        "gender": "female",
+        "smoking": false,
+        "drinking": "none",
+        "diet": "any",
+        "pregnant": true
+      },
+      "must_take": [
+        "Folic Acid (임신 전부터)",
+        "Iron",
+        "Vitamin D",
+        "Calcium",
+        "Omega-3 (DHA 위주)",
+        "Iodine",
+        "Prenatal Multivitamin"
+      ],
+      "recommended": [
+        "Vitamin B12",
+        "Magnesium",
+        "Probiotics",
+        "Choline",
+        "Vitamin C"
+      ],
+      "avoid": [
+        "Vitamin A (retinol 형태, 고용량)",
+        "Saw Palmetto",
+        "Ginkgo Biloba",
+        "Ginseng",
+        "Red Ginseng",
+        "Ashwagandha",
+        "Rhodiola",
+        "5-HTP",
+        "SAM-e",
+        "Melatonin",
+        "GABA",
+        "Resveratrol",
+        "Evening Primrose Oil (3분기)",
+        "Curcumin (고용량)",
+        "Milk Thistle",
+        "고용량 비타민 E",
+        "Astaxanthin (고용량)",
+        "Spirulina (오염 우려)",
+        "L-Carnitine",
+        "Creatine",
+        "BCAA"
+      ],
+      "reason": "엽산은 임신 4-12주 신경관 결손을 예방하므로 임신 계획 단계부터 600-800mcg 복용이 필수이며, 늦게 시작하면 효과가 제한적입니다. 임신 중 혈액량 증가와 태아 발달로 철분 요구량이 2배가 되며, DHA는 태아 두뇌와 시력 발달에 직접 관여합니다. 한국 임산부는 요오드 섭취가 미역국 등으로 충분한 편이나, 갑상선 검사로 확인 후 결정하세요. 비타민 A 레티놀 형태 고용량은 명확한 기형 유발 위험이 있고, 호르몬 작용 허브와 신경계 작용 보충제는 태아 안전성 데이터가 없어 절대 금지입니다. 모든 보충제는 산부인과 의사와 상담 후 결정하세요."
+    }
+  ],
+  "general_principles": {
+    "smoking": "흡연자는 항산화제(비타민 C, E) 보충이 중요하나 베타카로틴 고용량은 절대 금지 (CARET, ATBC 연구).",
+    "heavy_drinking": "과음자는 B군 비타민, 엽산, 마그네슘 결핍이 흔하며 간 보호가 우선.",
+    "vegetarian": "B12, 철분, 오메가-3(DHA/EPA), 아연, 비타민 D 결핍 위험 높음.",
+    "elderly": "B12 흡수 저하, 비타민 D 합성 감소, 골 손실 가속화, 약물-보충제 상호작용 주의.",
+    "children_teens": "성장기 보충제는 어린이 전용 용량 사용, 호르몬·신경 작용 허브 회피.",
+    "pregnancy": "엽산은 임신 전부터, 모든 보충제는 의사 상담 필수.",
+    "iron_warning": "철분은 결핍이 확인된 경우에만 복용. 남성과 폐경 후 여성은 과부하 위험.",
+    "interaction_check": "약물 복용 중이면 반드시 interactions.json 확인 후 약사/의사와 상담."
+  },
+  "disclaimer": "본 추천은 일반적인 가이드라인이며, 개인의 건강 상태, 검사 수치, 복용 약물에 따라 달라질 수 있습니다. 보충제는 균형 잡힌 식단을 대체할 수 없으며, 새로운 보충제 시작 전 의료 전문가와 상담하시기 바랍니다."
+}

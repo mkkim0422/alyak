@@ -1,0 +1,500 @@
+{
+  "version": "1.0",
+  "source_basis": "한국인 영양소 섭취기준(KDRI 2020) 및 식약처 건강기능식품 기준",
+  "age_group_definitions": {
+    "infant": "0~6세",
+    "child": "7~12세",
+    "teen": "13~18세",
+    "twenties": "19~29세",
+    "thirties": "30~39세",
+    "forties": "40~49세",
+    "fifties": "50~59세",
+    "elderly": "60세 이상"
+  },
+  "region_notes": {
+    "KR": "한국 식단 기반. 나트륨 과다로 마그네슘 소모 빠름",
+    "JP": "일본 식단 기반. 생선 섭취로 오메가3 보충 가능",
+    "US": "서양 식단 기반. 육류 과다로 철분 주의",
+    "SEA": "동남아 기반. 일조량 충분하여 비타민D 자체 생성"
+  },
+  "profiles": [
+    {
+      "age_group": "infant",
+      "gender": "male",
+      "label": "영유아 남아 (0~6세)",
+      "must_take": [
+        { "supplement": "비타민D", "reason": "성장기 뼈 형성과 면역 기본 영양", "priority": 1 }
+      ],
+      "highly_recommended": [
+        { "supplement": "유산균(프로바이오틱스)", "reason": "장 환경 형성과 면역 보조" }
+      ],
+      "consider_if": [
+        { "supplement": "철분", "condition": "이유식 진행이 더디거나 빈혈이 있을 때", "reason": "영유아기 철분 결핍이 흔해요" }
+      ],
+      "avoid_or_caution": [
+        { "supplement": "성인용 종합비타민", "reason": "용량이 과다할 수 있어요", "severity": "caution" },
+        { "supplement": "프로폴리스(영아)", "reason": "영아 보툴리누스 위험", "severity": "caution" }
+      ],
+      "special_notes": "어린이 용량은 반드시 확인하세요. 영유아 보충제는 소아과 의사 상담 후 결정하시는 게 가장 안전해요"
+    },
+    {
+      "age_group": "infant",
+      "gender": "female",
+      "label": "영유아 여아 (0~6세)",
+      "must_take": [
+        { "supplement": "비타민D", "reason": "성장기 뼈 형성과 면역 기본 영양", "priority": 1 }
+      ],
+      "highly_recommended": [
+        { "supplement": "유산균(프로바이오틱스)", "reason": "장 환경 형성과 면역 보조" }
+      ],
+      "consider_if": [
+        { "supplement": "철분", "condition": "이유식 진행이 더디거나 빈혈이 있을 때", "reason": "영유아기 철분 결핍이 흔해요" }
+      ],
+      "avoid_or_caution": [
+        { "supplement": "성인용 종합비타민", "reason": "용량이 과다할 수 있어요", "severity": "caution" },
+        { "supplement": "프로폴리스(영아)", "reason": "영아 보툴리누스 위험", "severity": "caution" }
+      ],
+      "special_notes": "어린이 용량은 반드시 확인하세요. 영유아 보충제는 소아과 의사 상담 후 결정하시는 게 가장 안전해요"
+    },
+    {
+      "age_group": "child",
+      "gender": "male",
+      "label": "어린이 남아 (7~12세)",
+      "must_take": [
+        { "supplement": "비타민D", "reason": "성장기 뼈와 면역", "priority": 1 },
+        { "supplement": "칼슘", "reason": "골 형성에 필수", "priority": 2 }
+      ],
+      "highly_recommended": [
+        { "supplement": "오메가3", "reason": "두뇌·시력 발달 보조" },
+        { "supplement": "종합비타민", "reason": "편식·잔병치레 보완" }
+      ],
+      "consider_if": [
+        { "supplement": "유산균(프로바이오틱스)", "condition": "변비·잔병치레가 잦을 때", "reason": "장 건강·면역 보조" },
+        { "supplement": "아연", "condition": "식욕 부진·미각 저하", "reason": "미각·식욕 조절에 관여" },
+        { "supplement": "철분", "condition": "빈혈이 있을 때", "reason": "성장기 철분 요구가 늘어요" }
+      ],
+      "avoid_or_caution": [
+        { "supplement": "BCAA·크레아틴 등 운동 보충제", "reason": "성장기 권장 자료가 부족해요", "severity": "avoid" },
+        { "supplement": "성인 용량 보충제", "reason": "용량 과다 위험", "severity": "caution" }
+      ],
+      "special_notes": "어린이 용량은 반드시 확인하세요. 충분한 수면·운동·균형 식단이 가장 큰 영향을 줘요"
+    },
+    {
+      "age_group": "child",
+      "gender": "female",
+      "label": "어린이 여아 (7~12세)",
+      "must_take": [
+        { "supplement": "비타민D", "reason": "성장기 뼈와 면역", "priority": 1 },
+        { "supplement": "칼슘", "reason": "골 형성에 필수", "priority": 2 }
+      ],
+      "highly_recommended": [
+        { "supplement": "오메가3", "reason": "두뇌·시력 발달 보조" },
+        { "supplement": "종합비타민", "reason": "편식·잔병치레 보완" }
+      ],
+      "consider_if": [
+        { "supplement": "유산균(프로바이오틱스)", "condition": "변비·잔병치레가 잦을 때", "reason": "장 건강·면역 보조" },
+        { "supplement": "아연", "condition": "식욕 부진·미각 저하", "reason": "미각·식욕 조절에 관여" },
+        { "supplement": "철분", "condition": "초경 시작·빈혈이 있을 때", "reason": "철분 요구가 늘어요" }
+      ],
+      "avoid_or_caution": [
+        { "supplement": "BCAA·크레아틴 등 운동 보충제", "reason": "성장기 권장 자료가 부족해요", "severity": "avoid" },
+        { "supplement": "성인 용량 보충제", "reason": "용량 과다 위험", "severity": "caution" }
+      ],
+      "special_notes": "어린이 용량은 반드시 확인하세요. 초경이 시작되면 철분도 함께 점검해 주세요"
+    },
+    {
+      "age_group": "teen",
+      "gender": "male",
+      "label": "10대 남성 (13~18세)",
+      "must_take": [
+        { "supplement": "비타민D", "reason": "골 형성 마무리·면역", "priority": 1 },
+        { "supplement": "칼슘", "reason": "최대 골량 형성기에 필수", "priority": 2 }
+      ],
+      "highly_recommended": [
+        { "supplement": "오메가3", "reason": "두뇌·집중 보조" },
+        { "supplement": "비타민B군", "reason": "에너지 대사·집중" },
+        { "supplement": "종합비타민", "reason": "균형 영양 보완" }
+      ],
+      "consider_if": [
+        { "supplement": "아연", "condition": "여드름·면역이 약할 때", "reason": "피부·면역 보조" },
+        { "supplement": "철분", "condition": "빈혈·집중력 저하", "reason": "성장 가속기 철분 요구가 커요" }
+      ],
+      "avoid_or_caution": [
+        { "supplement": "고용량 단백질·BCAA·크레아틴", "reason": "성장기 자료가 제한적이에요", "severity": "caution" },
+        { "supplement": "고카페인 음료와 동시 복용", "reason": "수면·집중 방해", "severity": "caution" }
+      ],
+      "special_notes": "수면 7~9시간과 균형 식단이 가장 큰 영향을 줘요"
+    },
+    {
+      "age_group": "teen",
+      "gender": "female",
+      "label": "10대 여성 (13~18세)",
+      "must_take": [
+        { "supplement": "비타민D", "reason": "골 형성 마무리·면역", "priority": 1 },
+        { "supplement": "칼슘", "reason": "최대 골량 형성기에 필수", "priority": 2 },
+        { "supplement": "철분", "reason": "월경으로 인한 철분 손실 보충", "priority": 3 }
+      ],
+      "highly_recommended": [
+        { "supplement": "오메가3", "reason": "두뇌·집중 보조" },
+        { "supplement": "비타민B군", "reason": "에너지 대사·집중" },
+        { "supplement": "엽산", "reason": "세포 분열 지원" }
+      ],
+      "consider_if": [
+        { "supplement": "마그네슘", "condition": "생리통이 심할 때", "reason": "근수축 완화 보조" },
+        { "supplement": "감마리놀렌산", "condition": "PMS가 심할 때", "reason": "여성 호르몬 균형 보조" }
+      ],
+      "avoid_or_caution": [
+        { "supplement": "고용량 비타민A", "reason": "임신 가능 연령은 고용량 회피", "severity": "caution" },
+        { "supplement": "쏘팔메토", "reason": "여성에게 부적합", "severity": "avoid" },
+        { "supplement": "다이어트 보충제(가르시니아 등)", "reason": "성장기 부담 가능", "severity": "caution" }
+      ],
+      "special_notes": "다이어트가 빈번하면 빈혈·골량 손실이 커질 수 있어요"
+    },
+    {
+      "age_group": "twenties",
+      "gender": "male",
+      "label": "20대 남성",
+      "must_take": [
+        { "supplement": "종합비타민", "reason": "불규칙 식사 보완", "priority": 1 },
+        { "supplement": "비타민D", "reason": "햇빛 노출 부족 보완", "priority": 2 }
+      ],
+      "highly_recommended": [
+        { "supplement": "오메가3", "reason": "심혈관·두뇌 기본 영양" },
+        { "supplement": "비타민B군", "reason": "스트레스·피로 보조" },
+        { "supplement": "마그네슘", "reason": "근육·수면 보조" }
+      ],
+      "consider_if": [
+        { "supplement": "BCAA·크레아틴", "condition": "근력 운동을 꾸준히 할 때", "reason": "운동 회복·근력 보조" },
+        { "supplement": "비타민C", "condition": "흡연·잦은 음주", "reason": "항산화 소모 보충" }
+      ],
+      "avoid_or_caution": [
+        { "supplement": "고용량 카페인 보충제", "reason": "수면·심장 부담", "severity": "caution" }
+      ],
+      "special_notes": "수면·식사 시간을 일정하게 유지하는 게 가장 큰 도움이 돼요"
+    },
+    {
+      "age_group": "twenties",
+      "gender": "female",
+      "label": "20대 여성",
+      "must_take": [
+        { "supplement": "철분", "reason": "월경으로 인한 손실 보충", "priority": 1 },
+        { "supplement": "비타민D", "reason": "햇빛 노출 부족과 골 건강", "priority": 2 },
+        { "supplement": "엽산", "reason": "임신 가능 연령대 세포 분열 지원", "priority": 3 }
+      ],
+      "highly_recommended": [
+        { "supplement": "오메가3", "reason": "심혈관·피부 보조" },
+        { "supplement": "유산균(프로바이오틱스)", "reason": "장 건강·면역" },
+        { "supplement": "마그네슘", "reason": "PMS·수면 보조" }
+      ],
+      "consider_if": [
+        { "supplement": "감마리놀렌산", "condition": "PMS·피부가 거칠 때", "reason": "여성 호르몬 균형 보조" },
+        { "supplement": "콜라겐", "condition": "피부 보습 케어가 필요할 때", "reason": "피부 영양 보조" }
+      ],
+      "avoid_or_caution": [
+        { "supplement": "고용량 비타민A", "reason": "임신 가능 연령은 회피", "severity": "caution" },
+        { "supplement": "다이어트 보충제(가르시니아 등)", "reason": "장기 안전성 부족", "severity": "caution" }
+      ],
+      "special_notes": "임신을 계획 중이라면 엽산을 최소 3개월 전부터 시작하시는 게 좋아요"
+    },
+    {
+      "age_group": "thirties",
+      "gender": "male",
+      "label": "30대 남성",
+      "must_take": [
+        { "supplement": "비타민D", "reason": "면역·근골격 유지", "priority": 1 },
+        { "supplement": "오메가3", "reason": "심혈관 기본 영양", "priority": 2 }
+      ],
+      "highly_recommended": [
+        { "supplement": "비타민B군", "reason": "스트레스·피로 케어" },
+        { "supplement": "마그네슘", "reason": "근육·수면 보조" },
+        { "supplement": "밀크씨슬", "reason": "잦은 음주 시 간 케어 보조" }
+      ],
+      "consider_if": [
+        { "supplement": "코엔자임Q10", "condition": "피로감이 심할 때", "reason": "세포 에너지 보조" },
+        { "supplement": "유산균(프로바이오틱스)", "condition": "장 트러블이 잦을 때", "reason": "장 건강 보조" }
+      ],
+      "avoid_or_caution": [
+        { "supplement": "베타카로틴 고용량", "reason": "흡연 시 피해야 해요", "severity": "caution" }
+      ],
+      "special_notes": "건강검진 결과(혈압·콜레스테롤·간 수치)를 보충제 선택의 기준으로 활용하세요"
+    },
+    {
+      "age_group": "thirties",
+      "gender": "female",
+      "label": "30대 여성",
+      "must_take": [
+        { "supplement": "철분", "reason": "월경으로 인한 손실 보충", "priority": 1 },
+        { "supplement": "비타민D", "reason": "골 손실 예방", "priority": 2 },
+        { "supplement": "엽산", "reason": "임신 가능 연령 세포 분열 지원", "priority": 3 }
+      ],
+      "highly_recommended": [
+        { "supplement": "오메가3", "reason": "심혈관·피부 보조" },
+        { "supplement": "콜라겐", "reason": "피부 탄력 변화 시작 시기" },
+        { "supplement": "마그네슘", "reason": "PMS·수면 보조" }
+      ],
+      "consider_if": [
+        { "supplement": "코엔자임Q10", "condition": "피로감이 심할 때", "reason": "세포 에너지 보조" },
+        { "supplement": "감마리놀렌산", "condition": "PMS·피부 케어", "reason": "여성 호르몬 균형 보조" },
+        { "supplement": "유산균(프로바이오틱스)", "condition": "변비·면역 약화", "reason": "장 건강 보조" }
+      ],
+      "avoid_or_caution": [
+        { "supplement": "비타민A 고용량", "reason": "임신 가능 연령은 고용량 회피", "severity": "caution" },
+        { "supplement": "쏘팔메토", "reason": "여성에게 부적합", "severity": "avoid" }
+      ],
+      "special_notes": "임신을 준비 중이라면 엽산을 최소 3개월 전부터 챙겨 보세요"
+    },
+    {
+      "age_group": "forties",
+      "gender": "male",
+      "label": "40대 남성",
+      "must_take": [
+        { "supplement": "오메가3", "reason": "심혈관 위험 증가 시기", "priority": 1 },
+        { "supplement": "비타민D", "reason": "골 손실·면역", "priority": 2 },
+        { "supplement": "코엔자임Q10", "reason": "에너지·심혈관 보조", "priority": 3 }
+      ],
+      "highly_recommended": [
+        { "supplement": "비타민B군", "reason": "피로·스트레스 케어" },
+        { "supplement": "마그네슘", "reason": "근육·수면" },
+        { "supplement": "밀크씨슬", "reason": "잦은 음주·약 복용 시 간 케어 보조" }
+      ],
+      "consider_if": [
+        { "supplement": "쏘팔메토", "condition": "전립선·배뇨 변화가 시작될 때", "reason": "전립선 건강 보조" },
+        { "supplement": "리코펜", "condition": "전립선 케어를 함께 원할 때", "reason": "항산화·전립선 보조" }
+      ],
+      "avoid_or_caution": [
+        { "supplement": "베타카로틴 고용량", "reason": "흡연 시 회피", "severity": "caution" }
+      ],
+      "special_notes": "건강검진 수치를 기준으로 영양제를 정기적으로 점검해 보세요"
+    },
+    {
+      "age_group": "forties",
+      "gender": "female",
+      "label": "40대 여성",
+      "must_take": [
+        { "supplement": "칼슘", "reason": "폐경 전 골량 보존", "priority": 1 },
+        { "supplement": "비타민D", "reason": "칼슘 흡수·면역", "priority": 2 },
+        { "supplement": "오메가3", "reason": "심혈관·항염", "priority": 3 }
+      ],
+      "highly_recommended": [
+        { "supplement": "마그네슘", "reason": "PMS·수면 보조" },
+        { "supplement": "콜라겐", "reason": "피부·관절 변화 케어" },
+        { "supplement": "감마리놀렌산", "reason": "갱년기 진입 보조" }
+      ],
+      "consider_if": [
+        { "supplement": "철분", "condition": "월경량이 많을 때", "reason": "빈혈 예방" },
+        { "supplement": "석류추출물(이소플라본)", "condition": "갱년기 증상이 시작될 때", "reason": "갱년기 보조" },
+        { "supplement": "코엔자임Q10", "condition": "피로가 심할 때", "reason": "세포 에너지 보조" }
+      ],
+      "avoid_or_caution": [
+        { "supplement": "비타민A 고용량", "reason": "임신 가능성 있을 때 회피", "severity": "caution" }
+      ],
+      "special_notes": "골밀도 검사를 정기적으로 받아 보세요"
+    },
+    {
+      "age_group": "fifties",
+      "gender": "male",
+      "label": "50대 남성",
+      "must_take": [
+        { "supplement": "오메가3", "reason": "심혈관·관절", "priority": 1 },
+        { "supplement": "비타민D", "reason": "골 손실·근감소 예방", "priority": 2 },
+        { "supplement": "코엔자임Q10", "reason": "심혈관·에너지", "priority": 3 }
+      ],
+      "highly_recommended": [
+        { "supplement": "비타민B군", "reason": "신경·에너지" },
+        { "supplement": "쏘팔메토", "reason": "전립선 건강 보조" },
+        { "supplement": "마그네슘", "reason": "근육·수면" }
+      ],
+      "consider_if": [
+        { "supplement": "글루코사민·MSM", "condition": "관절 통증이 시작될 때", "reason": "관절 케어 보조" },
+        { "supplement": "리코펜", "condition": "전립선 케어 강화", "reason": "항산화·전립선 보조" },
+        { "supplement": "은행잎추출물", "condition": "기억력·혈류 관리 원할 때", "reason": "혈류·인지 보조" }
+      ],
+      "avoid_or_caution": [
+        { "supplement": "혈액희석제와 오메가3·은행잎추출물·마늘추출물 동시 고용량", "reason": "출혈 위험", "severity": "caution" }
+      ],
+      "special_notes": "약 복용 중이라면 반드시 의사/약사와 상담 후 보충제를 결정하세요"
+    },
+    {
+      "age_group": "fifties",
+      "gender": "female",
+      "label": "50대 여성",
+      "must_take": [
+        { "supplement": "칼슘", "reason": "폐경 전후 골 손실 예방", "priority": 1 },
+        { "supplement": "비타민D", "reason": "칼슘 흡수·면역", "priority": 2 },
+        { "supplement": "비타민K2", "reason": "칼슘이 뼈로 가도록 보조", "priority": 3 }
+      ],
+      "highly_recommended": [
+        { "supplement": "오메가3", "reason": "심혈관·관절·피부" },
+        { "supplement": "석류추출물(이소플라본)", "reason": "갱년기 보조" },
+        { "supplement": "감마리놀렌산", "reason": "갱년기·피부 보조" },
+        { "supplement": "콜라겐", "reason": "피부·관절 케어" }
+      ],
+      "consider_if": [
+        { "supplement": "마그네슘", "condition": "수면·근육 경련", "reason": "이완 보조" },
+        { "supplement": "코엔자임Q10", "condition": "피로감이 심할 때", "reason": "세포 에너지 보조" },
+        { "supplement": "글루코사민·MSM", "condition": "관절 통증", "reason": "관절 케어 보조" }
+      ],
+      "avoid_or_caution": [
+        { "supplement": "쏘팔메토", "reason": "여성에게 부적합", "severity": "avoid" }
+      ],
+      "special_notes": "골밀도·갑상선 정기 검진을 권장해요"
+    },
+    {
+      "age_group": "elderly",
+      "gender": "male",
+      "label": "노년 남성 (60+)",
+      "must_take": [
+        { "supplement": "비타민D", "reason": "골·근감소 예방, 면역", "priority": 1 },
+        { "supplement": "비타민B군", "reason": "B12 흡수 저하 보완", "priority": 2 },
+        { "supplement": "오메가3", "reason": "심혈관·인지 보조", "priority": 3 }
+      ],
+      "highly_recommended": [
+        { "supplement": "코엔자임Q10", "reason": "스타틴 복용·에너지 보조" },
+        { "supplement": "칼슘", "reason": "골 손실 예방" },
+        { "supplement": "비타민K2", "reason": "골 건강 시너지" },
+        { "supplement": "쏘팔메토", "reason": "전립선 건강 보조" }
+      ],
+      "consider_if": [
+        { "supplement": "글루코사민·MSM", "condition": "관절 통증이 있을 때", "reason": "관절 케어" },
+        { "supplement": "은행잎추출물", "condition": "기억력·이명·혈류 관리", "reason": "혈류·인지 보조" },
+        { "supplement": "루테인", "condition": "황반변성·시력 케어", "reason": "황반 보호" }
+      ],
+      "avoid_or_caution": [
+        { "supplement": "비타민A 고용량", "reason": "간 부담·골절 위험 보고", "severity": "caution" },
+        { "supplement": "혈액희석제 복용 시 출혈 영향 보충제", "reason": "출혈 위험", "severity": "caution" }
+      ],
+      "special_notes": "약 복용 중이라면 반드시 의사/약사와 상담 후 보충제를 결정하세요"
+    },
+    {
+      "age_group": "elderly",
+      "gender": "female",
+      "label": "노년 여성 (60+)",
+      "must_take": [
+        { "supplement": "칼슘", "reason": "골다공증 예방", "priority": 1 },
+        { "supplement": "비타민D", "reason": "칼슘 흡수·면역·근감소 예방", "priority": 2 },
+        { "supplement": "비타민K2", "reason": "칼슘이 뼈로 가도록 보조", "priority": 3 },
+        { "supplement": "비타민B군", "reason": "B12 흡수 저하 보완", "priority": 4 }
+      ],
+      "highly_recommended": [
+        { "supplement": "오메가3", "reason": "심혈관·인지 보조" },
+        { "supplement": "코엔자임Q10", "reason": "스타틴 복용·에너지 보조" },
+        { "supplement": "콜라겐", "reason": "피부·관절·근육 케어" }
+      ],
+      "consider_if": [
+        { "supplement": "글루코사민·MSM", "condition": "관절 통증이 있을 때", "reason": "관절 케어" },
+        { "supplement": "루테인", "condition": "황반변성·시력 케어", "reason": "황반 보호" },
+        { "supplement": "은행잎추출물", "condition": "기억력·혈류 관리", "reason": "혈류·인지 보조" }
+      ],
+      "avoid_or_caution": [
+        { "supplement": "비타민A 고용량", "reason": "간 부담·골절 위험 보고", "severity": "caution" },
+        { "supplement": "혈액희석제 복용 시 출혈 영향 보충제", "reason": "출혈 위험", "severity": "caution" }
+      ],
+      "special_notes": "다약제 복용 시 영양제 합산 용량을 의사·약사와 함께 점검하세요"
+    }
+  ],
+  "special_states": [
+    {
+      "state": "pregnant",
+      "label": "임산부",
+      "must_take": [
+        { "supplement": "엽산", "reason": "태아 신경관 결손 예방. 임신 전~12주 특히 중요", "priority": 1 },
+        { "supplement": "철분", "reason": "임신 중 혈액량 증가로 요구가 늘어요", "priority": 2 },
+        { "supplement": "비타민D", "reason": "태아 골격·면역", "priority": 3 },
+        { "supplement": "칼슘", "reason": "태아 골 형성과 모체 골 보존", "priority": 4 },
+        { "supplement": "오메가3(DHA 위주)", "reason": "태아 두뇌·시력 발달", "priority": 5 }
+      ],
+      "highly_recommended": [
+        { "supplement": "임산부 전용 종합비타민", "reason": "임산부 권장량에 맞춘 균형 영양" },
+        { "supplement": "유산균(프로바이오틱스)", "reason": "장 건강·면역 보조" }
+      ],
+      "consider_if": [
+        { "supplement": "마그네슘", "condition": "다리 쥐·변비가 있을 때", "reason": "근육 이완 보조" }
+      ],
+      "avoid_or_caution": [
+        { "supplement": "비타민A(레티놀) 고용량", "reason": "기형 위험", "severity": "avoid" },
+        { "supplement": "쏘팔메토", "reason": "호르몬 영향 가능", "severity": "avoid" },
+        { "supplement": "은행잎추출물", "reason": "출혈 위험", "severity": "avoid" },
+        { "supplement": "감마리놀렌산(임신 후기)", "reason": "분만 시기 출혈 영향 가능", "severity": "caution" },
+        { "supplement": "가르시니아", "reason": "장기 안전성 부족", "severity": "avoid" },
+        { "supplement": "마카·홍삼·인삼류 고용량", "reason": "호르몬 영향 가능", "severity": "caution" }
+      ],
+      "special_notes": "임신/수유 중에는 반드시 전문가 상담 후 복용하세요. 모든 보충제는 산부인과 의사 상담을 권장해요"
+    },
+    {
+      "state": "nursing",
+      "label": "수유부",
+      "must_take": [
+        { "supplement": "비타민D", "reason": "엄마·아기 모두에게 중요", "priority": 1 },
+        { "supplement": "칼슘", "reason": "모유로 빠져나가는 칼슘 보충", "priority": 2 },
+        { "supplement": "오메가3(DHA)", "reason": "아기 두뇌 발달 지원", "priority": 3 },
+        { "supplement": "철분", "reason": "출산 후 회복·빈혈 예방", "priority": 4 }
+      ],
+      "highly_recommended": [
+        { "supplement": "비타민B군", "reason": "수유 중 에너지·신경 대사" },
+        { "supplement": "엽산", "reason": "세포 분열·회복 보조" },
+        { "supplement": "유산균(프로바이오틱스)", "reason": "장 건강·면역" }
+      ],
+      "consider_if": [
+        { "supplement": "마그네슘", "condition": "수면·근육 경련", "reason": "이완 보조" }
+      ],
+      "avoid_or_caution": [
+        { "supplement": "비타민A 고용량", "reason": "과잉 위험", "severity": "caution" },
+        { "supplement": "허브 보충제(쏘팔메토·은행잎추출물 등)", "reason": "수유 안전성 자료 부족", "severity": "caution" },
+        { "supplement": "다이어트 보충제(가르시니아 등)", "reason": "수유 부적합", "severity": "avoid" }
+      ],
+      "special_notes": "임신/수유 중에는 반드시 전문가 상담 후 복용하세요"
+    },
+    {
+      "state": "smoker_adult",
+      "label": "성인 흡연자",
+      "must_take": [
+        { "supplement": "비타민C", "reason": "흡연으로 소모가 빨라 보충이 필요해요", "priority": 1 },
+        { "supplement": "비타민D", "reason": "면역·골 건강 보조", "priority": 2 },
+        { "supplement": "비타민B군", "reason": "스트레스·대사 보조", "priority": 3 }
+      ],
+      "highly_recommended": [
+        { "supplement": "오메가3", "reason": "심혈관 보호" },
+        { "supplement": "NAC", "reason": "호흡기 항산화 보조" },
+        { "supplement": "코엔자임Q10", "reason": "세포 에너지·항산화 보조" }
+      ],
+      "consider_if": [
+        { "supplement": "셀레늄", "condition": "전반적 항산화 보강", "reason": "항산화 보조" }
+      ],
+      "avoid_or_caution": [
+        { "supplement": "베타카로틴 고용량", "reason": "흡연자에서 폐암 위험 보고", "severity": "avoid" },
+        { "supplement": "비타민A 고용량", "reason": "흡연자에서 위험 보고", "severity": "caution" }
+      ],
+      "special_notes": "근본적으로 금연이 가장 큰 효과예요. 약 복용 중이라면 반드시 의사/약사와 상담 후 복용하세요"
+    },
+    {
+      "state": "heavy_drinker_adult",
+      "label": "성인 잦은 음주자",
+      "must_take": [
+        { "supplement": "비타민B군(특히 B1)", "reason": "음주 시 B군 결핍이 흔해요", "priority": 1 },
+        { "supplement": "엽산", "reason": "음주로 흡수가 떨어져요", "priority": 2 },
+        { "supplement": "마그네슘", "reason": "음주로 소모가 늘어요", "priority": 3 }
+      ],
+      "highly_recommended": [
+        { "supplement": "밀크씨슬", "reason": "간 케어 보조" },
+        { "supplement": "비타민C", "reason": "항산화 소모 보충" },
+        { "supplement": "유산균(프로바이오틱스)", "reason": "장 점막 회복 보조" }
+      ],
+      "consider_if": [
+        { "supplement": "오메가3", "condition": "지질 수치가 안 좋을 때", "reason": "심혈관 보조" },
+        { "supplement": "NAC", "condition": "간 부담이 클 때", "reason": "글루타치온 합성 보조" }
+      ],
+      "avoid_or_caution": [
+        { "supplement": "비타민A 고용량", "reason": "간 부담을 더 키울 수 있어요", "severity": "avoid" },
+        { "supplement": "철분 단독 고용량", "reason": "음주와 함께 간 부담을 키울 수 있어요", "severity": "caution" }
+      ],
+      "special_notes": "근본적으로 음주량 줄이기가 가장 큰 효과예요. 약 복용 중이라면 반드시 의사/약사와 상담 후 복용하세요"
+    }
+  ],
+  "general_principles": {
+    "children_dose": "어린이 용량은 반드시 확인하세요",
+    "pregnancy_nursing": "임신/수유 중에는 반드시 전문가 상담 후 복용하세요",
+    "drug_interactions": "약 복용 중이라면 반드시 의사/약사와 상담 후 복용하세요",
+    "lifestyle_first": "수면·식사·운동·금연·절주가 가장 큰 영향을 줘요. 보충제는 보조 수단이에요"
+  },
+  "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요. 전문가 상담을 권장드려요."
+}

@@ -1,0 +1,425 @@
+{
+  "description": "한국에서 흔히 처방되는 약물과 보충제 간의 상호작용 정보. 의사 또는 약사와 반드시 상담 필요.",
+  "medications": [
+    {
+      "medication_ko": "혈압약",
+      "medication_en": "Blood Pressure Medication (ACE inhibitors, ARBs, Beta-blockers, Calcium channel blockers, Diuretics)",
+      "common_examples_ko": ["로사르탄", "암로디핀", "텔미사르탄", "에날라프릴", "히드로클로로티아지드"],
+      "interactions": [
+        {
+          "supplement": "인삼",
+          "supplement_en": "Ginseng",
+          "severity": "high",
+          "effect": "혈압 상승 또는 약효 감소 가능",
+          "recommendation": "복용 금지 또는 의사 상담 필수"
+        },
+        {
+          "supplement": "홍삼",
+          "supplement_en": "Red Ginseng",
+          "severity": "high",
+          "effect": "혈압 상승, 약효 간섭",
+          "recommendation": "고혈압 환자 복용 주의, 의사 상담"
+        },
+        {
+          "supplement": "마늘 추출물",
+          "supplement_en": "Garlic Extract",
+          "severity": "moderate",
+          "effect": "혈압 추가 강하 → 저혈압 위험",
+          "recommendation": "혈압 모니터링, 용량 조절 필요"
+        },
+        {
+          "supplement": "코엔자임 Q10",
+          "supplement_en": "Coenzyme Q10",
+          "severity": "moderate",
+          "effect": "혈압 강하 효과 강화",
+          "recommendation": "저혈압 모니터링, 의사 상담"
+        },
+        {
+          "supplement": "L-테아닌",
+          "supplement_en": "L-Theanine",
+          "severity": "low",
+          "effect": "혈압 추가 강하 가능",
+          "recommendation": "주의하여 병용 가능, 어지럼증 시 중단"
+        },
+        {
+          "supplement": "멜라토닌",
+          "supplement_en": "Melatonin",
+          "severity": "moderate",
+          "effect": "특정 혈압약 효과 감소 또는 증가",
+          "recommendation": "야간 혈압 변동 주의"
+        },
+        {
+          "supplement": "칼슘",
+          "supplement_en": "Calcium",
+          "severity": "moderate",
+          "effect": "칼슘 채널 차단제 흡수 감소",
+          "recommendation": "복용 시간 2시간 이상 분리"
+        },
+        {
+          "supplement": "마그네슘",
+          "supplement_en": "Magnesium",
+          "severity": "low",
+          "effect": "혈압 강하 효과 증가",
+          "recommendation": "혈압 모니터링하며 병용 가능"
+        },
+        {
+          "supplement": "아스타잔틴",
+          "supplement_en": "Astaxanthin",
+          "severity": "low",
+          "effect": "약한 혈압 강하 효과",
+          "recommendation": "혈압 모니터링"
+        }
+      ]
+    },
+    {
+      "medication_ko": "당뇨약",
+      "medication_en": "Diabetes Medication (Metformin, Sulfonylureas, DPP-4 inhibitors, Insulin)",
+      "common_examples_ko": ["메트포르민", "글리메피리드", "시타글립틴", "엠파글리플로진", "인슐린"],
+      "interactions": [
+        {
+          "supplement": "비타민 B12",
+          "supplement_en": "Vitamin B12",
+          "severity": "moderate",
+          "effect": "메트포르민이 B12 흡수 저하시킴",
+          "recommendation": "메트포르민 장기 복용자는 B12 보충 권장"
+        },
+        {
+          "supplement": "크로뮴",
+          "supplement_en": "Chromium",
+          "severity": "high",
+          "effect": "혈당 추가 강하 → 저혈당 위험",
+          "recommendation": "혈당 모니터링 강화, 의사 상담"
+        },
+        {
+          "supplement": "글루코사민",
+          "supplement_en": "Glucosamine",
+          "severity": "moderate",
+          "effect": "혈당 약간 상승 가능",
+          "recommendation": "혈당 모니터링 권장"
+        },
+        {
+          "supplement": "인삼",
+          "supplement_en": "Ginseng",
+          "severity": "high",
+          "effect": "혈당 강하 효과 → 저혈당 위험",
+          "recommendation": "복용 시 혈당 빈번히 측정"
+        },
+        {
+          "supplement": "홍삼",
+          "supplement_en": "Red Ginseng",
+          "severity": "high",
+          "effect": "혈당 강하 작용",
+          "recommendation": "당뇨약과 병용 시 저혈당 주의"
+        },
+        {
+          "supplement": "커큐민",
+          "supplement_en": "Curcumin",
+          "severity": "moderate",
+          "effect": "혈당 강하 효과 증가",
+          "recommendation": "저혈당 모니터링"
+        },
+        {
+          "supplement": "밀크씨슬",
+          "supplement_en": "Milk Thistle",
+          "severity": "moderate",
+          "effect": "혈당 강하 작용 가능",
+          "recommendation": "혈당 모니터링 필요"
+        },
+        {
+          "supplement": "BCAA",
+          "supplement_en": "BCAA",
+          "severity": "low",
+          "effect": "인슐린 저항성에 영향 가능",
+          "recommendation": "당뇨 환자는 의사 상담"
+        },
+        {
+          "supplement": "멜라토닌",
+          "supplement_en": "Melatonin",
+          "severity": "moderate",
+          "effect": "혈당 조절에 영향",
+          "recommendation": "공복 혈당 변동 주의"
+        }
+      ]
+    },
+    {
+      "medication_ko": "혈액희석제",
+      "medication_en": "Blood Thinners (Warfarin, Aspirin, Clopidogrel, DOACs)",
+      "common_examples_ko": ["와파린", "아스피린", "클로피도그렐", "리바록사반", "아픽사반"],
+      "interactions": [
+        {
+          "supplement": "오메가-3",
+          "supplement_en": "Omega-3",
+          "severity": "high",
+          "effect": "출혈 위험 증가",
+          "recommendation": "고용량 금지, 수술 전 1-2주 중단"
+        },
+        {
+          "supplement": "비타민 E",
+          "supplement_en": "Vitamin E",
+          "severity": "high",
+          "effect": "출혈 위험 증가",
+          "recommendation": "고용량(400 IU 이상) 금지"
+        },
+        {
+          "supplement": "비타민 K2",
+          "supplement_en": "Vitamin K2",
+          "severity": "very_high",
+          "effect": "와파린 효과 직접 감소",
+          "recommendation": "와파린 복용자 절대 금지 또는 INR 엄격 모니터링"
+        },
+        {
+          "supplement": "은행잎 추출물",
+          "supplement_en": "Ginkgo Biloba",
+          "severity": "very_high",
+          "effect": "심각한 출혈 위험",
+          "recommendation": "병용 절대 금지"
+        },
+        {
+          "supplement": "마늘 추출물",
+          "supplement_en": "Garlic Extract",
+          "severity": "high",
+          "effect": "출혈 위험 증가",
+          "recommendation": "고용량 금지, 수술 1주 전 중단"
+        },
+        {
+          "supplement": "인삼",
+          "supplement_en": "Ginseng",
+          "severity": "high",
+          "effect": "와파린 효과 감소 또는 출혈 위험",
+          "recommendation": "복용 금지 권장"
+        },
+        {
+          "supplement": "홍삼",
+          "supplement_en": "Red Ginseng",
+          "severity": "high",
+          "effect": "와파린과 상호작용",
+          "recommendation": "복용 금지 권장"
+        },
+        {
+          "supplement": "커큐민",
+          "supplement_en": "Curcumin",
+          "severity": "moderate",
+          "effect": "출혈 위험 증가",
+          "recommendation": "고용량 회피, 수술 전 중단"
+        },
+        {
+          "supplement": "코엔자임 Q10",
+          "supplement_en": "Coenzyme Q10",
+          "severity": "moderate",
+          "effect": "와파린 효과 감소",
+          "recommendation": "INR 모니터링 강화"
+        },
+        {
+          "supplement": "글루코사민",
+          "supplement_en": "Glucosamine",
+          "severity": "moderate",
+          "effect": "와파린 효과 증가, 출혈 위험",
+          "recommendation": "INR 모니터링"
+        },
+        {
+          "supplement": "콘드로이친",
+          "supplement_en": "Chondroitin",
+          "severity": "moderate",
+          "effect": "출혈 위험 증가",
+          "recommendation": "와파린과 병용 시 주의"
+        },
+        {
+          "supplement": "MSM",
+          "supplement_en": "MSM",
+          "severity": "low",
+          "effect": "이론적 출혈 위험 증가",
+          "recommendation": "주의하여 사용"
+        },
+        {
+          "supplement": "L-카르니틴",
+          "supplement_en": "L-Carnitine",
+          "severity": "moderate",
+          "effect": "와파린 효과 증가",
+          "recommendation": "INR 모니터링"
+        },
+        {
+          "supplement": "레스베라트롤",
+          "supplement_en": "Resveratrol",
+          "severity": "moderate",
+          "effect": "출혈 위험 증가",
+          "recommendation": "고용량 회피"
+        },
+        {
+          "supplement": "크랜베리 추출물",
+          "supplement_en": "Cranberry Extract",
+          "severity": "moderate",
+          "effect": "와파린 효과 증가, 출혈 위험",
+          "recommendation": "INR 모니터링"
+        },
+        {
+          "supplement": "달맞이꽃 종자유",
+          "supplement_en": "Evening Primrose Oil",
+          "severity": "moderate",
+          "effect": "출혈 위험 증가",
+          "recommendation": "수술 2주 전 중단"
+        },
+        {
+          "supplement": "클로렐라",
+          "supplement_en": "Chlorella",
+          "severity": "high",
+          "effect": "비타민 K 함유, 와파린 효과 감소",
+          "recommendation": "와파린 복용자 금지"
+        },
+        {
+          "supplement": "스피루리나",
+          "supplement_en": "Spirulina",
+          "severity": "moderate",
+          "effect": "출혈 위험 증가 가능",
+          "recommendation": "주의"
+        },
+        {
+          "supplement": "쏘팔메토",
+          "supplement_en": "Saw Palmetto",
+          "severity": "moderate",
+          "effect": "출혈 위험 증가",
+          "recommendation": "수술 전 중단"
+        }
+      ]
+    },
+    {
+      "medication_ko": "수면제",
+      "medication_en": "Sleeping Pills (Benzodiazepines, Z-drugs, Antihistamines)",
+      "common_examples_ko": ["졸피뎀", "트리아졸람", "디아제팜", "로라제팜", "디펜히드라민"],
+      "interactions": [
+        {
+          "supplement": "멜라토닌",
+          "supplement_en": "Melatonin",
+          "severity": "high",
+          "effect": "과도한 진정 작용 → 호흡 억제 위험",
+          "recommendation": "병용 금지 또는 의사 상담 필수"
+        },
+        {
+          "supplement": "GABA",
+          "supplement_en": "GABA",
+          "severity": "high",
+          "effect": "중추신경 과도 억제",
+          "recommendation": "병용 금지"
+        },
+        {
+          "supplement": "5-HTP",
+          "supplement_en": "5-HTP",
+          "severity": "high",
+          "effect": "과도한 진정 효과",
+          "recommendation": "병용 금지"
+        },
+        {
+          "supplement": "아쉬와간다",
+          "supplement_en": "Ashwagandha",
+          "severity": "moderate",
+          "effect": "진정 효과 강화",
+          "recommendation": "용량 조절, 의사 상담"
+        },
+        {
+          "supplement": "L-테아닌",
+          "supplement_en": "L-Theanine",
+          "severity": "low",
+          "effect": "약한 진정 효과 추가",
+          "recommendation": "주의하여 병용 가능"
+        },
+        {
+          "supplement": "마그네슘",
+          "supplement_en": "Magnesium",
+          "severity": "low",
+          "effect": "이완 효과 강화",
+          "recommendation": "주의하여 병용 가능"
+        },
+        {
+          "supplement": "은행잎 추출물",
+          "supplement_en": "Ginkgo Biloba",
+          "severity": "moderate",
+          "effect": "특정 수면제 효과 감소 가능",
+          "recommendation": "의사 상담"
+        },
+        {
+          "supplement": "달맞이꽃 종자유",
+          "supplement_en": "Evening Primrose Oil",
+          "severity": "moderate",
+          "effect": "특정 수면제와 상호작용 가능",
+          "recommendation": "주의"
+        },
+        {
+          "supplement": "홍경천",
+          "supplement_en": "Rhodiola",
+          "severity": "moderate",
+          "effect": "수면제 효과 감소 (각성 작용)",
+          "recommendation": "병용 회피"
+        }
+      ]
+    },
+    {
+      "medication_ko": "피임약",
+      "medication_en": "Birth Control Pills (Combined oral contraceptives, Progestin-only pills)",
+      "common_examples_ko": ["야즈", "야스민", "마이보라", "머시론", "미니보라"],
+      "interactions": [
+        {
+          "supplement": "밀크씨슬",
+          "supplement_en": "Milk Thistle",
+          "severity": "moderate",
+          "effect": "피임약 대사 변화로 효과 감소 가능",
+          "recommendation": "추가 피임법 사용 권장"
+        },
+        {
+          "supplement": "쏘팔메토",
+          "supplement_en": "Saw Palmetto",
+          "severity": "moderate",
+          "effect": "호르몬 작용 간섭",
+          "recommendation": "여성 복용 비권장"
+        },
+        {
+          "supplement": "레스베라트롤",
+          "supplement_en": "Resveratrol",
+          "severity": "moderate",
+          "effect": "에스트로겐 유사 작용으로 호르몬 균형 영향",
+          "recommendation": "고용량 회피"
+        },
+        {
+          "supplement": "멜라토닌",
+          "supplement_en": "Melatonin",
+          "severity": "moderate",
+          "effect": "피임약이 멜라토닌 농도 증가 → 과도한 졸음",
+          "recommendation": "용량 감소 또는 의사 상담"
+        },
+        {
+          "supplement": "비타민 B6",
+          "supplement_en": "Vitamin B6",
+          "severity": "low",
+          "effect": "피임약이 B6 수치 감소 → 보충 필요",
+          "recommendation": "B6 보충 권장"
+        },
+        {
+          "supplement": "엽산",
+          "supplement_en": "Folic Acid",
+          "severity": "low",
+          "effect": "피임약이 엽산 수치 감소",
+          "recommendation": "엽산 보충 권장"
+        },
+        {
+          "supplement": "비타민 B12",
+          "supplement_en": "Vitamin B12",
+          "severity": "low",
+          "effect": "B12 흡수 저하 가능",
+          "recommendation": "B12 보충 권장"
+        },
+        {
+          "supplement": "아쉬와간다",
+          "supplement_en": "Ashwagandha",
+          "severity": "moderate",
+          "effect": "호르몬 균형에 영향 가능",
+          "recommendation": "의사 상담"
+        }
+      ]
+    }
+  ],
+  "severity_legend": {
+    "very_high": "매우 위험 - 절대 병용 금지",
+    "high": "위험 - 병용 금지 또는 의사 상담 필수",
+    "moderate": "중간 - 주의 필요, 모니터링 권장",
+    "low": "낮음 - 일반적으로 안전하나 인지 필요"
+  },
+  "general_warning": "이 정보는 참고용이며, 의학적 조언을 대체하지 않습니다. 약물 복용 중 보충제 섭취 전 반드시 의사 또는 약사와 상담하세요. 임산부, 수유부, 어린이, 만성 질환자는 특히 주의가 필요합니다."
+}

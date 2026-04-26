@@ -1,0 +1,756 @@
+{
+  "disclaimer": "본 데이터는 일반적인 건강 정보 제공을 목적으로 하며, 의학적 진단이나 처방을 대체하지 않습니다. 보충제 복용 전 의사 또는 약사와 상담하시기 바랍니다. 임산부, 수유부, 어린이, 만성 질환자, 약물 복용자는 특히 주의가 필요합니다.",
+  "version": "1.0",
+  "supplements": [
+    {
+      "id": 1,
+      "name": { "ko": "오메가-3", "en": "Omega-3" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Vitamin D", "Vitamin E", "Coenzyme Q10"],
+      "bad_combinations": ["Ginkgo Biloba", "Vitamin E (high dose)"],
+      "recommended_age": "all",
+      "daily_dosage": {
+        "adult": "1000-2000mg EPA+DHA",
+        "child": "250-500mg EPA+DHA",
+        "elderly": "1000-2000mg EPA+DHA"
+      },
+      "notes": "고용량 복용 시 출혈 위험 증가, 항응고제 복용자는 주의. 식사와 함께 섭취하면 흡수율 향상."
+    },
+    {
+      "id": 2,
+      "name": { "ko": "종합비타민", "en": "Multivitamin" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Omega-3", "Probiotics"],
+      "bad_combinations": ["Calcium (high dose)", "Iron (separate timing)"],
+      "recommended_age": "all",
+      "daily_dosage": {
+        "adult": "1 tablet",
+        "child": "1 children's tablet",
+        "elderly": "1 senior formula tablet"
+      },
+      "notes": "지용성 비타민 흡수를 위해 식사와 함께 섭취. 임산부는 전용 제품 사용 권장."
+    },
+    {
+      "id": 3,
+      "name": { "ko": "비타민 D", "en": "Vitamin D" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Calcium", "Magnesium", "Vitamin K2", "Omega-3"],
+      "bad_combinations": ["High-dose Vitamin A"],
+      "recommended_age": "all",
+      "daily_dosage": {
+        "adult": "1000-2000 IU",
+        "child": "400-600 IU",
+        "elderly": "2000-4000 IU"
+      },
+      "notes": "지용성 비타민이므로 지방이 포함된 식사와 함께 섭취. 과다 복용 시 고칼슘혈증 위험."
+    },
+    {
+      "id": 4,
+      "name": { "ko": "마그네슘", "en": "Magnesium" },
+      "best_time": "evening",
+      "take_with_food": true,
+      "good_combinations": ["Vitamin D", "Calcium", "Vitamin B6"],
+      "bad_combinations": ["Calcium (high dose, same time)", "Zinc (high dose)", "Iron"],
+      "recommended_age": "all",
+      "daily_dosage": {
+        "adult": "300-400mg",
+        "child": "80-240mg",
+        "elderly": "320-420mg"
+      },
+      "notes": "근육 이완 및 수면 개선 효과. 과다 복용 시 설사 유발 가능. 신장 질환자는 의사 상담 필요."
+    },
+    {
+      "id": 5,
+      "name": { "ko": "비타민 C", "en": "Vitamin C" },
+      "best_time": "morning",
+      "take_with_food": false,
+      "good_combinations": ["Iron", "Vitamin E", "Zinc"],
+      "bad_combinations": ["Vitamin B12 (high dose)", "Copper"],
+      "recommended_age": "all",
+      "daily_dosage": {
+        "adult": "500-1000mg",
+        "child": "100-400mg",
+        "elderly": "500-1000mg"
+      },
+      "notes": "수용성이라 과다 섭취 시 소변으로 배출. 위장 민감자는 식사 후 복용. 철분 흡수 촉진."
+    },
+    {
+      "id": 6,
+      "name": { "ko": "철분", "en": "Iron" },
+      "best_time": "morning",
+      "take_with_food": false,
+      "good_combinations": ["Vitamin C", "Vitamin B12", "Folic Acid"],
+      "bad_combinations": ["Calcium", "Magnesium", "Zinc", "Coffee", "Tea", "Multivitamin (same time)"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "8-18mg (남성 8mg, 여성 18mg)",
+        "child": "7-10mg",
+        "elderly": "8mg"
+      },
+      "notes": "공복 복용이 흡수율 높으나 위장 장애 시 식후 섭취. 비타민 C와 함께 섭취 시 흡수율 향상. 칼슘과 2시간 이상 간격."
+    },
+    {
+      "id": 7,
+      "name": { "ko": "칼슘", "en": "Calcium" },
+      "best_time": "evening",
+      "take_with_food": true,
+      "good_combinations": ["Vitamin D", "Vitamin K2", "Magnesium"],
+      "bad_combinations": ["Iron", "Zinc", "Caffeine", "High-fiber foods"],
+      "recommended_age": "all",
+      "daily_dosage": {
+        "adult": "800-1000mg",
+        "child": "500-800mg",
+        "elderly": "1000-1200mg"
+      },
+      "notes": "한 번에 500mg 이하로 분할 복용 시 흡수율 향상. 비타민 D와 함께 섭취 필수."
+    },
+    {
+      "id": 8,
+      "name": { "ko": "루테인", "en": "Lutein" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Zeaxanthin", "Omega-3", "Vitamin E", "Vitamin C"],
+      "bad_combinations": ["Beta-carotene (high dose)"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "10-20mg",
+        "child": "권장하지 않음",
+        "elderly": "10-20mg"
+      },
+      "notes": "지용성이므로 지방 포함 식사와 함께 섭취. 황반 변성 예방 효과. 효과 체감까지 2-3개월 소요."
+    },
+    {
+      "id": 9,
+      "name": { "ko": "프로바이오틱스", "en": "Probiotics" },
+      "best_time": "morning",
+      "take_with_food": false,
+      "good_combinations": ["Prebiotics", "Multivitamin", "Vitamin D"],
+      "bad_combinations": ["Antibiotics (separate by 2 hours)"],
+      "recommended_age": "all",
+      "daily_dosage": {
+        "adult": "10-100억 CFU",
+        "child": "10-50억 CFU",
+        "elderly": "100억 CFU 이상"
+      },
+      "notes": "공복 또는 식전 30분 복용 권장. 항생제 복용 시 2시간 간격. 냉장 보관 제품은 보관 주의."
+    },
+    {
+      "id": 10,
+      "name": { "ko": "아연", "en": "Zinc" },
+      "best_time": "evening",
+      "take_with_food": true,
+      "good_combinations": ["Vitamin C", "Vitamin A", "Magnesium (separate timing)"],
+      "bad_combinations": ["Calcium", "Iron", "Copper (long-term high dose)"],
+      "recommended_age": "all",
+      "daily_dosage": {
+        "adult": "8-11mg",
+        "child": "3-8mg",
+        "elderly": "8-11mg"
+      },
+      "notes": "공복 시 메스꺼움 유발 가능, 식사와 함께 섭취 권장. 장기 고용량 복용 시 구리 결핍 주의. 면역력 강화."
+    },
+    {
+      "id": 11,
+      "name": { "ko": "코엔자임 Q10", "en": "Coenzyme Q10" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Omega-3", "Vitamin E", "L-Carnitine"],
+      "bad_combinations": ["Warfarin (혈액희석제)"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "100-200mg",
+        "child": "권장하지 않음",
+        "elderly": "100-300mg"
+      },
+      "notes": "지용성이므로 지방 포함 식사와 함께 섭취. 스타틴 복용자에게 특히 유익. 저녁 복용 시 불면증 유발 가능."
+    },
+    {
+      "id": 12,
+      "name": { "ko": "비타민 B 복합체", "en": "Vitamin B Complex" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Vitamin C", "Magnesium", "Folic Acid"],
+      "bad_combinations": ["Alcohol", "Coffee (high dose)"],
+      "recommended_age": "all",
+      "daily_dosage": {
+        "adult": "1 tablet (B-50 or B-100 complex)",
+        "child": "1 children's B-complex",
+        "elderly": "1 senior B-complex"
+      },
+      "notes": "에너지 대사에 필수. 저녁 복용 시 수면 방해 가능. 소변이 노란색으로 변하는 것은 정상."
+    },
+    {
+      "id": 13,
+      "name": { "ko": "비타민 E", "en": "Vitamin E" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Vitamin C", "Selenium", "Coenzyme Q10"],
+      "bad_combinations": ["Vitamin K", "Iron", "Warfarin (혈액희석제)"],
+      "recommended_age": "all",
+      "daily_dosage": {
+        "adult": "15mg (22.4 IU)",
+        "child": "6-11mg",
+        "elderly": "15mg"
+      },
+      "notes": "지용성 비타민. 고용량 장기 복용 시 출혈 위험. 수술 2주 전 복용 중단 권장."
+    },
+    {
+      "id": 14,
+      "name": { "ko": "비타민 A", "en": "Vitamin A" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Zinc", "Vitamin D", "Vitamin E"],
+      "bad_combinations": ["Beta-carotene (high dose)", "Retinoid medications"],
+      "recommended_age": "all",
+      "daily_dosage": {
+        "adult": "700-900 mcg RAE",
+        "child": "300-600 mcg RAE",
+        "elderly": "700-900 mcg RAE"
+      },
+      "notes": "지용성. 임산부는 과다 복용 시 기형아 위험. 간 질환자 주의. 베타카로틴 형태가 더 안전."
+    },
+    {
+      "id": 15,
+      "name": { "ko": "비타민 K2", "en": "Vitamin K2" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Vitamin D", "Calcium", "Magnesium"],
+      "bad_combinations": ["Warfarin (혈액희석제)", "Vitamin E (high dose)"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "90-120 mcg",
+        "child": "30-75 mcg",
+        "elderly": "90-120 mcg"
+      },
+      "notes": "칼슘이 뼈로 가도록 유도. 와파린 등 항응고제 복용자는 반드시 의사 상담."
+    },
+    {
+      "id": 16,
+      "name": { "ko": "엽산", "en": "Folic Acid" },
+      "best_time": "morning",
+      "take_with_food": false,
+      "good_combinations": ["Vitamin B12", "Vitamin B6", "Iron"],
+      "bad_combinations": ["Methotrexate", "Anticonvulsants"],
+      "recommended_age": "all",
+      "daily_dosage": {
+        "adult": "400 mcg (임산부 600-800 mcg)",
+        "child": "150-300 mcg",
+        "elderly": "400 mcg"
+      },
+      "notes": "임신 계획 시 또는 임신 초기 필수. 비타민 B12와 함께 복용 권장 (B12 결핍 가릴 수 있음)."
+    },
+    {
+      "id": 17,
+      "name": { "ko": "비타민 B12", "en": "Vitamin B12" },
+      "best_time": "morning",
+      "take_with_food": false,
+      "good_combinations": ["Folic Acid", "Vitamin B6", "Iron"],
+      "bad_combinations": ["Vitamin C (high dose, same time)", "Metformin (당뇨약)"],
+      "recommended_age": "all",
+      "daily_dosage": {
+        "adult": "2.4 mcg",
+        "child": "0.9-1.8 mcg",
+        "elderly": "2.4-100 mcg"
+      },
+      "notes": "채식주의자, 노인, 위절제술 환자는 결핍 위험. 설하정 형태가 흡수율 우수. 메트포르민 복용자 주의."
+    },
+    {
+      "id": 18,
+      "name": { "ko": "비타민 B6", "en": "Vitamin B6" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Magnesium", "Vitamin B12", "Folic Acid"],
+      "bad_combinations": ["Levodopa (without carbidopa)", "Anticonvulsants"],
+      "recommended_age": "all",
+      "daily_dosage": {
+        "adult": "1.3-1.7mg",
+        "child": "0.5-1.0mg",
+        "elderly": "1.5-1.7mg"
+      },
+      "notes": "고용량(100mg 이상) 장기 복용 시 신경 손상 위험. PMS 증상 완화 효과."
+    },
+    {
+      "id": 19,
+      "name": { "ko": "비오틴", "en": "Biotin" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Vitamin B Complex", "Zinc", "Collagen"],
+      "bad_combinations": ["Raw egg whites (avidin)", "Anticonvulsants"],
+      "recommended_age": "all",
+      "daily_dosage": {
+        "adult": "30-100 mcg",
+        "child": "8-25 mcg",
+        "elderly": "30-100 mcg"
+      },
+      "notes": "모발, 피부, 손톱 건강에 도움. 갑상선 검사 결과에 영향, 검사 전 3일 중단 필요."
+    },
+    {
+      "id": 20,
+      "name": { "ko": "셀레늄", "en": "Selenium" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Vitamin E", "Iodine", "Zinc"],
+      "bad_combinations": ["Vitamin C (high dose, same time)", "Antacids"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "55 mcg",
+        "child": "20-40 mcg",
+        "elderly": "55 mcg"
+      },
+      "notes": "갑상선 기능 지원. 과다 복용 시 탈모, 손톱 변형 등 셀레늄 중독 가능 (400mcg 초과 금지)."
+    },
+    {
+      "id": 21,
+      "name": { "ko": "크로뮴", "en": "Chromium" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Vitamin C", "Biotin", "Magnesium"],
+      "bad_combinations": ["Antacids", "Calcium carbonate", "당뇨약"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "25-35 mcg",
+        "child": "11-25 mcg",
+        "elderly": "20-30 mcg"
+      },
+      "notes": "혈당 조절 보조. 당뇨약 복용자는 저혈당 주의, 의사 상담 필수."
+    },
+    {
+      "id": 22,
+      "name": { "ko": "글루코사민", "en": "Glucosamine" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Chondroitin", "MSM", "Collagen"],
+      "bad_combinations": ["Warfarin (혈액희석제)", "당뇨약"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "1500mg",
+        "child": "권장하지 않음",
+        "elderly": "1500mg"
+      },
+      "notes": "관절 건강. 갑각류 알레르기 주의. 효과 체감까지 4-8주 소요. 혈당 약간 상승 가능."
+    },
+    {
+      "id": 23,
+      "name": { "ko": "콘드로이친", "en": "Chondroitin" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Glucosamine", "MSM", "Hyaluronic Acid"],
+      "bad_combinations": ["Warfarin (혈액희석제)"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "800-1200mg",
+        "child": "권장하지 않음",
+        "elderly": "800-1200mg"
+      },
+      "notes": "글루코사민과 함께 복용 시 시너지 효과. 효과 체감까지 2-3개월. 천식 환자 주의."
+    },
+    {
+      "id": 24,
+      "name": { "ko": "MSM", "en": "MSM (Methylsulfonylmethane)" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Glucosamine", "Chondroitin", "Vitamin C"],
+      "bad_combinations": ["Blood thinners (혈액희석제)"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "1000-3000mg",
+        "child": "권장하지 않음",
+        "elderly": "1000-3000mg"
+      },
+      "notes": "관절통 완화 및 항염 효과. 분할 복용 권장. 위장 장애 시 식후 섭취."
+    },
+    {
+      "id": 25,
+      "name": { "ko": "콜라겐", "en": "Collagen" },
+      "best_time": "before_sleep",
+      "take_with_food": false,
+      "good_combinations": ["Vitamin C", "Hyaluronic Acid", "Biotin"],
+      "bad_combinations": [],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "5-10g",
+        "child": "권장하지 않음",
+        "elderly": "10-15g"
+      },
+      "notes": "비타민 C와 함께 복용 시 흡수율 향상. 공복 또는 취침 전 섭취 효과적. 효과 체감까지 8-12주."
+    },
+    {
+      "id": 26,
+      "name": { "ko": "히알루론산", "en": "Hyaluronic Acid" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Collagen", "Vitamin C", "Chondroitin"],
+      "bad_combinations": [],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "120-240mg",
+        "child": "권장하지 않음",
+        "elderly": "120-240mg"
+      },
+      "notes": "피부 보습 및 관절 윤활. 충분한 수분 섭취 필요. 효과 체감까지 4-8주."
+    },
+    {
+      "id": 27,
+      "name": { "ko": "밀크씨슬", "en": "Milk Thistle" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Vitamin E", "Selenium", "N-Acetyl Cysteine"],
+      "bad_combinations": ["피임약", "Statins", "Diabetes medications (당뇨약)"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "200-400mg (실리마린 80% 기준)",
+        "child": "권장하지 않음",
+        "elderly": "200-400mg"
+      },
+      "notes": "간 보호 효과. 간 질환자는 의사 상담 후 복용. 약물 대사에 영향 줄 수 있음."
+    },
+    {
+      "id": 28,
+      "name": { "ko": "쏘팔메토", "en": "Saw Palmetto" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Zinc", "Pumpkin Seed Oil", "Lycopene"],
+      "bad_combinations": ["Blood thinners (혈액희석제)", "Hormone medications", "피임약"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "320mg",
+        "child": "권장하지 않음",
+        "elderly": "320mg"
+      },
+      "notes": "전립선 건강 (남성). 여성, 임산부, 청소년 복용 금지. 효과 체감까지 1-3개월."
+    },
+    {
+      "id": 29,
+      "name": { "ko": "은행잎 추출물", "en": "Ginkgo Biloba" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Ginseng", "Phosphatidylserine", "Vitamin E"],
+      "bad_combinations": ["Omega-3", "Aspirin", "Warfarin (혈액희석제)", "수면제"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "120-240mg",
+        "child": "권장하지 않음",
+        "elderly": "120-240mg"
+      },
+      "notes": "혈액순환 개선, 인지 기능 향상. 수술 2주 전 중단. 출혈 위험 증가 주의."
+    },
+    {
+      "id": 30,
+      "name": { "ko": "인삼", "en": "Ginseng" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Ginkgo Biloba", "Vitamin B Complex", "Rhodiola"],
+      "bad_combinations": ["Caffeine", "Warfarin (혈액희석제)", "당뇨약", "혈압약"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "200-400mg",
+        "child": "권장하지 않음",
+        "elderly": "200-400mg"
+      },
+      "notes": "면역력 강화, 활력 증진. 고혈압 환자 주의. 저녁 복용 시 불면증 가능. 3개월 복용 후 휴식 권장."
+    },
+    {
+      "id": 31,
+      "name": { "ko": "홍삼", "en": "Red Ginseng" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Vitamin B Complex", "Vitamin C", "Royal Jelly"],
+      "bad_combinations": ["Caffeine", "Warfarin (혈액희석제)", "혈압약", "당뇨약"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "1-3g (사포닌 25mg 이상)",
+        "child": "권장하지 않음",
+        "elderly": "1-3g"
+      },
+      "notes": "한국 대표 면역 강화 보충제. 고혈압, 열이 많은 체질은 주의. 임산부 복용 전 의사 상담."
+    },
+    {
+      "id": 32,
+      "name": { "ko": "마늘 추출물", "en": "Garlic Extract" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Coenzyme Q10", "Vitamin C", "Omega-3"],
+      "bad_combinations": ["Warfarin (혈액희석제)", "혈압약", "HIV medications"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "600-1200mg (allicin 기준 4-8mg)",
+        "child": "권장하지 않음",
+        "elderly": "600-1200mg"
+      },
+      "notes": "콜레스테롤 및 혈압 관리. 위장 자극 가능, 식후 섭취 권장. 수술 1주 전 중단."
+    },
+    {
+      "id": 33,
+      "name": { "ko": "커큐민/강황", "en": "Curcumin/Turmeric" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Black Pepper (Piperine)", "Omega-3", "Ginger"],
+      "bad_combinations": ["Warfarin (혈액희석제)", "당뇨약", "Stomach acid reducers"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "500-2000mg (curcumin 95%)",
+        "child": "권장하지 않음",
+        "elderly": "500-2000mg"
+      },
+      "notes": "항염 효과. 후추(피페린)와 함께 섭취 시 흡수율 2000% 향상. 담석 환자 주의."
+    },
+    {
+      "id": 34,
+      "name": { "ko": "레스베라트롤", "en": "Resveratrol" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Quercetin", "Vitamin C", "Coenzyme Q10"],
+      "bad_combinations": ["Warfarin (혈액희석제)", "피임약", "NSAIDs"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "150-500mg",
+        "child": "권장하지 않음",
+        "elderly": "150-500mg"
+      },
+      "notes": "항산화 효과. 호르몬 영향 가능, 호르몬 민감 질환자 주의. 임신 중 복용 금지."
+    },
+    {
+      "id": 35,
+      "name": { "ko": "아쉬와간다", "en": "Ashwagandha" },
+      "best_time": "evening",
+      "take_with_food": true,
+      "good_combinations": ["Magnesium", "L-Theanine", "Rhodiola"],
+      "bad_combinations": ["Thyroid medications", "수면제", "Immunosuppressants"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "300-600mg (KSM-66 기준)",
+        "child": "권장하지 않음",
+        "elderly": "300-600mg"
+      },
+      "notes": "스트레스, 코르티솔 감소. 갑상선 항진증 환자 주의. 임산부 금지. 가지과 알레르기 확인."
+    },
+    {
+      "id": 36,
+      "name": { "ko": "홍경천", "en": "Rhodiola" },
+      "best_time": "morning",
+      "take_with_food": false,
+      "good_combinations": ["Ashwagandha", "Vitamin B Complex", "Ginseng"],
+      "bad_combinations": ["수면제", "Antidepressants", "Stimulants"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "200-600mg",
+        "child": "권장하지 않음",
+        "elderly": "200-400mg"
+      },
+      "notes": "피로 감소, 정신 집중력 향상. 저녁 복용 시 불면증 유발. 양극성 장애 환자 금지."
+    },
+    {
+      "id": 37,
+      "name": { "ko": "L-카르니틴", "en": "L-Carnitine" },
+      "best_time": "morning",
+      "take_with_food": false,
+      "good_combinations": ["Coenzyme Q10", "Omega-3", "Vitamin B Complex"],
+      "bad_combinations": ["Thyroid medications", "Warfarin (혈액희석제)"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "500-2000mg",
+        "child": "권장하지 않음",
+        "elderly": "500-2000mg"
+      },
+      "notes": "지방 대사 및 운동 능력 향상. 운동 30분 전 복용. 갑상선 저하증 환자 주의."
+    },
+    {
+      "id": 38,
+      "name": { "ko": "크레아틴", "en": "Creatine" },
+      "best_time": "afternoon",
+      "take_with_food": true,
+      "good_combinations": ["Whey Protein", "BCAA", "Carbohydrates"],
+      "bad_combinations": ["Caffeine (high dose)", "Diuretics"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "3-5g",
+        "child": "권장하지 않음",
+        "elderly": "3-5g"
+      },
+      "notes": "근력 및 운동 수행 능력 향상. 충분한 수분 섭취 필요. 신장 질환자 의사 상담."
+    },
+    {
+      "id": 39,
+      "name": { "ko": "유청 단백질", "en": "Whey Protein" },
+      "best_time": "afternoon",
+      "take_with_food": false,
+      "good_combinations": ["Creatine", "BCAA", "Carbohydrates"],
+      "bad_combinations": ["Levodopa", "Bisphosphonates"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "20-40g (운동 후)",
+        "child": "권장하지 않음",
+        "elderly": "20-30g"
+      },
+      "notes": "운동 후 30분 이내 섭취 효과적. 유당 불내증자는 분리유청(WPI) 선택. 신장 질환자 주의."
+    },
+    {
+      "id": 40,
+      "name": { "ko": "BCAA", "en": "BCAA (Branched-Chain Amino Acids)" },
+      "best_time": "afternoon",
+      "take_with_food": false,
+      "good_combinations": ["Whey Protein", "Creatine", "L-Glutamine"],
+      "bad_combinations": ["Levodopa", "Diabetes medications (당뇨약)"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "5-10g",
+        "child": "권장하지 않음",
+        "elderly": "5-10g"
+      },
+      "notes": "운동 전후 섭취. 근육 손실 방지. 류신:이소류신:발린 = 2:1:1 비율 권장."
+    },
+    {
+      "id": 41,
+      "name": { "ko": "멜라토닌", "en": "Melatonin" },
+      "best_time": "before_sleep",
+      "take_with_food": false,
+      "good_combinations": ["Magnesium", "L-Theanine", "GABA"],
+      "bad_combinations": ["Caffeine", "수면제", "Alcohol", "혈압약", "당뇨약", "피임약"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "0.5-5mg",
+        "child": "1-3mg (의사 처방)",
+        "elderly": "0.5-2mg"
+      },
+      "notes": "취침 30-60분 전 복용. 한국에서는 처방약으로 분류. 장기 복용 시 자체 분비 감소 가능."
+    },
+    {
+      "id": 42,
+      "name": { "ko": "GABA", "en": "GABA (Gamma-Aminobutyric Acid)" },
+      "best_time": "before_sleep",
+      "take_with_food": false,
+      "good_combinations": ["L-Theanine", "Magnesium", "Melatonin"],
+      "bad_combinations": ["수면제", "Antidepressants", "Alcohol"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "100-750mg",
+        "child": "권장하지 않음",
+        "elderly": "100-500mg"
+      },
+      "notes": "이완 및 수면 보조. 임산부 금지. 저혈압 환자 주의."
+    },
+    {
+      "id": 43,
+      "name": { "ko": "L-테아닌", "en": "L-Theanine" },
+      "best_time": "evening",
+      "take_with_food": false,
+      "good_combinations": ["Caffeine (낮 시간)", "GABA", "Magnesium"],
+      "bad_combinations": ["혈압약", "Stimulants (high dose)"],
+      "recommended_age": "all",
+      "daily_dosage": {
+        "adult": "100-400mg",
+        "child": "100-200mg (의사 상담)",
+        "elderly": "100-400mg"
+      },
+      "notes": "이완 및 집중력 향상 (모순적이지 않음). 카페인과 함께 복용 시 안정적 각성 효과."
+    },
+    {
+      "id": 44,
+      "name": { "ko": "5-HTP", "en": "5-HTP (5-Hydroxytryptophan)" },
+      "best_time": "before_sleep",
+      "take_with_food": false,
+      "good_combinations": ["Vitamin B6", "Magnesium"],
+      "bad_combinations": ["Antidepressants (SSRI)", "Tramadol", "수면제", "St. John's Wort"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "50-300mg",
+        "child": "권장하지 않음",
+        "elderly": "50-200mg"
+      },
+      "notes": "세로토닌 전구체. 항우울제 복용자는 세로토닌 증후군 위험, 절대 금지. 저용량부터 시작."
+    },
+    {
+      "id": 45,
+      "name": { "ko": "SAM-e", "en": "SAM-e (S-Adenosylmethionine)" },
+      "best_time": "morning",
+      "take_with_food": false,
+      "good_combinations": ["Vitamin B12", "Folic Acid", "Vitamin B6"],
+      "bad_combinations": ["Antidepressants", "Levodopa", "MAO inhibitors"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "400-1600mg",
+        "child": "권장하지 않음",
+        "elderly": "400-1200mg"
+      },
+      "notes": "기분 및 관절 건강. 양극성 장애 환자 금지. 공복 복용. 분할 복용 권장."
+    },
+    {
+      "id": 46,
+      "name": { "ko": "스피루리나", "en": "Spirulina" },
+      "best_time": "morning",
+      "take_with_food": false,
+      "good_combinations": ["Chlorella", "Vitamin C", "Iron"],
+      "bad_combinations": ["Immunosuppressants", "혈액희석제"],
+      "recommended_age": "all",
+      "daily_dosage": {
+        "adult": "1-3g",
+        "child": "1g (의사 상담)",
+        "elderly": "1-3g"
+      },
+      "notes": "단백질 및 항산화 풍부. 자가면역 질환자 주의. PKU 환자 금지 (페닐알라닌 함유)."
+    },
+    {
+      "id": 47,
+      "name": { "ko": "클로렐라", "en": "Chlorella" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Spirulina", "Vitamin C", "Iron"],
+      "bad_combinations": ["Warfarin (혈액희석제)", "Immunosuppressants"],
+      "recommended_age": "all",
+      "daily_dosage": {
+        "adult": "2-5g",
+        "child": "1-2g",
+        "elderly": "2-5g"
+      },
+      "notes": "중금속 해독 보조. 비타민 K 함유로 와파린 복용자 주의. 요오드 알레르기 확인."
+    },
+    {
+      "id": 48,
+      "name": { "ko": "크랜베리 추출물", "en": "Cranberry Extract" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Vitamin C", "Probiotics", "D-Mannose"],
+      "bad_combinations": ["Warfarin (혈액희석제)", "Aspirin"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "500-1500mg",
+        "child": "250-500mg",
+        "elderly": "500-1500mg"
+      },
+      "notes": "요로 건강. 신장결석 병력자 주의. 와파린 복용자는 출혈 위험 증가."
+    },
+    {
+      "id": 49,
+      "name": { "ko": "달맞이꽃 종자유", "en": "Evening Primrose Oil" },
+      "best_time": "evening",
+      "take_with_food": true,
+      "good_combinations": ["Vitamin E", "Magnesium", "Vitamin B6"],
+      "bad_combinations": ["Warfarin (혈액희석제)", "수면제", "Phenothiazines"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "500-1300mg (GLA 기준 8-10%)",
+        "child": "권장하지 않음",
+        "elderly": "500-1300mg"
+      },
+      "notes": "PMS, 갱년기 증상 완화. 간질 환자 금지 (발작 위험). 수술 2주 전 중단."
+    },
+    {
+      "id": 50,
+      "name": { "ko": "아스타잔틴", "en": "Astaxanthin" },
+      "best_time": "morning",
+      "take_with_food": true,
+      "good_combinations": ["Omega-3", "Vitamin E", "Lutein", "Vitamin C"],
+      "bad_combinations": ["혈압약", "5-alpha-reductase inhibitors"],
+      "recommended_age": "adult",
+      "daily_dosage": {
+        "adult": "4-12mg",
+        "child": "권장하지 않음",
+        "elderly": "4-12mg"
+      },
+      "notes": "강력한 항산화제 (비타민 E의 500배). 지방과 함께 흡수율 향상. 호르몬 민감 질환자 주의."
+    }
+  ]
+}

@@ -1,0 +1,394 @@
+{
+  "version": "1.0",
+  "rules": [
+    {
+      "rule_id": "r001",
+      "type": "separation_required",
+      "supplements": ["철분", "칼슘"],
+      "minimum_gap_hours": 2,
+      "reason": "칼슘이 철분 흡수를 방해해요",
+      "solution": "철분은 점심, 칼슘은 저녁에 드세요"
+    },
+    {
+      "rule_id": "r002",
+      "type": "synergy",
+      "supplements": ["철분", "비타민C"],
+      "benefit": "비타민C가 철분 흡수율을 3배 가까이 높여줘요",
+      "recommendation": "같은 시간에 함께 드세요"
+    },
+    {
+      "rule_id": "r003",
+      "type": "separation_required",
+      "supplements": ["철분", "마그네슘"],
+      "minimum_gap_hours": 2,
+      "reason": "흡수가 서로 방해될 수 있어요",
+      "solution": "철분과 마그네슘은 시간을 다르게 드세요"
+    },
+    {
+      "rule_id": "r004",
+      "type": "separation_required",
+      "supplements": ["철분", "아연"],
+      "minimum_gap_hours": 2,
+      "reason": "흡수가 서로 방해될 수 있어요",
+      "solution": "두 가지는 다른 식사 시간에 드세요"
+    },
+    {
+      "rule_id": "r005",
+      "type": "separation_required",
+      "supplements": ["칼슘", "아연"],
+      "minimum_gap_hours": 2,
+      "reason": "흡수가 서로 방해될 수 있어요",
+      "solution": "두 가지는 시간을 분리해 드세요"
+    },
+    {
+      "rule_id": "r006",
+      "type": "separation_required",
+      "supplements": ["칼슘", "마그네슘 고용량"],
+      "minimum_gap_hours": 2,
+      "reason": "고용량 동시 복용 시 흡수가 방해될 수 있어요",
+      "solution": "칼슘은 저녁, 마그네슘은 취침 전 등으로 분리"
+    },
+    {
+      "rule_id": "r007",
+      "type": "synergy",
+      "supplements": ["비타민D", "칼슘"],
+      "benefit": "비타민D가 칼슘 흡수율을 높여줘요",
+      "recommendation": "같은 식사에 함께 드세요"
+    },
+    {
+      "rule_id": "r008",
+      "type": "synergy",
+      "supplements": ["비타민D", "비타민K2"],
+      "benefit": "칼슘이 뼈로 가도록 함께 도와요",
+      "recommendation": "같은 시간에 함께 드세요"
+    },
+    {
+      "rule_id": "r009",
+      "type": "synergy",
+      "supplements": ["비타민D", "마그네슘"],
+      "benefit": "비타민D 활성화에 마그네슘이 필요해요",
+      "recommendation": "같은 시간에 함께 드세요"
+    },
+    {
+      "rule_id": "r010",
+      "type": "synergy",
+      "supplements": ["오메가3", "비타민E"],
+      "benefit": "오메가3 산패를 막고 항산화가 함께 작용해요",
+      "recommendation": "같은 식사에 함께 드세요"
+    },
+    {
+      "rule_id": "r011",
+      "type": "caution",
+      "supplements": ["오메가3 고용량", "비타민E 고용량"],
+      "minimum_gap_hours": 0,
+      "reason": "둘 다 혈액 점도에 영향을 줄 수 있어 출혈 위험이 커질 수 있어요",
+      "solution": "용량을 권장량 이내로 유지하세요"
+    },
+    {
+      "rule_id": "r012",
+      "type": "caution",
+      "supplements": ["오메가3", "은행잎추출물"],
+      "minimum_gap_hours": 0,
+      "reason": "둘 다 혈액 점도에 영향을 줄 수 있어요",
+      "solution": "두 가지를 함께 드신다면 의사/약사 상담을 권장해요"
+    },
+    {
+      "rule_id": "r013",
+      "type": "caution",
+      "supplements": ["은행잎추출물", "마늘추출물"],
+      "minimum_gap_hours": 0,
+      "reason": "혈액 응고에 영향이 겹칠 수 있어요",
+      "solution": "병용 시 의사/약사 상담을 권장해요"
+    },
+    {
+      "rule_id": "r014",
+      "type": "synergy",
+      "supplements": ["글루코사민", "MSM"],
+      "benefit": "관절 통증 보조 시너지가 보고돼요",
+      "recommendation": "같은 시간에 함께 드세요"
+    },
+    {
+      "rule_id": "r015",
+      "type": "synergy",
+      "supplements": ["콜라겐", "비타민C"],
+      "benefit": "콜라겐 합성에 비타민C가 필요해요",
+      "recommendation": "같은 시간에 함께 드세요"
+    },
+    {
+      "rule_id": "r016",
+      "type": "synergy",
+      "supplements": ["콜라겐", "히알루론산"],
+      "benefit": "피부 보습 시너지가 좋아요",
+      "recommendation": "같은 시간에 함께 드세요"
+    },
+    {
+      "rule_id": "r017",
+      "type": "synergy",
+      "supplements": ["루테인", "지아잔틴"],
+      "benefit": "황반 색소를 함께 채워줘요",
+      "recommendation": "같은 식사에 함께 드세요"
+    },
+    {
+      "rule_id": "r018",
+      "type": "synergy",
+      "supplements": ["루테인", "오메가3"],
+      "benefit": "지용성 흡수와 눈 건강에 시너지가 있어요",
+      "recommendation": "같은 식사에 함께 드세요"
+    },
+    {
+      "rule_id": "r019",
+      "type": "synergy",
+      "supplements": ["L-테아닌", "마그네슘"],
+      "benefit": "이완·수면 보조 시너지가 있어요",
+      "recommendation": "취침 전에 함께 드세요"
+    },
+    {
+      "rule_id": "r020",
+      "type": "caution",
+      "supplements": ["L-테아닌", "수면제"],
+      "minimum_gap_hours": 0,
+      "reason": "이완 효과가 강해질 수 있어요",
+      "solution": "병용 전 의사/약사 상담을 권장해요"
+    },
+    {
+      "rule_id": "r021",
+      "type": "synergy",
+      "supplements": ["BCAA", "글루타민"],
+      "benefit": "운동 회복 시너지가 있어요",
+      "recommendation": "운동 직후에 함께 드세요"
+    },
+    {
+      "rule_id": "r022",
+      "type": "synergy",
+      "supplements": ["크레아틴", "탄수화물"],
+      "benefit": "근육 흡수가 좋아져요",
+      "recommendation": "운동 직후 식사·셰이크와 함께 드세요"
+    },
+    {
+      "rule_id": "r023",
+      "type": "separation_required",
+      "supplements": ["유산균", "뜨거운 음료"],
+      "minimum_gap_hours": 1,
+      "reason": "고온에서 균이 죽을 수 있어요",
+      "solution": "찬물·미지근한 물과 함께 드세요"
+    },
+    {
+      "rule_id": "r024",
+      "type": "separation_required",
+      "supplements": ["유산균", "항생제"],
+      "minimum_gap_hours": 2,
+      "reason": "항생제가 유산균을 죽일 수 있어요",
+      "solution": "항생제 복용과 2시간 이상 간격을 두세요"
+    },
+    {
+      "rule_id": "r025",
+      "type": "synergy",
+      "supplements": ["밀크씨슬", "비타민B군"],
+      "benefit": "간 대사 보조에 함께 작용해요",
+      "recommendation": "같은 시간에 함께 드세요"
+    },
+    {
+      "rule_id": "r026",
+      "type": "synergy",
+      "supplements": ["코엔자임Q10", "오메가3"],
+      "benefit": "심혈관·에너지 시너지가 좋아요",
+      "recommendation": "같은 식사에 함께 드세요"
+    },
+    {
+      "rule_id": "r027",
+      "type": "caution",
+      "supplements": ["베타카로틴 고용량", "흡연"],
+      "minimum_gap_hours": 0,
+      "reason": "흡연자에게는 폐암 위험 보고가 있어요",
+      "solution": "흡연자는 베타카로틴 고용량을 피하세요"
+    },
+    {
+      "rule_id": "r028",
+      "type": "caution",
+      "supplements": ["비타민A", "종합비타민"],
+      "minimum_gap_hours": 0,
+      "reason": "이미 종합비타민에 비타민A가 들어 있어 과다 위험이 있어요",
+      "solution": "단일 비타민A는 의사 상담 후에만 드세요"
+    },
+    {
+      "rule_id": "r029",
+      "type": "caution",
+      "supplements": ["철분", "종합비타민"],
+      "minimum_gap_hours": 0,
+      "reason": "이미 종합비타민에 철분이 들어 있을 수 있어 과다 위험이 있어요",
+      "solution": "성분표를 확인해 중복을 피하세요"
+    },
+    {
+      "rule_id": "r030",
+      "type": "separation_required",
+      "supplements": ["커피·차", "철분"],
+      "minimum_gap_hours": 1,
+      "reason": "탄닌이 철분 흡수를 방해해요",
+      "solution": "철분 전후 1시간은 커피·차를 피하세요"
+    }
+  ],
+  "time_slot_optimization": {
+    "morning_preferred": [
+      "종합비타민",
+      "비타민D",
+      "비타민B군",
+      "비타민C",
+      "CoQ10",
+      "코엔자임Q10",
+      "비오틴",
+      "엽산",
+      "프로폴리스",
+      "홍삼",
+      "스피루리나",
+      "베타글루칸",
+      "마카추출물",
+      "은행잎추출물",
+      "알파리포산",
+      "NAC",
+      "셀레늄",
+      "베타카로틴",
+      "비타민A",
+      "비타민E",
+      "리코펜",
+      "아스타잔틴"
+    ],
+    "lunch_preferred": [
+      "철분",
+      "유산균(식전)",
+      "크롬",
+      "BCAA",
+      "크레아틴",
+      "글루코사민",
+      "MSM"
+    ],
+    "evening_preferred": [
+      "오메가3",
+      "칼슘",
+      "비타민K2",
+      "감마리놀렌산",
+      "오메가7",
+      "아연",
+      "포스파티딜세린",
+      "레시틴",
+      "히알루론산",
+      "쏘팔메토",
+      "빌베리추출물",
+      "글루타민"
+    ],
+    "before_sleep_preferred": [
+      "마그네슘",
+      "L-테아닌",
+      "테아닌",
+      "콜라겐",
+      "GABA"
+    ],
+    "empty_stomach_ok": [
+      "유산균(프로바이오틱스)",
+      "스피루리나",
+      "베타글루칸",
+      "L-아르기닌",
+      "NAC",
+      "알파리포산"
+    ],
+    "must_take_with_food": [
+      "오메가3",
+      "오메가7",
+      "비타민A",
+      "비타민D",
+      "비타민E",
+      "비타민K2",
+      "루테인",
+      "코엔자임Q10",
+      "CoQ10",
+      "아스타잔틴",
+      "리코펜",
+      "베타카로틴",
+      "감마리놀렌산",
+      "포스파티딜세린",
+      "레시틴",
+      "쏘팔메토",
+      "은행잎추출물"
+    ]
+  },
+  "overdose_warnings": [
+    {
+      "nutrient": "비타민A",
+      "upper_limit_adult_mcg_rae": 3000,
+      "risk": "두통, 구역질, 간 손상, 임신 중 기형 위험",
+      "common_overlap": ["종합비타민", "비타민A 단독", "베타카로틴 고용량"],
+      "warning_message": "종합비타민과 비타민A를 함께 드시면 과다복용 위험이 있어요"
+    },
+    {
+      "nutrient": "비타민D",
+      "upper_limit_adult_iu": 4000,
+      "risk": "고칼슘혈증, 신장 부담",
+      "common_overlap": ["종합비타민", "비타민D 단독", "칼슘+D 복합제"],
+      "warning_message": "여러 제품에 비타민D가 들어 있으면 합산 용량을 확인하세요"
+    },
+    {
+      "nutrient": "비타민E",
+      "upper_limit_adult_mg": 540,
+      "risk": "출혈 경향 증가",
+      "common_overlap": ["종합비타민", "비타민E 단독", "오메가3 고용량과 동시"],
+      "warning_message": "혈액희석제 복용자는 비타민E 고용량을 피하세요"
+    },
+    {
+      "nutrient": "철분",
+      "upper_limit_adult_mg": 45,
+      "risk": "변비, 위장 자극, 간 부담",
+      "common_overlap": ["종합비타민", "철분 단독", "임산부용 영양제"],
+      "warning_message": "철분 결핍이 확인된 경우에만 단독 보충을 권장하는 경우가 많아요"
+    },
+    {
+      "nutrient": "칼슘",
+      "upper_limit_adult_mg": 2500,
+      "risk": "결석, 심혈관 부담",
+      "common_overlap": ["종합비타민", "칼슘 단독", "유제품 다량 섭취"],
+      "warning_message": "1회 500mg 이하로 나눠 드시는 게 흡수와 안전에 좋아요"
+    },
+    {
+      "nutrient": "마그네슘(보충제)",
+      "upper_limit_adult_mg": 350,
+      "risk": "설사, 복부 불편",
+      "common_overlap": ["마그네슘 단독", "변비약(마그네슘 함유)"],
+      "warning_message": "보충제 기준 350mg을 넘기지 않는 게 안전해요"
+    },
+    {
+      "nutrient": "아연",
+      "upper_limit_adult_mg": 35,
+      "risk": "장기 과다 시 구리 결핍, 면역 저하",
+      "common_overlap": ["종합비타민", "아연 단독", "감기 시 고용량 보충"],
+      "warning_message": "장기 고용량 복용은 피해 주세요"
+    },
+    {
+      "nutrient": "셀레늄",
+      "upper_limit_adult_mcg": 400,
+      "risk": "탈모, 손톱 변형, 위장 장애",
+      "common_overlap": ["종합비타민", "셀레늄 단독", "브라질너트 다량"],
+      "warning_message": "브라질너트를 자주 드시면 별도 셀레늄 보충은 피하세요"
+    },
+    {
+      "nutrient": "비타민B6",
+      "upper_limit_adult_mg": 100,
+      "risk": "고용량·장기 시 말초 신경 부담",
+      "common_overlap": ["종합비타민", "B군 복합제", "PMS용 고용량 B6"],
+      "warning_message": "여러 제품 합산이 100mg을 넘지 않게 확인하세요"
+    },
+    {
+      "nutrient": "엽산",
+      "upper_limit_adult_mcg": 1000,
+      "risk": "B12 결핍을 가릴 수 있음",
+      "common_overlap": ["종합비타민", "임산부용 영양제", "엽산 단독"],
+      "warning_message": "고용량 엽산은 B12 결핍 신호를 가릴 수 있어요"
+    }
+  ],
+  "general_principles": {
+    "max_supplements_per_meal": "한 끼에 4~5종 이내로 분산하는 게 흡수에 좋아요",
+    "water_intake": "보충제 복용 시 충분한 물(200ml 이상)과 함께 드세요",
+    "consistency": "꾸준한 복용이 효과를 만드는 가장 큰 요인이에요",
+    "pregnancy_nursing": "임신/수유 중에는 반드시 전문가 상담 후 복용하세요",
+    "children_under_12": "어린이 용량은 반드시 확인하세요",
+    "drug_interactions": "약 복용 중이라면 반드시 의사/약사와 상담 후 복용하세요"
+  },
+  "disclaimer": "이 정보는 건강기능식품 정보이며 의료적 진단을 대체하지 않아요. 전문가 상담을 권장드려요."
+}
