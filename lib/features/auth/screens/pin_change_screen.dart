@@ -1,11 +1,10 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/security/auth_service.dart';
 import '../../../core/theme/app_theme.dart';
+import '../widgets/pin_numpad.dart';
 
 /// PIN 변경. 3 단계: 현재 PIN → 새 PIN → 새 PIN 확인.
 ///
@@ -38,13 +37,7 @@ class _PinChangeScreenState extends State<PinChangeScreen> {
   @override
   void initState() {
     super.initState();
-    _digits = _shuffled();
-  }
-
-  List<int> _shuffled() {
-    final list = List<int>.generate(10, (i) => i);
-    list.shuffle(math.Random.secure());
-    return list;
+    _digits = shuffledDigits();
   }
 
   void _onKey(int d) {
@@ -77,7 +70,7 @@ class _PinChangeScreenState extends State<PinChangeScreen> {
             _saving = false;
             _step = _Step.newPin;
             _currentEntry = '';
-            _digits = _shuffleKeys ? _shuffled() : _digits;
+            _digits = _shuffleKeys ? shuffledDigits() : _digits;
           });
         } else {
           await _shakeAndReset(error: 'PIN이 맞지 않아요');
@@ -90,7 +83,7 @@ class _PinChangeScreenState extends State<PinChangeScreen> {
         setState(() {
           _step = _Step.confirmPin;
           _currentEntry = '';
-          _digits = _shuffleKeys ? _shuffled() : _digits;
+          _digits = _shuffleKeys ? shuffledDigits() : _digits;
         });
         break;
       case _Step.confirmPin:
@@ -141,7 +134,7 @@ class _PinChangeScreenState extends State<PinChangeScreen> {
       _step = backTo ?? _step;
       _currentEntry = '';
       _newPin = backTo == _Step.newPin ? '' : _newPin;
-      _digits = _shuffleKeys ? _shuffled() : _digits;
+      _digits = _shuffleKeys ? shuffledDigits() : _digits;
     });
   }
 
@@ -239,7 +232,7 @@ class _PinChangeScreenState extends State<PinChangeScreen> {
                 ),
               const Spacer(),
               if (_step != _Step.done && !_saving)
-                _Numpad(
+                PinNumpad(
                   digits: _digits,
                   onKey: _onKey,
                   onBackspace: _onBackspace,
@@ -250,84 +243,14 @@ class _PinChangeScreenState extends State<PinChangeScreen> {
                   child: CircularProgressIndicator(color: AppTheme.primary),
                 ),
               const SizedBox(height: 8),
-              TextButton.icon(
-                onPressed: () => setState(() {
+              PinShuffleToggle(
+                shuffleEnabled: _shuffleKeys,
+                onToggle: () => setState(() {
                   _shuffleKeys = !_shuffleKeys;
-                  _digits = _shuffleKeys
-                      ? _shuffled()
-                      : List<int>.generate(10, (i) => i);
+                  _digits = _shuffleKeys ? shuffledDigits() : orderedDigits();
                 }),
-                icon: Icon(
-                  _shuffleKeys ? Icons.shuffle : Icons.grid_view_outlined,
-                  size: 16,
-                ),
-                label: Text(
-                  _shuffleKeys ? '보안 키패드 (랜덤)' : '일반 키패드',
-                  style: const TextStyle(fontSize: 13),
-                ),
-                style: TextButton.styleFrom(foregroundColor: AppTheme.subtle),
               ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _Numpad extends StatelessWidget {
-  const _Numpad({
-    required this.digits,
-    required this.onKey,
-    required this.onBackspace,
-  });
-  final List<int> digits;
-  final void Function(int) onKey;
-  final VoidCallback onBackspace;
-
-  @override
-  Widget build(BuildContext context) {
-    return GridView.count(
-      crossAxisCount: 3,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      childAspectRatio: 1.5,
-      mainAxisSpacing: 8,
-      crossAxisSpacing: 8,
-      children: [
-        for (var i = 0; i < 9; i++) _key(digits[i]),
-        const SizedBox.shrink(),
-        _key(digits[9]),
-        InkWell(
-          onTap: onBackspace,
-          borderRadius: BorderRadius.circular(16),
-          child: const Center(
-            child: Icon(
-              Icons.backspace_outlined,
-              size: 24,
-              color: AppTheme.subtle,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _key(int d) {
-    return Material(
-      color: AppTheme.cream,
-      borderRadius: BorderRadius.circular(16),
-      child: InkWell(
-        onTap: () => onKey(d),
-        borderRadius: BorderRadius.circular(16),
-        child: Center(
-          child: Text(
-            d.toString(),
-            style: const TextStyle(
-              fontSize: 26,
-              fontWeight: FontWeight.w700,
-              color: AppTheme.ink,
-            ),
           ),
         ),
       ),

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/security/auth_service.dart';
 import '../../../core/theme/app_theme.dart';
+import '../widgets/pin_numpad.dart';
 
 /// 잠금 해제 화면. 다음 시점에서 노출:
 /// - 앱 실행 시 PIN 설정되어 있고 세션 만료 (5분 이상 background)
@@ -44,7 +44,7 @@ class _PinLockScreenState extends State<PinLockScreen> {
   @override
   void initState() {
     super.initState();
-    _digits = _shuffled();
+    _digits = shuffledDigits();
     _startTicker();
     _refreshState();
     // 자동 생체 prompt — 잠금 안 걸려있을 때만.
@@ -97,12 +97,6 @@ class _PinLockScreenState extends State<PinLockScreen> {
     if (ok && mounted) _onUnlocked();
   }
 
-  List<int> _shuffled() {
-    final list = List<int>.generate(10, (i) => i);
-    list.shuffle(math.Random.secure());
-    return list;
-  }
-
   void _onKey(int d) async {
     if (_lockoutDisabledNow()) return;
     if (_currentPin.length >= AuthService.pinLength) return;
@@ -134,7 +128,7 @@ class _PinLockScreenState extends State<PinLockScreen> {
     setState(() {
       _shake = true;
       _currentPin = '';
-      _digits = _shuffled();
+      _digits = shuffledDigits();
     });
     HapticFeedback.heavyImpact();
     await Future.delayed(const Duration(milliseconds: 400));
@@ -256,7 +250,7 @@ class _PinLockScreenState extends State<PinLockScreen> {
                   ),
                 )
               else
-                _Numpad(
+                PinNumpad(
                   digits: _digits,
                   onKey: _onKey,
                   onBackspace: _onBackspace,
@@ -346,63 +340,3 @@ class _PinLockScreenState extends State<PinLockScreen> {
   }
 }
 
-class _Numpad extends StatelessWidget {
-  const _Numpad({
-    required this.digits,
-    required this.onKey,
-    required this.onBackspace,
-  });
-
-  final List<int> digits;
-  final void Function(int) onKey;
-  final VoidCallback onBackspace;
-
-  @override
-  Widget build(BuildContext context) {
-    return GridView.count(
-      crossAxisCount: 3,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      childAspectRatio: 1.5,
-      mainAxisSpacing: 8,
-      crossAxisSpacing: 8,
-      children: [
-        for (var i = 0; i < 9; i++) _key(digits[i]),
-        const SizedBox.shrink(),
-        _key(digits[9]),
-        InkWell(
-          onTap: onBackspace,
-          borderRadius: BorderRadius.circular(16),
-          child: const Center(
-            child: Icon(
-              Icons.backspace_outlined,
-              size: 24,
-              color: AppTheme.subtle,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _key(int d) {
-    return Material(
-      color: AppTheme.cream,
-      borderRadius: BorderRadius.circular(16),
-      child: InkWell(
-        onTap: () => onKey(d),
-        borderRadius: BorderRadius.circular(16),
-        child: Center(
-          child: Text(
-            d.toString(),
-            style: const TextStyle(
-              fontSize: 26,
-              fontWeight: FontWeight.w700,
-              color: AppTheme.ink,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}

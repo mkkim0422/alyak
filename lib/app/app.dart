@@ -40,13 +40,17 @@ class _AlyakAppState extends ConsumerState<AlyakApp> {
 
   @override
   Widget build(BuildContext context) {
-    return SecureAppShell(
-      child: MaterialApp.router(
-        title: '알약',
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.light(),
-        routerConfig: _router,
-      ),
+    // SecureAppShell 은 MaterialApp 안쪽 builder 로 두어야 한다.
+    // 그래야 백그라운드 잠금 시 띄우는 PinLockScreen (Scaffold 사용) 이
+    // Material/Theme/Navigator 조상을 찾을 수 있다. 바깥에 두면 production 에서
+    // "No Material widget found" assertion 으로 크래시.
+    return MaterialApp.router(
+      title: '알약',
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.light(),
+      routerConfig: _router,
+      builder: (context, child) =>
+          SecureAppShell(child: child ?? const SizedBox.shrink()),
     );
   }
 }

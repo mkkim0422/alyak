@@ -1,11 +1,10 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/security/auth_service.dart';
 import '../../../core/theme/app_theme.dart';
+import '../widgets/pin_numpad.dart';
 
 /// PIN 4자리 설정 (4단계). 토스 스타일 흰 배경 + 봇 메시지 + 숫자 키패드.
 ///
@@ -38,19 +37,13 @@ class _PinSetupScreenState extends State<PinSetupScreen> {
   @override
   void initState() {
     super.initState();
-    _digits = _shuffleKeys ? _shuffled() : List<int>.generate(10, (i) => i);
+    _digits = _shuffleKeys ? shuffledDigits() : orderedDigits();
     _checkBiometric();
   }
 
   Future<void> _checkBiometric() async {
     final available = await AuthService.instance.isBiometricAvailable();
     if (mounted) setState(() => _biometricAvailable = available);
-  }
-
-  List<int> _shuffled() {
-    final list = List<int>.generate(10, (i) => i);
-    list.shuffle(math.Random.secure());
-    return list;
   }
 
   void _onKey(int d) {
@@ -77,7 +70,7 @@ class _PinSetupScreenState extends State<PinSetupScreen> {
         setState(() {
           _step = _Step.confirmPin;
           _currentPin = '';
-          _digits = _shuffleKeys ? _shuffled() : _digits;
+          _digits = _shuffleKeys ? shuffledDigits() : _digits;
         });
         break;
       case _Step.confirmPin:
@@ -108,7 +101,7 @@ class _PinSetupScreenState extends State<PinSetupScreen> {
       _step = _Step.setPin;
       _firstPin = '';
       _currentPin = '';
-      _digits = _shuffleKeys ? _shuffled() : _digits;
+      _digits = _shuffleKeys ? shuffledDigits() : _digits;
     });
   }
 
@@ -131,6 +124,13 @@ class _PinSetupScreenState extends State<PinSetupScreen> {
     }
   }
 
+  void _toggleShuffle() {
+    setState(() {
+      _shuffleKeys = !_shuffleKeys;
+      _digits = _shuffleKeys ? shuffledDigits() : orderedDigits();
+    });
+  }
+
   Future<void> _onAutoWipe(bool enabled) async {
     setState(() => _saving = true);
     await AuthService.instance.setAutoWipeEnabled(enabled);
@@ -141,7 +141,10 @@ class _PinSetupScreenState extends State<PinSetupScreen> {
     });
     await Future.delayed(const Duration(milliseconds: 700));
     if (!mounted) return;
-    context.go('/onboarding/welcome');
+    // /boot 경유 — redirect 가 (notification 미설정/가족 미등록 등을 보고) 다음 화면 결정.
+    // 직접 /onboarding/welcome 으로 보내면 이미 가족/알림 등록 끝낸 사용자
+    // (Settings 에서 PIN 추가) 도 welcome 으로 떨어져 혼란.
+    context.go('/boot');
   }
 
   @override
@@ -170,12 +173,7 @@ class _PinSetupScreenState extends State<PinSetupScreen> {
           onKey: _onKey,
           onBackspace: _onBackspace,
           shuffleEnabled: _shuffleKeys,
-          onToggleShuffle: () => setState(() {
-            _shuffleKeys = !_shuffleKeys;
-            _digits = _shuffleKeys
-                ? _shuffled()
-                : List<int>.generate(10, (i) => i);
-          }),
+          onToggleShuffle: _toggleShuffle,
         );
       case _Step.confirmPin:
         return _PinInput(
@@ -187,12 +185,7 @@ class _PinSetupScreenState extends State<PinSetupScreen> {
           onKey: _onKey,
           onBackspace: _onBackspace,
           shuffleEnabled: _shuffleKeys,
-          onToggleShuffle: () => setState(() {
-            _shuffleKeys = !_shuffleKeys;
-            _digits = _shuffleKeys
-                ? _shuffled()
-                : List<int>.generate(10, (i) => i);
-          }),
+          onToggleShuffle: _toggleShuffle,
         );
       case _Step.biometric:
         return _ChoiceStep(
@@ -303,92 +296,14 @@ class _PinInput extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        _Numpad(
-          digits: digits,
-          onKey: onKey,
-          onBackspace: onBackspace,
-        ),
+        PinNumpad(digits: digits, onKey: onKey, onBackspace: onBackspace),
         const SizedBox(height: 12),
-        TextButton.icon(
-          onPressed: onToggleShuffle,
-          icon: Icon(
-            shuffleEnabled ? Icons.shuffle : Icons.grid_view_outlined,
-            size: 16,
-          ),
-          label: Text(
-            shuffleEnabled ? '보안 키패드 (랜덤)' : '일반 키패드',
-            style: const TextStyle(fontSize: 13),
-          ),
-          style: TextButton.styleFrom(foregroundColor: AppTheme.subtle),
+        PinShuffleToggle(
+          shuffleEnabled: shuffleEnabled,
+          onToggle: onToggleShuffle,
         ),
         const SizedBox(height: 8),
       ],
-    );
-  }
-}
-
-class _Numpad extends StatelessWidget {
-  const _Numpad({
-    required this.digits,
-    required this.onKey,
-    required this.onBackspace,
-  });
-
-  final List<int> digits;
-  final void Function(int) onKey;
-  final VoidCallback onBackspace;
-
-  @override
-  Widget build(BuildContext context) {
-    // 9-key + bottom row (empty / 0 / backspace).
-    return GridView.count(
-      crossAxisCount: 3,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      childAspectRatio: 1.5,
-      mainAxisSpacing: 8,
-      crossAxisSpacing: 8,
-      children: [
-        for (var i = 0; i < 9; i++) _key(digits[i]),
-        const SizedBox.shrink(),
-        _key(digits[9]),
-        _backspaceKey(),
-      ],
-    );
-  }
-
-  Widget _key(int d) {
-    return Material(
-      color: AppTheme.cream,
-      borderRadius: BorderRadius.circular(16),
-      child: InkWell(
-        onTap: () => onKey(d),
-        borderRadius: BorderRadius.circular(16),
-        child: Center(
-          child: Text(
-            d.toString(),
-            style: const TextStyle(
-              fontSize: 26,
-              fontWeight: FontWeight.w700,
-              color: AppTheme.ink,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _backspaceKey() {
-    return InkWell(
-      onTap: onBackspace,
-      borderRadius: BorderRadius.circular(16),
-      child: const Center(
-        child: Icon(
-          Icons.backspace_outlined,
-          size: 24,
-          color: AppTheme.subtle,
-        ),
-      ),
     );
   }
 }

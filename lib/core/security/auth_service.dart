@@ -53,6 +53,8 @@ class AuthService {
   }
 
   /// 새 PIN 을 설정. 기존 hash/salt 가 있어도 덮어쓴다 (변경 흐름은 [changePin]).
+  /// PIN 을 막 만든 사용자는 그 행위 자체로 인증된 상태이므로 세션을 시작해
+  /// 5분 sessionTimeout 안에는 재인증을 요구하지 않는다.
   Future<void> setPin(String pin) async {
     _assertPinShape(pin);
     final salt = _randomBytes(_saltLength);
@@ -61,6 +63,8 @@ class AuthService {
     await SecureStorage.write(SecureStorage.kAuthPinHash, base64Encode(hash));
     // 새 PIN 설정 시 실패 카운터/잠금 리셋.
     await resetFailedAttempts();
+    // 방금 PIN 을 설정한 사용자는 인증된 것으로 간주 — 세션 시작.
+    await startSession();
   }
 
   /// PIN 검증. 일치하면 true 반환 + 세션 시작 + 실패 카운터 리셋.

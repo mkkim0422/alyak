@@ -177,7 +177,9 @@ class _PrivacyConsentScreenState extends ConsumerState<PrivacyConsentScreen> {
         PrivacyConsentScreen.consentVersion,
       );
       if (!mounted) return;
-      context.go('/onboarding/welcome');
+      // /boot 으로 보내 redirect 가 PIN 설정 / 세션 / 온보딩 단계를 결정하게 한다.
+      // 직접 /onboarding/welcome 으로 보내면 PIN 강제 단계가 우회되어 보안 구멍.
+      context.go('/boot');
     } finally {
       if (mounted) setState(() => _saving = false);
     }
