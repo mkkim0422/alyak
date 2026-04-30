@@ -162,7 +162,8 @@ class _PinSetupScreenState extends State<PinSetupScreen> {
       case _Step.setPin:
         return _PinInput(
           title: '안전을 위해 PIN을 설정해주세요 🔒',
-          subtitle: '가족 건강 정보를 보호하는 4자리 비밀번호예요',
+          subtitle: '가족 건강 정보 보호를 위해 필수예요. '
+              '4자리 숫자를 정해주세요',
           currentLength: _currentPin.length,
           shake: _shake,
           digits: _digits,

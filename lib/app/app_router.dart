@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../core/security/auth_service.dart';
 import '../core/security/secure_storage.dart';
 import '../core/theme/app_theme.dart';
 import '../features/admin/admin_panel_screen.dart';
+import '../features/auth/screens/pin_change_screen.dart';
 import '../features/auth/screens/pin_lock_screen.dart';
 import '../features/auth/screens/pin_setup_screen.dart';
 import '../features/family/screens/family_edit_screen.dart';
@@ -43,6 +45,10 @@ class AppRouter {
         GoRoute(
           path: PinLockScreen.routeName,
           builder: (context, state) => const PinLockScreen(),
+        ),
+        GoRoute(
+          path: PinChangeScreen.routeName,
+          builder: (context, state) => const PinChangeScreen(),
         ),
         GoRoute(
           path: WelcomeScreen.routeName,
@@ -135,18 +141,30 @@ class AppRouter {
     );
   }
 
-  /// 첫 진입 시 동의/온보딩 완료 상태를 보고 진입점을 결정.
-  /// 알림 설정까지 끝낸 사용자(=`kNotificationSettings` 보유) 만 곧장 홈으로,
-  /// 그 외엔 동의 단계 → 웰컴 화면으로 들어간다. 그 외 라우트는 통과.
+  /// 첫 진입 시 동의/PIN/온보딩 완료 상태를 보고 진입점을 결정.
+  ///
+  /// 진입 순서 (QA Round 3):
+  ///   privacy_consent → pin_setup → pin_lock(세션 만료 시) → welcome →
+  ///   family_add → notification → home
   static Future<String?> _redirect(
     BuildContext context,
     GoRouterState state,
   ) async {
     if (state.matchedLocation != '/boot') return null;
+
     final consent = await SecureStorage.read(SecureStorage.kPrivacyConsentAt);
     if (consent == null) return PrivacyConsentScreen.routeName;
     // TODO(legal): when PrivacyConsentScreen.consentVersion bumps, compare with
     // the stored kPrivacyConsentVersion and re-prompt if outdated.
+
+    // PIN 미설정 → 강제 설정 (의료 데이터 보호 필수).
+    final pinSet = await AuthService.instance.isPinSet();
+    if (!pinSet) return PinSetupScreen.routeName;
+
+    // PIN 은 설정됐지만 세션 만료 (5분 이상 background) → 잠금 화면.
+    final sessionActive = await AuthService.instance.isSessionActive();
+    if (!sessionActive) return PinLockScreen.routeName;
+
     final notif =
         await SecureStorage.read(SecureStorage.kNotificationSettings);
     if (notif == null) return WelcomeScreen.routeName;
