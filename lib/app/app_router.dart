@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import '../core/security/secure_storage.dart';
 import '../core/theme/app_theme.dart';
 import '../features/admin/admin_panel_screen.dart';
+import '../features/auth/screens/pin_lock_screen.dart';
+import '../features/auth/screens/pin_setup_screen.dart';
 import '../features/family/screens/family_edit_screen.dart';
 import '../features/family/screens/family_management_screen.dart';
 import '../features/family/screens/recommendation_detail_screen.dart';
@@ -33,6 +35,14 @@ class AppRouter {
         GoRoute(
           path: PrivacyConsentScreen.routeName,
           builder: (context, state) => const PrivacyConsentScreen(),
+        ),
+        GoRoute(
+          path: PinSetupScreen.routeName,
+          builder: (context, state) => const PinSetupScreen(),
+        ),
+        GoRoute(
+          path: PinLockScreen.routeName,
+          builder: (context, state) => const PinLockScreen(),
         ),
         GoRoute(
           path: WelcomeScreen.routeName,

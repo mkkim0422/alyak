@@ -52,6 +52,8 @@ dependencies:
   package_info_plus: ^9.0.1
   url_launcher: ^6.3.0
   shared_preferences: ^2.3.3
+  local_auth: ^2.3.0
+  pointycastle: ^3.9.1
 
 dev_dependencies:
   flutter_test:

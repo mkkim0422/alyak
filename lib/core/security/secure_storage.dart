@@ -62,6 +62,16 @@ class SecureStorage {
   static const kStreakLastDate = 'streak.last_date';
   static const kStreakBest = 'streak.best';
 
+  // QA Round 2 — PIN / 생체 인증 / 세션 잠금 관련 키.
+  // PIN 자체는 절대 평문 저장하지 않고, PBKDF2-HMAC-SHA256 100k iter 결과만 저장.
+  static const kAuthPinHash = 'auth.pin.hash';
+  static const kAuthPinSalt = 'auth.pin.salt';
+  static const kAuthFailedAttempts = 'auth.failed_attempts';
+  static const kAuthLockoutUntil = 'auth.lockout_until';
+  static const kAuthBiometricEnabled = 'auth.biometric_enabled';
+  static const kAuthLastAuth = 'auth.last_auth';
+  static const kAuthAutoWipeEnabled = 'auth.auto_wipe_enabled';
+
   static Future<void> write(String key, String value) =>
       _storage.write(key: key, value: value);
 

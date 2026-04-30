@@ -9,6 +9,7 @@ import '../../core/notifications/notification_service.dart';
 import '../../core/security/secure_storage.dart';
 import '../../core/theme/app_theme.dart';
 import '../admin/admin_panel_screen.dart';
+import '../auth/screens/pin_setup_screen.dart';
 import '../family/providers/family_members_provider.dart';
 import '../family/screens/family_management_screen.dart';
 import '../home/providers/home_feed_provider.dart';
@@ -54,6 +55,15 @@ class SettingsScreen extends ConsumerWidget {
             subtitle: AppStrings.settingsTileFamilyManageSub,
             trailing: const Icon(Icons.chevron_right, color: AppTheme.subtle),
             onTap: () => context.push(FamilyManagementScreen.routeName),
+          ),
+          const _Divider(),
+          _SectionHeader('보안'),
+          _Tile(
+            icon: Icons.lock_outline,
+            title: 'PIN 설정',
+            subtitle: '4자리 PIN 으로 가족 정보를 보호해요',
+            trailing: const Icon(Icons.chevron_right, color: AppTheme.subtle),
+            onTap: () => context.push(PinSetupScreen.routeName),
           ),
           const _Divider(),
           _SectionHeader(AppStrings.settingsSectionAccount),
