@@ -10,6 +10,7 @@ import '../features/family/screens/recommendation_detail_screen.dart';
 import '../features/family/screens/supplement_guide_screen.dart';
 import '../features/health_checkup/screens/health_checkup_input_screen.dart';
 import '../features/home/screens/home_screen.dart';
+import '../features/legal/disclaimer_screen.dart';
 import '../features/legal/privacy_policy_screen.dart';
 import '../features/notifications/screens/notification_settings_screen.dart';
 import '../features/onboarding/family_chat/family_chat_screen.dart';
@@ -96,6 +97,10 @@ class AppRouter {
         GoRoute(
           path: PrivacyPolicyScreen.routeName,
           builder: (context, state) => const PrivacyPolicyScreen(),
+        ),
+        GoRoute(
+          path: DisclaimerScreen.routeName,
+          builder: (context, state) => const DisclaimerScreen(),
         ),
         GoRoute(
           path: SymptomSearchScreen.routeName,

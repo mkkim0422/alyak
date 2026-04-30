@@ -12,6 +12,7 @@ import '../admin/admin_panel_screen.dart';
 import '../family/providers/family_members_provider.dart';
 import '../family/screens/family_management_screen.dart';
 import '../home/providers/home_feed_provider.dart';
+import '../legal/disclaimer_screen.dart';
 import '../legal/privacy_policy_screen.dart';
 import '../notifications/models/notification_settings.dart';
 import '../notifications/providers/notification_settings_provider.dart';
@@ -98,6 +99,12 @@ class SettingsScreen extends ConsumerWidget {
             title: AppStrings.settingsTilePrivacy,
             trailing: const Icon(Icons.chevron_right, color: AppTheme.subtle),
             onTap: () => context.push(PrivacyPolicyScreen.routeName),
+          ),
+          _Tile(
+            icon: Icons.gpp_maybe_outlined,
+            title: '면책 사항',
+            trailing: const Icon(Icons.chevron_right, color: AppTheme.subtle),
+            onTap: () => context.push(DisclaimerScreen.routeName),
           ),
           const _AppVersionTile(),
           const SizedBox(height: 32),
