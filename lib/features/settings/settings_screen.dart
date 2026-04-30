@@ -155,7 +155,8 @@ class SettingsScreen extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
   ) async {
-    final ok = await showDialog<bool>(
+    // 1단계: 일반 confirm.
+    final firstOk = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text(AppStrings.settingsDeleteDialogTitle),
@@ -173,7 +174,54 @@ class SettingsScreen extends ConsumerWidget {
         ],
       ),
     );
-    if (ok != true) return;
+    if (firstOk != true) return;
+    if (!context.mounted) return;
+
+    // 2단계: "삭제" 라고 타이핑 받기. 오타 방지.
+    final controller = TextEditingController();
+    final confirmText = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setState) {
+          final canSubmit = controller.text.trim() == '삭제';
+          return AlertDialog(
+            title: const Text('정말 삭제할까요?'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  '복구할 수 없어요. 모든 가족 정보 / 체크인 기록 / 알림 설정이 사라집니다.\n'
+                  '계속하려면 아래 칸에 "삭제" 라고 입력해주세요.',
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: controller,
+                  autofocus: true,
+                  decoration: const InputDecoration(
+                    hintText: '삭제',
+                    border: OutlineInputBorder(),
+                  ),
+                  onChanged: (_) => setState(() {}),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(ctx, false),
+                child: const Text(AppStrings.cancel),
+              ),
+              TextButton(
+                onPressed: canSubmit ? () => Navigator.pop(ctx, true) : null,
+                style: TextButton.styleFrom(foregroundColor: AppTheme.danger),
+                child: const Text(AppStrings.delete),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+    if (confirmText != true) return;
     await _wipeEverything(ref);
     if (!context.mounted) return;
     context.go(PrivacyConsentScreen.routeName);

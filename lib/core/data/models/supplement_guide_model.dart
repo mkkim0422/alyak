@@ -190,6 +190,11 @@ class SupplementGuide {
   /// `elderly`, `child`, `female_30s`, `vegetarian` 등. supplement_guide.json
   /// 데이터가 미비하면 빈 맵 — repository 가 mainBenefits/기본 reason 으로 폴백.
   final Map<String, String> personalizedReasons;
+
+  /// 잠재 알레르기 원료 (예: 우유/생선/대두/갑각류/효모). 사용자가
+  /// FamilyInput.allergyItems 에 같은 항목을 넣었을 때 안전 필터가 차단/경고에 활용.
+  final List<String> commonAllergens;
+
   final String disclaimer;
 
   const SupplementGuide({
@@ -207,6 +212,7 @@ class SupplementGuide {
     required this.effectTimeline,
     required this.mainBenefits,
     required this.personalizedReasons,
+    this.commonAllergens = const [],
     required this.disclaimer,
   });
 
@@ -243,6 +249,9 @@ class SupplementGuide {
       personalizedReasons: ((json['personalized_reasons'] as Map?) ??
               const <String, dynamic>{})
           .map((k, v) => MapEntry(k.toString(), v.toString())),
+      commonAllergens: (json['common_allergens'] as List<dynamic>? ?? const [])
+          .map((e) => e.toString())
+          .toList(),
       disclaimer: json['disclaimer'] as String? ?? '',
     );
   }

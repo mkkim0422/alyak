@@ -38,7 +38,8 @@ class RecommendationEngine {
     final withChild = _applyChildLogic(withCheckup, input);
     final withSpecial = _applySpecialCondition(withChild, input);
     final withIntake = _applyCurrentIntake(withSpecial, input);
-    return withIntake;
+    final withSafety = _applySafetyFilters(withIntake, input);
+    return withSafety;
   }
 
   /// 12-step 파이프라인의 풀 출력 (results + currentIntake + profile + cap).
@@ -62,13 +63,14 @@ class RecommendationEngine {
     final withChild = _applyChildLogic(withCheckup, input);
     final withSpecial = _applySpecialCondition(withChild, input);
     final withIntake = _applyCurrentIntake(withSpecial, input);
+    final withSafety = _applySafetyFilters(withIntake, input);
 
     final intake = _calculateCurrentIntake(input);
     final profile = _profileKey(input);
     final cap = _capForOutput(input);
 
     return RecommendationOutput(
-      results: withIntake,
+      results: withSafety,
       currentIntake: intake,
       profileMatched: profile,
       capsApplied: cap,
@@ -667,6 +669,115 @@ class RecommendationEngine {
     if (key.endsWith('_iu')) return 'IU';
     if (key.endsWith('_billion')) return '억 CFU';
     return null;
+  }
+
+  // ──────────────────────────────────────────────────────────────────────
+  // 안전 필터 (Step 11.5) — 알레르기 / 임신 금기 / 영아 화이트리스트 / 처방약 경고
+  // ──────────────────────────────────────────────────────────────────────
+
+  /// QA Round 1 안전 강화. 추천 결과를 다음 순서로 필터링/태깅한다:
+  /// 1) 알레르기 항목과 겹치면 considerIf 강등 + note
+  /// 2) 임신 시 special_warnings.pregnant 에 금기/위험/주의 키워드 포함되면 강등 + note
+  /// 3) 영아(newborn) 면 화이트리스트(비타민D/어린이 유산균/오메가3 DHA)외 제거
+  /// 4) takingMedications=true 이고 drug_interactions 있는 항목에 의사 상담 note
+  List<RecommendationResult> _applySafetyFilters(
+    List<RecommendationResult> base,
+    FamilyInput input,
+  ) {
+    if (base.isEmpty) return base;
+
+    final allergies = (input.allergyItems ?? const <String>[])
+        .map((s) => s.trim())
+        .where((s) => s.isNotEmpty)
+        .toList();
+
+    final isPregnant = input.specialCondition == SpecialCondition.pregnant;
+    final isInfant = input.ageGroup == AgeGroup.newborn;
+    final onMedication = input.takingMedications == true;
+
+    const infantWhitelist = <String>{
+      '비타민d',
+      '오메가3',
+      'dha',
+      '유산균',
+      '프로바이오틱스',
+    };
+
+    const pregnancyDangerKeywords = <String>['절대 금기', '금기', '위험'];
+
+    final out = <RecommendationResult>[];
+    for (final r in base) {
+      final guide = repository.getSupplementGuide(r.supplementName);
+
+      // (3) 영아 화이트리스트 — 가이드 못 찾아도 이름만으로 판단.
+      if (isInfant) {
+        final n = _normalize(_stripParen(r.supplementName));
+        final allowed =
+            infantWhitelist.any((w) => n.contains(w) || w.contains(n));
+        if (!allowed) continue; // 비화이트리스트는 영아에게 노출하지 않음.
+      }
+
+      var current = r;
+
+      // (1) 알레르기 — guide.commonAllergens 와 사용자 allergyItems 교집합.
+      if (guide != null && guide.commonAllergens.isNotEmpty) {
+        String? hit;
+        for (final ua in allergies) {
+          for (final ga in guide.commonAllergens) {
+            if (ua.contains(ga) || ga.contains(ua)) {
+              hit = ga;
+              break;
+            }
+          }
+          if (hit != null) break;
+        }
+        if (hit != null) {
+          current = current.copyWith(
+            category: RecommendationCategory.considerIf,
+            priority: current.priority + 500,
+            note: '$hit 알레르기가 있어요. 성분을 확인하고 의사·약사와 상담해주세요',
+            notes: [...current.notes, '알레르기 주의: $hit'],
+          );
+        }
+      }
+
+      // (2) 임신 시 금기/위험 키워드 — special_warnings.pregnant 텍스트 매칭.
+      if (isPregnant && guide != null) {
+        final pregText = guide.specialWarnings.pregnant;
+        if (pregText.trim().isNotEmpty) {
+          final lower = pregText.toLowerCase();
+          final danger = pregnancyDangerKeywords
+              .any((k) => lower.contains(k.toLowerCase()));
+          if (danger) {
+            current = current.copyWith(
+              category: RecommendationCategory.considerIf,
+              priority: current.priority + 1000,
+              note: '임신 중 주의가 필요해요. 의사 상담 후 결정해주세요',
+              notes: [...current.notes, '임신 주의: $pregText'],
+            );
+          }
+        }
+      }
+
+      // (4) 처방약 복용 시 약물 상호작용 있는 항목에 일관 note.
+      if (onMedication &&
+          guide != null &&
+          guide.drugInteractions.isNotEmpty) {
+        const note = '처방약 복용 중이시면 의사·약사와 상담해주세요';
+        if (current.note == null || current.note!.isEmpty) {
+          current = current.copyWith(
+            note: note,
+            nutrientStatus: NutrientStatus.notCalculated,
+          );
+        }
+        if (!current.notes.contains(note)) {
+          current = current.withNotes([note]);
+        }
+      }
+
+      out.add(current);
+    }
+    return _resort(out);
   }
 
   // ──────────────────────────────────────────────────────────────────────

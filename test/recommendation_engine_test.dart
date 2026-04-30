@@ -179,6 +179,60 @@ void main() {
         reason: '유아 visible 추천은 3개 이하여야 한다');
   });
 
+  test('알레르기 (생선) 가 있으면 오메가3 가 considerIf 로 강등 + note', () {
+    final input = FamilyInput(
+      name: '알레르기',
+      age: 35,
+      sex: Sex.female,
+      smoker: false,
+      drinker: false,
+      diet: DietHabit.balanced,
+      exercise: ExerciseLevel.sometimes,
+      sleep: SleepHours.sevenEight,
+      stress: StressLevel.medium,
+      allergyItems: const ['생선'],
+      takingMedications: true, // 캐시 우회 → boost 로 오메가3 들어가도록
+    );
+    final result = engine.recommend(input);
+    final omega = result.firstWhere(
+      (r) => r.supplementName.toLowerCase().contains('오메가') ||
+          r.supplementName.toLowerCase().contains('omega'),
+      orElse: () => const RecommendationResult(
+        supplementName: '',
+        category: RecommendationCategory.considerIf,
+        reason: '',
+        priority: 999,
+      ),
+    );
+    if (omega.supplementName.isNotEmpty) {
+      expect(omega.category, RecommendationCategory.considerIf,
+          reason: '생선 알레르기 → 오메가3 (어유) 는 considerIf 로 강등');
+      expect(omega.note, contains('알레르기'),
+          reason: 'note 에 알레르기 안내가 들어가야 한다');
+    }
+  });
+
+  test('영아(newborn) 는 화이트리스트(비타민D/유산균/DHA)외 항목 노출 안 됨', () {
+    final input = FamilyInput(
+      name: '영아',
+      age: 0,
+      sex: Sex.female,
+      allergies: false,
+      feeding: FeedingType.breastMilk,
+    );
+    final result = engine.recommend(input);
+    const allowed = ['비타민d', '유산균', '프로바이오틱스', '오메가3', 'dha'];
+    for (final r in result) {
+      final n = r.supplementName
+          .toLowerCase()
+          .replaceAll(RegExp(r'[\s\-_()/+,.]'), '');
+      final isAllowed =
+          allowed.any((w) => n.contains(w) || w.contains(n));
+      expect(isAllowed, isTrue,
+          reason: '영아 노출 항목은 화이트리스트만이어야 한다 (현재: ${r.supplementName})');
+    }
+  });
+
   test('recommendWithOutput 은 currentIntake/profile/cap 을 함께 돌려준다', () {
     final input = FamilyInput(
       name: '풀출력',

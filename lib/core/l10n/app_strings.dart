@@ -28,6 +28,25 @@ class AppStrings {
       '본 추천은 일반 정보 제공이며 진단·처방을 대체하지 않습니다. '
       '만성 질환이나 약물 복용 중이라면 반드시 의사·약사와 상담해 주세요.';
 
+  // QA Round 1 — 강화된 disclaimer 5종.
+  // 화면별로 컨텍스트에 맞춘 안내 문구. 새로 만든 위젯은 가급적 이 키들을 사용.
+  static const String disclaimerMain =
+      '본 앱은 의료 행위가 아니며, 의사·약사의 전문 진단을 대체하지 않습니다';
+  static const String disclaimerCheckup =
+      '입력하신 검진 결과는 추천 정확도 향상을 위한 참고 정보예요. '
+      '실제 진단 및 치료는 반드시 의사와 상의해주세요';
+  static const String disclaimerRecommendation =
+      '제시된 영양제 정보는 식약처 등록 자료를 참고한 일반 정보예요. '
+      '복용 결정은 본인 건강 상태에 맞게 신중히 해주세요';
+  static const String disclaimerProduct =
+      '제품 정보는 운영자가 수집한 참고 자료예요. '
+      '실제 가격, 성분, 효능은 판매처에서 확인해주세요';
+  static const String disclaimerMedication =
+      '처방약 복용 중이시면 영양제 추가 전 반드시 의사·약사와 상의해주세요';
+  static const String warningCondition =
+      '특정 질환이 있으시거나 약을 복용 중이시면 '
+      '의료진과 상담 후 영양제를 결정해주세요';
+
   // ───────────────────────────────────────────────────────────── 홈 화면
   static const String homeTitle = '알약';
   static const String homeGreeting = '안녕하세요 👋';

@@ -1,4 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../notifications/notification_service.dart';
 
 /// Wrapper around `flutter_secure_storage` that pins safe defaults
 /// (Android EncryptedSharedPreferences, iOS Keychain w/ first-unlock).
@@ -6,6 +12,11 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 /// All sensitive data — auth tokens, encryption material refs,
 /// onboarding state with health info — must go through here. Never
 /// SharedPreferences for these.
+///
+/// iOS 백업 정책: Keychain 은 [KeychainAccessibility.first_unlock_this_device]
+/// 옵션으로 iCloud Keychain 동기화에서 제외된다. 향후 documents 디렉터리에
+/// 파일을 쓰게 될 경우, [NSURL setResourceValue:isExcludedFromBackup:] 또는
+/// [File.setAttributesAsync] 로 백업 제외 플래그를 설정해야 한다.
 class SecureStorage {
   SecureStorage._();
 
@@ -65,6 +76,51 @@ class SecureStorage {
   /// historical check-in keys for a deleted family member).
   static Future<Map<String, String>> readAll() => _storage.readAll();
 
-  /// Wipe everything. Used on account deletion / sign-out / 30-day idle.
-  static Future<void> wipe() => _storage.deleteAll();
+  /// 모든 사용자 데이터를 100% 삭제. 계정 삭제 / 로그아웃 / 30일 미접속 시 호출.
+  ///
+  /// 1) flutter_secure_storage 전체 삭제
+  /// 2) shared_preferences 전체 삭제
+  /// 3) 임시 디렉터리 삭제 (캐시)
+  /// 4) 앱 documents 안의 family 디렉터리 삭제 (asset cache 는 보존)
+  /// 5) 등록된 알림 전체 취소
+  static Future<void> wipe() async {
+    // 1. secure storage
+    await _storage.deleteAll();
+
+    // 2. shared_preferences
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.clear();
+    } catch (_) {
+      // shared_preferences 가 초기화 안 된 환경에서도 wipe 가 멈추지 않도록 무시.
+    }
+
+    // 3. cache directory (any platform)
+    try {
+      final cacheDir = await getTemporaryDirectory();
+      if (cacheDir.existsSync()) {
+        for (final entity in cacheDir.listSync()) {
+          try {
+            entity.deleteSync(recursive: true);
+          } catch (_) {}
+        }
+      }
+    } catch (_) {}
+
+    // 4. application documents — only user data subfolder.
+    try {
+      final docDir = await getApplicationDocumentsDirectory();
+      final familyDir = Directory('${docDir.path}/family');
+      if (familyDir.existsSync()) {
+        await familyDir.delete(recursive: true);
+      }
+    } catch (_) {}
+
+    // 5. cancel all scheduled notifications
+    try {
+      await NotificationService.cancelAll();
+    } catch (_) {
+      // 알림 플러그인 초기화 안 된 환경에서도 wipe 가 멈추지 않도록 무시.
+    }
+  }
 }

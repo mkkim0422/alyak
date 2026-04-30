@@ -66,9 +66,17 @@ class ProductMatcher {
       );
     }
 
+    final allergies = (input?.allergyItems ?? const <String>[])
+        .map((s) => s.trim())
+        .where((s) => s.isNotEmpty)
+        .toList();
+    final isPregnant = input?.specialCondition == SpecialCondition.pregnant;
+
     final matches = <ProductMatch>[];
     for (final p in candidates) {
-      matches.add(_evaluate(p, needed, currentIntake));
+      final base = _evaluate(p, needed, currentIntake);
+      final safe = _applySafety(base, allergies, isPregnant);
+      matches.add(safe);
     }
 
     // 3) 적정 함량 Top 3 — 과다 위험 없는 제품 중 커버리지 가장 높은 순.
@@ -93,15 +101,24 @@ class ProductMatcher {
       });
 
     // 5) 가성비 Top 3 — 카테고리별 1제품, 1일 비용 오름차순.
+    //    가성비 비교는 같은 카테고리 + 알레르기 안전 제품으로 한정.
+    //    각 후보에 comparisonMethod 채워 사용자에게 비교 기준을 명시.
     final byCategory = <String, ProductMatch>{};
     final sortedByPrice = matches
         .where((m) => !m.causesOverdose)
+        .where((m) => m.allergyConflict == null)
         .toList()
       ..sort((a, b) =>
           a.product.dailyCostKrw.compareTo(b.product.dailyCostKrw));
     for (final m in sortedByPrice) {
       final cat = m.product.category;
-      byCategory.putIfAbsent(cat, () => m);
+      byCategory.putIfAbsent(
+        cat,
+        () => m.copyWith(
+          comparisonMethod:
+              '${productCategoryDisplayName[cat] ?? cat} 카테고리 동일 성분 기준 1정당 비용',
+        ),
+      );
       if (byCategory.length >= 3) break;
     }
     final value = byCategory.values.toList();
@@ -185,6 +202,56 @@ class ProductMatcher {
     );
   }
 
+  /// 알레르기 / 임신 조건으로 제품에 경고 또는 차단 라벨 추가.
+  /// - 알레르기: products.json 의 categorySupplementName 매핑으로 supplement
+  ///   이름 도출 → guide 의 commonAllergens 와 사용자 allergies 교집합.
+  /// - 임신: 카테고리 기반 차단(다이어트/카페인 함유 / 호르몬 작용 허브 카테고리).
+  ProductMatch _applySafety(
+    ProductMatch base,
+    List<String> userAllergies,
+    bool isPregnant,
+  ) {
+    String? allergyConflict;
+    String? warning = base.warning;
+
+    // 알레르기 검사 — 제품 카테고리 → 대표 supplement 이름 → guide 의 allergen.
+    if (userAllergies.isNotEmpty) {
+      final supplementName =
+          productCategorySupplementName[base.product.category];
+      if (supplementName != null) {
+        final guide = supplementRepository.getSupplementGuide(supplementName);
+        if (guide != null && guide.commonAllergens.isNotEmpty) {
+          for (final ua in userAllergies) {
+            for (final ga in guide.commonAllergens) {
+              if (ua.contains(ga) || ga.contains(ua)) {
+                allergyConflict = ga;
+                warning ??= '$ga 알레르기가 있어 이 제품은 피하시는 게 좋아요';
+                break;
+              }
+            }
+            if (allergyConflict != null) break;
+          }
+        }
+      }
+    }
+
+    // 임신 시 위험 카테고리 차단.
+    bool pregnancyConflict = false;
+    if (isPregnant) {
+      const blocked = <String>{'diet', 'fat_burn', 'caffeine', 'herb_hormone'};
+      if (blocked.contains(base.product.category)) {
+        pregnancyConflict = true;
+        warning ??= '임신 중에는 이 제품군은 권장하지 않아요';
+      }
+    }
+
+    return base.copyWith(
+      warning: warning,
+      allergyConflict: allergyConflict,
+      pregnancyConflict: pregnancyConflict,
+    );
+  }
+
   /// 같은 카테고리의 대체 제품 — 1일 비용 오름차순.
   List<Product> findAlternatives(String productId) {
     return productRepository.findAlternatives(productId);
@@ -217,6 +284,17 @@ class ProductMatch {
   /// "1순위와 동일 성분, 1정당 N% 저렴" 같은 비교 라벨. 호출 측에서 채움.
   final String? comparisonNote;
 
+  /// 가성비 Top 3 카테고리에서만 사용 — "비타민D 1000IU 동일 함량 기준 1정당 가격"
+  /// 처럼 어떤 기준으로 비교됐는지를 사용자에게 명시.
+  final String? comparisonMethod;
+
+  /// 사용자 알레르기와 충돌하는 원료가 있으면 그 원료 이름 (예: "생선").
+  /// null 이면 알레르기 안전.
+  final String? allergyConflict;
+
+  /// 임신 중 권장 안 되는 카테고리(다이어트/카페인 등) 인지 여부.
+  final bool pregnancyConflict;
+
   const ProductMatch({
     required this.product,
     required this.coverageScore,
@@ -226,7 +304,38 @@ class ProductMatch {
     this.warning,
     required this.appropriateScore,
     this.comparisonNote,
+    this.comparisonMethod,
+    this.allergyConflict,
+    this.pregnancyConflict = false,
   });
+
+  ProductMatch copyWith({
+    Product? product,
+    double? coverageScore,
+    List<String>? coveredNutrients,
+    List<String>? missingNutrients,
+    bool? causesOverdose,
+    String? warning,
+    double? appropriateScore,
+    String? comparisonNote,
+    String? comparisonMethod,
+    String? allergyConflict,
+    bool? pregnancyConflict,
+  }) {
+    return ProductMatch(
+      product: product ?? this.product,
+      coverageScore: coverageScore ?? this.coverageScore,
+      coveredNutrients: coveredNutrients ?? this.coveredNutrients,
+      missingNutrients: missingNutrients ?? this.missingNutrients,
+      causesOverdose: causesOverdose ?? this.causesOverdose,
+      warning: warning ?? this.warning,
+      appropriateScore: appropriateScore ?? this.appropriateScore,
+      comparisonNote: comparisonNote ?? this.comparisonNote,
+      comparisonMethod: comparisonMethod ?? this.comparisonMethod,
+      allergyConflict: allergyConflict ?? this.allergyConflict,
+      pregnancyConflict: pregnancyConflict ?? this.pregnancyConflict,
+    );
+  }
 }
 
 class ProductMatchResult {
