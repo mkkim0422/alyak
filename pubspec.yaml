@@ -83,6 +83,7 @@ flutter:
     - assets/data/age_group_recommendations.json
     - assets/data/combination_optimizer.json
     - assets/data/recommendation_cache.json
+    - assets/data/products.json
 
   # To add assets to your application, add an assets section, like this:
   # assets:

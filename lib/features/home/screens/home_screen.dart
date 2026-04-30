@@ -13,6 +13,7 @@ import '../../family/models/family_member.dart';
 import '../../family/providers/family_members_provider.dart';
 import '../../family/screens/recommendation_detail_screen.dart';
 import '../../family/services/family_service.dart';
+import '../../health_checkup/screens/health_checkup_input_screen.dart';
 import '../../onboarding/family_chat/family_chat_screen.dart';
 import '../../recommendation/engine/family_input.dart';
 import '../../settings/settings_screen.dart';
@@ -38,16 +39,26 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
-  /// 사용자가 직접 고른 멤버 id. null 이면 "정렬된 첫 번째".
-  String? _selectedId;
-
   /// SecureStorage 에서 읽어 둔 가족 정렬 순서. 드래그로 갱신될 때마다 저장.
   List<String>? _order;
   bool _orderLoaded = false;
 
-  /// 카드 슬라이드 방향. +1 이면 오른쪽 → 왼쪽으로 들어옴 (다음 멤버),
-  /// -1 이면 왼쪽 → 오른쪽 (이전 멤버). 초기값은 +1.
-  int _slideDir = 1;
+  /// 각 카드 위치를 잡아 두는 키 — 아바타 strip 탭 시 해당 카드로 스크롤.
+  final Map<String, GlobalKey> _cardKeys = {};
+
+  GlobalKey _keyFor(String id) =>
+      _cardKeys.putIfAbsent(id, () => GlobalKey());
+
+  void _scrollToMember(String id) {
+    final ctx = _cardKeys[id]?.currentContext;
+    if (ctx == null) return;
+    Scrollable.ensureVisible(
+      ctx,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOutCubic,
+      alignment: 0.05,
+    );
+  }
 
   @override
   void initState() {
@@ -146,27 +157,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           }
           final entries = _applyOrder(rawEntries);
 
-          // 선택된 멤버 찾기 — 사용자가 명시적으로 누른 적 없거나
-          // 그 멤버가 사라진 경우 첫 번째로 fallback.
-          final selectedIdx = _selectedId == null
-              ? 0
-              : entries.indexWhere((e) => e.member.id == _selectedId);
-          final activeIdx = selectedIdx < 0 ? 0 : selectedIdx;
-          final activeEntry = entries[activeIdx];
-
-          void switchTo(int newIdx) {
-            if (newIdx < 0 || newIdx >= entries.length) return;
-            if (newIdx == activeIdx) return;
-            setState(() {
-              _slideDir = newIdx > activeIdx ? 1 : -1;
-              _selectedId = entries[newIdx].member.id;
-            });
-          }
-
           final streakAsync = ref.watch(streakProvider);
           final streak = streakAsync.hasValue
               ? streakAsync.requireValue
               : StreakSnapshot.empty;
+
+          // 더 이상 활성 카드 1개 개념이 없으므로, AI 코멘트와 streak 축하
+          // 카드는 첫 번째 가족(=대표 멤버) 기준으로 노출.
+          final headEntry = entries.first;
 
           return ListView(
             padding: const EdgeInsets.fromLTRB(0, 8, 0, 24),
@@ -178,12 +176,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
               _AvatarStrip(
                 entries: entries,
-                activeIndex: activeIdx,
-                onSelect: (id) {
-                  final idx =
-                      entries.indexWhere((e) => e.member.id == id);
-                  switchTo(idx);
-                },
+                activeIndex: 0,
+                onSelect: (id) => _scrollToMember(id),
                 onReorder: (oldIndex, newIndex) {
                   setState(() {
                     final ids = entries.map((e) => e.member.id).toList();
@@ -196,54 +190,24 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 },
               ),
               const SizedBox(height: 12),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  // 카드 위에서 좌/우로 swipe 하면 가족 전환. 기존 아바타 탭과
-                  // 공존: 둘 다 같은 switchTo() 를 통해 _slideDir 갱신.
-                  onHorizontalDragEnd: (d) {
-                    final v = d.primaryVelocity ?? 0;
-                    if (v.abs() < 250) return;
-                    final dir = v < 0 ? 1 : -1;
-                    switchTo(activeIdx + dir);
-                  },
-                  child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 260),
-                    switchInCurve: Curves.easeOutCubic,
-                    switchOutCurve: Curves.easeInCubic,
-                    transitionBuilder: (child, anim) {
-                      // 슬라이드 방향: 진행 시(+1) 카드가 오른쪽에서 들어옴,
-                      // 후진 시(-1) 왼쪽에서 들어옴. 동시에 fade.
-                      final beginX = _slideDir >= 0 ? 0.18 : -0.18;
-                      return FadeTransition(
-                        opacity: anim,
-                        child: SlideTransition(
-                          position: Tween<Offset>(
-                            begin: Offset(beginX, 0),
-                            end: Offset.zero,
-                          ).animate(anim),
-                          child: child,
-                        ),
+              for (var i = 0; i < entries.length; i++) ...[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                  child: _FamilyCard(
+                    key: _keyFor(entries[i].member.id),
+                    entry: entries[i],
+                    memberIndex: i,
+                    onMarkChecked: (names) async {
+                      await CheckinService.markChecked(
+                        entries[i].member.id,
+                        names,
                       );
+                      ref.invalidate(homeFeedProvider);
+                      ref.invalidate(streakProvider);
                     },
-                    child: _DailyCard(
-                      key: ValueKey(activeEntry.member.id),
-                      entry: activeEntry,
-                      memberIndex: activeIdx,
-                      onMarkChecked: (names) async {
-                        await CheckinService.markChecked(
-                          activeEntry.member.id,
-                          names,
-                        );
-                        ref.invalidate(homeFeedProvider);
-                        ref.invalidate(streakProvider);
-                      },
-                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 14),
+              ],
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: WeatherTipCard(),
@@ -252,7 +216,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: streak.allTodayChecked && streak.count >= 1
                     ? _StreakCelebrationCard(count: streak.count)
-                    : AiCommentCard(entry: activeEntry),
+                    : AiCommentCard(entry: headEntry),
               ),
               const SizedBox(height: 16),
               const Padding(
@@ -282,8 +246,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 // primary >= 80%) 와 현재 % 노출. 탭 시 bottom sheet 가 한 번에 한 질문씩.
 // ════════════════════════════════════════════════════════════════════
 
-class _AccuracyPill extends ConsumerWidget {
-  const _AccuracyPill({required this.member});
+/// 추천 정확도 pill — 미응답 라이프스타일 필드 비율을 노출하고, 탭 시 한 번에
+/// 한 질문씩 채우는 bottom sheet 를 띄운다. 상세 페이지 헤더에서도 동일하게 사용.
+class AccuracyPill extends ConsumerWidget {
+  const AccuracyPill({super.key, required this.member});
   final FamilyMember member;
 
   /// 현재 기획상 적용 대상은 성인/노인. 어린이/청소년/유아/영아는 온보딩
@@ -483,6 +449,8 @@ class _AccuracySheet extends ConsumerWidget {
                   ),
                 ],
                 const SizedBox(height: 18),
+                if (input.lastCheckup == null)
+                  _CheckupBannerInSheet(memberId: member.id),
                 SizedBox(
                   width: double.infinity,
                   child: TextButton(
@@ -592,6 +560,68 @@ class _AccuracyOption {
   _AccuracyOption(this.label, this.apply);
   final String label;
   final FamilyInput Function(FamilyInput) apply;
+}
+
+/// 정확도 시트 안에 들어가는 검진 입력 권유 카드. 검진 데이터가 없을 때만 노출.
+class _CheckupBannerInSheet extends StatelessWidget {
+  const _CheckupBannerInSheet({required this.memberId});
+  final String memberId;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: InkWell(
+        onTap: () {
+          Navigator.of(context).pop();
+          context.push(HealthCheckupInputScreen.pathFor(memberId));
+        },
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: AppTheme.cream,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: AppTheme.primary.withValues(alpha: 0.3)),
+          ),
+          child: Row(
+            children: [
+              const Text('📋', style: TextStyle(fontSize: 18)),
+              const SizedBox(width: 10),
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '건강검진 결과 입력',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w800,
+                        color: AppTheme.ink,
+                      ),
+                    ),
+                    SizedBox(height: 2),
+                    Text(
+                      '입력하면 추천이 훨씬 정확해져요',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: AppTheme.subtle,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(
+                Icons.chevron_right,
+                color: AppTheme.subtle,
+                size: 20,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 // ════════════════════════════════════════════════════════════════════
@@ -1072,8 +1102,15 @@ class _AvatarTileState extends State<_AvatarTile> {
 // Selected-member daily card
 // ════════════════════════════════════════════════════════════════════
 
-class _DailyCard extends StatelessWidget {
-  const _DailyCard({
+/// 가족 한 명을 한 장의 컴팩트 카드로 보여주는 새 홈 카드.
+///
+/// - 헤더: 작은 아바타 + 이름 + 나이/성별 + 상태 dot
+/// - 시간 슬롯: 아침 / 점심 / 저녁 / 취침 (있는 슬롯만 노출)
+/// - 각 영양제는 💊 아이콘 + 12sp 이름 (8자 초과 시 truncate)
+/// - 하단 버튼: [먹었어요 👍] [자세히 보기 →]
+/// - 카드 본문 탭(=버튼 영역 외) → 상세 페이지로 push
+class _FamilyCard extends StatelessWidget {
+  const _FamilyCard({
     super.key,
     required this.entry,
     required this.memberIndex,
@@ -1084,162 +1121,232 @@ class _DailyCard extends StatelessWidget {
   final int memberIndex;
   final Future<void> Function(Iterable<String> names) onMarkChecked;
 
+  String _truncate(String s) =>
+      s.length <= 8 ? s : '${s.substring(0, 7)}…';
+
+  void _openDetail(BuildContext context) {
+    context.push(RecommendationDetailScreen.pathFor(entry.member.id));
+  }
+
   @override
   Widget build(BuildContext context) {
-    final morning = [...entry.schedule.morning, ...entry.schedule.lunch];
-    final evening = [...entry.schedule.evening, ...entry.schedule.beforeSleep];
-    final allNames = [...morning, ...evening];
+    final morning = entry.schedule.morning;
+    final lunch = entry.schedule.lunch;
+    final evening = entry.schedule.evening;
+    final beforeSleep = entry.schedule.beforeSleep;
+    final allMorning = [...morning, ...lunch];
+    final allEvening = [...evening, ...beforeSleep];
+    final allNames = [...allMorning, ...allEvening];
     final allChecked = allNames.isNotEmpty &&
         allNames.every(entry.checkedToday.contains);
+    final memberColor = AppTheme.memberColorFor(memberIndex);
 
-    return Container(
-      padding: const EdgeInsets.fromLTRB(20, 18, 20, 18),
-      decoration: BoxDecoration(
-        color: AppTheme.surface,
-        borderRadius: BorderRadius.circular(AppTheme.radiusCard),
-        border: Border.all(color: AppTheme.border),
-        boxShadow: AppTheme.softShadow,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  AppStrings.homeMemberDailyHeader(entry.member.name),
-                  style: AppTheme.heading3,
+    return Material(
+      color: AppTheme.surface,
+      borderRadius: BorderRadius.circular(AppTheme.radiusCard),
+      child: Ink(
+        decoration: BoxDecoration(
+          color: AppTheme.surface,
+          borderRadius: BorderRadius.circular(AppTheme.radiusCard),
+          boxShadow: AppTheme.softShadow,
+        ),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(AppTheme.radiusCard),
+          onTap: () => _openDetail(context),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _CardHeader(
+                  member: entry.member,
+                  color: memberColor,
+                  statusDot: entry.statusDot,
                 ),
-              ),
-              Container(
-                width: 8,
-                height: 8,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppTheme.memberColorFor(memberIndex),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 12),
+                  child: Divider(height: 1, color: AppTheme.border),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 4),
-          Text(
-            AppStrings.homeTodayDateLong(DateTime.now()),
-            style: AppTheme.caption,
-          ),
-          if (entry.conflicts.isNotEmpty) ...[
-            const SizedBox(height: 12),
-            ...entry.conflicts.take(2).map(
-                  (c) => Container(
-                    margin: const EdgeInsets.only(bottom: 6),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 8,
+                if (allNames.isEmpty)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    child: Text(
+                      AppStrings.homeNoRecommendations,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: AppTheme.textSecondary,
+                        height: 1.5,
+                      ),
                     ),
-                    decoration: BoxDecoration(
-                      color: AppTheme.warning.withValues(alpha: 0.12),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text('⚠️', style: TextStyle(fontSize: 13)),
-                        const SizedBox(width: 6),
-                        Expanded(
-                          child: Text(
-                            c.message,
-                            style: const TextStyle(
-                              fontSize: 12,
-                              height: 1.4,
-                              color: AppTheme.textPrimary,
+                  ),
+                if (allMorning.isNotEmpty)
+                  _SlotRow(
+                    emoji: AppStrings.homeSlotMorningEmoji,
+                    title: AppStrings.homeSlotMorning,
+                    names: allMorning,
+                    checkedToday: entry.checkedToday,
+                    truncate: _truncate,
+                  ),
+                if (allEvening.isNotEmpty) ...[
+                  if (allMorning.isNotEmpty) const SizedBox(height: 14),
+                  _SlotRow(
+                    emoji: AppStrings.homeSlotEveningEmoji,
+                    title: AppStrings.homeSlotEvening,
+                    names: allEvening,
+                    checkedToday: entry.checkedToday,
+                    truncate: _truncate,
+                  ),
+                ],
+                const SizedBox(height: 14),
+                // 카드 본문 InkWell 의 탭이 버튼까지 새지 않도록 별도 GestureDetector
+                // 로 감싸 버튼 영역의 탭은 InkWell 로 흘려보내지 않는다.
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {},
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: _CheckButton(
+                          alreadyDone: allChecked,
+                          onTap: allChecked || allNames.isEmpty
+                              ? null
+                              : () => onMarkChecked(allNames),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: OutlinedButton(
+                          onPressed: () => _openDetail(context),
+                          style: OutlinedButton.styleFrom(
+                            minimumSize: const Size.fromHeight(48),
+                            side: const BorderSide(color: AppTheme.border),
+                            foregroundColor: AppTheme.primary,
+                          ),
+                          child: const Text(
+                            '자세히 보기 →',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-          ],
-          const SizedBox(height: 16),
-          if (morning.isEmpty && evening.isEmpty)
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 8),
-              child: Text(
-                AppStrings.homeNoRecommendations,
-                style: TextStyle(
-                  fontSize: 13,
-                  color: AppTheme.textSecondary,
-                  height: 1.5,
-                ),
-              ),
+              ],
             ),
-          if (morning.isNotEmpty)
-            _SlotBlock(
-              emoji: AppStrings.homeSlotMorningEmoji,
-              title: AppStrings.homeSlotMorning,
-              names: morning,
-              entry: entry,
-            ),
-          if (evening.isNotEmpty) ...[
-            if (morning.isNotEmpty) const SizedBox(height: 12),
-            _SlotBlock(
-              emoji: AppStrings.homeSlotEveningEmoji,
-              title: AppStrings.homeSlotEvening,
-              names: evening,
-              entry: entry,
-            ),
-          ],
-          const SizedBox(height: 8),
-          _AccuracyPill(member: entry.member),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              Expanded(
-                child: _CheckButton(
-                  alreadyDone: allChecked,
-                  onTap: allChecked || allNames.isEmpty
-                      ? null
-                      : () => onMarkChecked(allNames),
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: TextButton(
-                  onPressed: () => context.push(
-                    RecommendationDetailScreen.pathFor(entry.member.id),
-                  ),
-                  style: TextButton.styleFrom(
-                    minimumSize: const Size.fromHeight(48),
-                    foregroundColor: AppTheme.primary,
-                  ),
-                  child: const Text(
-                    AppStrings.homeViewAll,
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-              ),
-            ],
           ),
-        ],
+        ),
       ),
     );
   }
 }
 
-class _SlotBlock extends StatelessWidget {
-  const _SlotBlock({
+class _CardHeader extends StatelessWidget {
+  const _CardHeader({
+    required this.member,
+    required this.color,
+    required this.statusDot,
+  });
+
+  final FamilyMember member;
+  final Color color;
+  final StatusDot statusDot;
+
+  Color get _statusColor {
+    switch (statusDot) {
+      case StatusDot.green:
+        return AppTheme.primary;
+      case StatusDot.yellow:
+        return AppTheme.warning;
+      case StatusDot.red:
+      case StatusDot.none:
+        return AppTheme.border;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final sex = member.sex;
+    final ageLabel = [
+      if (sex != null) sex.ko,
+      if (member.age > 0) '${member.age}세',
+    ].join(' ');
+
+    return Row(
+      children: [
+        Container(
+          width: 36,
+          height: 36,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: color.withValues(alpha: 0.18),
+            border: Border.all(color: color, width: 2),
+          ),
+          alignment: Alignment.center,
+          child: Text(
+            member.name.isEmpty ? '?' : member.name[0],
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w800,
+              color: color,
+            ),
+          ),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                member.name,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w800,
+                  color: AppTheme.textPrimary,
+                ),
+              ),
+              if (ageLabel.isNotEmpty) ...[
+                const SizedBox(height: 2),
+                Text(
+                  ageLabel,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: AppTheme.textSecondary,
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
+        Container(
+          width: 10,
+          height: 10,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: _statusColor,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _SlotRow extends StatelessWidget {
+  const _SlotRow({
     required this.emoji,
     required this.title,
     required this.names,
-    required this.entry,
+    required this.checkedToday,
+    required this.truncate,
   });
 
   final String emoji;
   final String title;
   final List<String> names;
-  final HomeFeedEntry entry;
+  final Set<String> checkedToday;
+  final String Function(String) truncate;
 
   @override
   Widget build(BuildContext context) {
@@ -1260,82 +1367,85 @@ class _SlotBlock extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 6),
-        ...names.map((n) {
-          final reason = _reasonFor(n);
-          final checked = entry.checkedToday.contains(n);
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 5),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 8,
-                  height: 8,
-                  margin: const EdgeInsets.only(top: 7),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: checked ? AppTheme.primary : AppTheme.border,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        n,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          color: checked
-                              ? AppTheme.textSecondary
-                              : AppTheme.textPrimary,
-                          decoration: checked
-                              ? TextDecoration.lineThrough
-                              : null,
-                        ),
-                      ),
-                      if (reason != null) ...[
-                        const SizedBox(height: 2),
-                        Text(
-                          reason,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: AppTheme.textSecondary,
-                            height: 1.3,
-                          ),
-                        ),
-                      ],
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          );
-        }),
+        const SizedBox(height: 8),
+        Wrap(
+          spacing: 10,
+          runSpacing: 10,
+          children: [
+            for (final n in names)
+              _PillTile(
+                fullName: n,
+                displayName: truncate(n),
+                checked: checkedToday.contains(n),
+              ),
+          ],
+        ),
       ],
     );
   }
+}
 
-  /// 추천 결과에서 짧은 한 줄 사유를 끌어온다 — 데일리 카드는 한 줄로 자름.
-  /// 화면 폭에 맞추기 위해 20자 초과면 "..." 로 끝맺음.
-  String? _reasonFor(String name) {
-    for (final r in entry.recommendations) {
-      if (r.supplementName == name) {
-        final reason = r.reason.trim();
-        if (reason.isEmpty) return null;
-        if (reason.length > 20) {
-          return '${reason.substring(0, 20)}...';
-        }
-        return reason;
-      }
-    }
-    return null;
+class _PillTile extends StatelessWidget {
+  const _PillTile({
+    required this.fullName,
+    required this.displayName,
+    required this.checked,
+  });
+
+  final String fullName;
+  final String displayName;
+  final bool checked;
+
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: fullName,
+      preferBelow: false,
+      child: SizedBox(
+        width: 60,
+        child: Column(
+          children: [
+            Container(
+              width: 44,
+              height: 44,
+              decoration: BoxDecoration(
+                color: checked
+                    ? AppTheme.primary.withValues(alpha: 0.15)
+                    : AppTheme.cream,
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(
+                  color: checked ? AppTheme.primary : AppTheme.border,
+                  width: 1,
+                ),
+              ),
+              alignment: Alignment.center,
+              child: Text(
+                checked ? '✅' : '💊',
+                style: const TextStyle(fontSize: 22),
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              displayName,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: checked
+                    ? AppTheme.textSecondary
+                    : AppTheme.textPrimary,
+                decoration: checked ? TextDecoration.lineThrough : null,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
+
 
 /// 탭 시 살짝 줄어들었다 돌아오는 bounce 애니메이션이 들어간 "먹었어요" 버튼.
 class _CheckButton extends StatefulWidget {

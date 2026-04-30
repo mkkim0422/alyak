@@ -1,4 +1,5 @@
 import '../../recommendation/engine/family_input.dart';
+import '../../recommendation/engine/health_checkup.dart';
 
 /// 홈 화면에 표시할 가족 한 명. 평문은 메모리에만 둔다.
 class FamilyMember {
@@ -53,8 +54,37 @@ class FamilyMember {
         currentSupplements: (draft['current_supplements'] as List?)
             ?.map((e) => e.toString())
             .toList(),
+        currentProductIds: (draft['current_product_ids'] as List?)
+            ?.map((e) => e.toString())
+            .toList(),
+        lastCheckup: HealthCheckup.fromJson(
+          (draft['last_checkup'] as Map?)?.cast<String, dynamic>(),
+        ),
+        heightCm: (draft['height_cm'] as num?)?.toDouble(),
+        weightKg: (draft['weight_kg'] as num?)?.toDouble(),
+        heightWeightUpdated: _parseDate(
+          draft['height_weight_updated'] as String?,
+        ),
+        stoolFrequency: _parseEnum(
+          draft['stool_frequency'] as String?,
+          StoolFrequency.values,
+        ),
+        stoolForm: _parseEnum(
+          draft['stool_form'] as String?,
+          StoolForm.values,
+        ),
+        allergyItems: (draft['allergy_items'] as List?)
+            ?.map((e) => e.toString())
+            .toList(),
+        eatsVegetables: draft['eats_vegetables'] as bool?,
+        eatsFish: draft['eats_fish'] as bool?,
       ),
     );
+  }
+
+  static DateTime? _parseDate(String? raw) {
+    if (raw == null) return null;
+    return DateTime.tryParse(raw);
   }
 
   static T? _parseEnum<T extends Enum>(String? raw, List<T> values) {

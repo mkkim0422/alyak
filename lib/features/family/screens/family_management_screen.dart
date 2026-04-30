@@ -15,6 +15,7 @@ import '../models/family_member.dart';
 import '../providers/family_members_provider.dart';
 import '../services/family_service.dart';
 import '../../symptoms/screens/symptom_search_screen.dart';
+import '../../health_checkup/screens/health_checkup_input_screen.dart';
 import 'family_edit_screen.dart';
 import 'recommendation_detail_screen.dart';
 
@@ -61,6 +62,9 @@ class FamilyManagementScreen extends ConsumerWidget {
                 ),
                 onAddSymptom: () => context.push(
                   SymptomSearchScreen.pathForMember(m.id),
+                ),
+                onCheckup: () => context.push(
+                  HealthCheckupInputScreen.pathFor(m.id),
                 ),
                 onDelete: isSelf
                     ? null
@@ -132,6 +136,7 @@ class _MemberCard extends StatelessWidget {
     required this.onTap,
     required this.onViewRecommendations,
     required this.onAddSymptom,
+    required this.onCheckup,
     required this.onDelete,
   });
 
@@ -140,6 +145,7 @@ class _MemberCard extends StatelessWidget {
   final VoidCallback onTap;
   final VoidCallback onViewRecommendations;
   final VoidCallback onAddSymptom;
+  final VoidCallback onCheckup;
   final VoidCallback? onDelete;
 
   @override
@@ -282,6 +288,11 @@ class _MemberCard extends StatelessWidget {
                 runSpacing: 6,
                 children: _lifestyleChips(member),
               ),
+              const SizedBox(height: 10),
+              _CheckupRow(
+                lastCheckup: member.input.lastCheckup,
+                onTap: onCheckup,
+              ),
             ],
           ),
         ),
@@ -342,6 +353,66 @@ class _MemberCard extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _CheckupRow extends StatelessWidget {
+  const _CheckupRow({required this.lastCheckup, required this.onTap});
+  final dynamic lastCheckup; // HealthCheckup? — 타입 import 회피용 dynamic.
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final hasData = lastCheckup != null;
+    String label;
+    if (hasData) {
+      final date = lastCheckup.checkupDate as DateTime;
+      label = AppStrings.checkupLastDate(date.year, date.month, date.day);
+    } else {
+      label = AppStrings.checkupOpen;
+    }
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(10),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+        decoration: BoxDecoration(
+          color: AppTheme.background,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          children: [
+            const Text('📋', style: TextStyle(fontSize: 14)),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                label,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: AppTheme.ink,
+                ),
+              ),
+            ),
+            if (hasData)
+              const Text(
+                AppStrings.checkupOpenDone,
+                style: TextStyle(
+                  fontSize: 11,
+                  color: AppTheme.subtle,
+                  fontWeight: FontWeight.w600,
+                ),
+              )
+            else
+              const Icon(
+                Icons.chevron_right,
+                color: AppTheme.subtle,
+                size: 18,
+              ),
+          ],
+        ),
       ),
     );
   }

@@ -6,7 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/data/models/supplement_guide_model.dart';
+import '../../../core/data/growth_chart.dart';
+import '../../../core/data/nutrient_targets.dart';
+import '../../../core/data/product_repository.dart';
 import '../../../core/data/supplement_repository.dart';
 import '../../../core/l10n/app_strings.dart';
 import '../../../core/security/encryption_service.dart';
@@ -44,14 +46,15 @@ class FamilyChatScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final repoAsync = ref.watch(supplementRepositoryProvider);
+    final productRepoAsync = ref.watch(productRepositoryProvider);
 
-    if (repoAsync.isLoading) {
+    if (repoAsync.isLoading || productRepoAsync.isLoading) {
       return const Scaffold(
         backgroundColor: Colors.white,
         body: Center(child: CircularProgressIndicator()),
       );
     }
-    if (repoAsync.hasError) {
+    if (repoAsync.hasError || productRepoAsync.hasError) {
       return const Scaffold(
         backgroundColor: Colors.white,
         body: Center(
@@ -67,6 +70,7 @@ class FamilyChatScreen extends ConsumerWidget {
     }
 
     final engine = RecommendationEngine(repository: repoAsync.value!);
+    final productRepo = productRepoAsync.value!;
 
     return ProviderScope(
       overrides: [
@@ -74,6 +78,7 @@ class FamilyChatScreen extends ConsumerWidget {
           () => FamilyChatController(
             engine,
             isOwn: mode == FamilyChatMode.own,
+            productRepository: productRepo,
           ),
         ),
       ],
@@ -520,12 +525,73 @@ class _InputAreaState extends ConsumerState<_InputArea> {
           ),
         ]);
       case ChatStep.currentSupplementsPick:
-        return _SupplementsPicker(
-          supplements: _supplementsList(),
+        return _ProductsPicker(
+          products: _productsList(),
           onDone: (picked) => ref
               .read(familyChatControllerProvider.notifier)
               .submitCurrentSupplementsList(picked),
         );
+      case ChatStep.heightWeight:
+        return _HeightWeightInput(
+          input: widget.state.input,
+          onSubmit: (h, w) => ref
+              .read(familyChatControllerProvider.notifier)
+              .submitHeightWeight(h, w),
+        );
+      case ChatStep.stoolFrequency:
+        return _choices([
+          _Choice(AppStrings.stoolDaily, () => ref
+              .read(familyChatControllerProvider.notifier)
+              .submitStoolFrequency(StoolFrequency.daily)),
+          _Choice(AppStrings.stoolTwoToThree, () => ref
+              .read(familyChatControllerProvider.notifier)
+              .submitStoolFrequency(StoolFrequency.twoToThreeDays)),
+          _Choice(AppStrings.stoolWeekly, () => ref
+              .read(familyChatControllerProvider.notifier)
+              .submitStoolFrequency(StoolFrequency.weekly)),
+          _Choice(AppStrings.stoolLess, () => ref
+              .read(familyChatControllerProvider.notifier)
+              .submitStoolFrequency(StoolFrequency.less)),
+        ]);
+      case ChatStep.stoolForm:
+        return _choices([
+          _Choice(AppStrings.stoolHard, () => ref
+              .read(familyChatControllerProvider.notifier)
+              .submitStoolForm(StoolForm.hard)),
+          _Choice(AppStrings.stoolNormal, () => ref
+              .read(familyChatControllerProvider.notifier)
+              .submitStoolForm(StoolForm.normal)),
+          _Choice(AppStrings.stoolSoft, () => ref
+              .read(familyChatControllerProvider.notifier)
+              .submitStoolForm(StoolForm.soft)),
+          _Choice(AppStrings.stoolWatery, () => ref
+              .read(familyChatControllerProvider.notifier)
+              .submitStoolForm(StoolForm.watery)),
+        ]);
+      case ChatStep.allergyItems:
+        return _AllergyPicker(
+          onDone: (items) => ref
+              .read(familyChatControllerProvider.notifier)
+              .submitAllergyItems(items),
+        );
+      case ChatStep.eatsVegetables:
+        return _choices([
+          _Choice(AppStrings.yes, () => ref
+              .read(familyChatControllerProvider.notifier)
+              .submitEatsVegetables(true)),
+          _Choice(AppStrings.no, () => ref
+              .read(familyChatControllerProvider.notifier)
+              .submitEatsVegetables(false)),
+        ]);
+      case ChatStep.eatsFish:
+        return _choices([
+          _Choice(AppStrings.yes, () => ref
+              .read(familyChatControllerProvider.notifier)
+              .submitEatsFish(true)),
+          _Choice(AppStrings.no, () => ref
+              .read(familyChatControllerProvider.notifier)
+              .submitEatsFish(false)),
+        ]);
       case ChatStep.done:
         return FilledButton(
           onPressed: _saving ? null : _finish,
@@ -687,12 +753,12 @@ class _InputAreaState extends ConsumerState<_InputArea> {
     );
   }
 
-  /// 영양제 picker 가 사용할 supplement 후보 목록. 부모 화면이 repo 로드를
-  /// 기다린 뒤에만 본문을 렌더하므로 여기서는 항상 hasValue.
-  List<SupplementGuide> _supplementsList() {
-    final repoAsync = ref.read(supplementRepositoryProvider);
+  /// 제품 picker 가 사용할 제품 목록. 부모 화면이 repo 로드를 기다린 뒤에만
+  /// 본문을 렌더하므로 여기서는 항상 hasValue.
+  List<Product> _productsList() {
+    final repoAsync = ref.read(productRepositoryProvider);
     if (!repoAsync.hasValue) return const [];
-    return repoAsync.requireValue.supplements;
+    return repoAsync.requireValue.products;
   }
 
   Future<void> _sendText() async {
@@ -770,27 +836,39 @@ class _Choice {
   final VoidCallback onTap;
 }
 
-/// "지금 드시는 영양제" 인라인 picker.
-/// - 위쪽: 선택된 영양제 (초록 chip + X)
-/// - 가운데: 검색 텍스트 필드
-/// - 아래: 매칭 영양제 (탭하면 선택)
-/// - 맨 아래: 완료 버튼 — 빈 리스트도 허용 (사용자가 안 골랐을 때).
-class _SupplementsPicker extends StatefulWidget {
-  const _SupplementsPicker({
-    required this.supplements,
+/// "지금 드시는 영양제" 인라인 picker — 제품(products.json) 기반.
+/// - 위쪽: 선택된 제품 chip
+/// - 카테고리 필터 chip (가로 스크롤)
+/// - 검색 필드 (선택)
+/// - 카테고리 선택 시 그 카테고리 제품 카드 리스트 (세로 스크롤, max 280)
+/// - 맨 아래: 완료 버튼 — 빈 리스트도 허용.
+class _ProductsPicker extends StatefulWidget {
+  const _ProductsPicker({
+    required this.products,
     required this.onDone,
   });
 
-  final List<SupplementGuide> supplements;
+  final List<Product> products;
   final ValueChanged<List<String>> onDone;
 
   @override
-  State<_SupplementsPicker> createState() => _SupplementsPickerState();
+  State<_ProductsPicker> createState() => _ProductsPickerState();
 }
 
-class _SupplementsPickerState extends State<_SupplementsPicker> {
+class _ProductsPickerState extends State<_ProductsPicker> {
   final TextEditingController _query = TextEditingController();
-  final Set<String> _selected = <String>{};
+  final Set<String> _selectedIds = <String>{};
+  String? _activeCategory;
+
+  static const _categoryOrder = <String>[
+    'multivitamin',
+    'vitamin_d_complex',
+    'omega3',
+    'magnesium_complex',
+    'calcium_complex',
+    'b_complex',
+    'probiotics',
+  ];
 
   @override
   void dispose() {
@@ -798,112 +876,307 @@ class _SupplementsPickerState extends State<_SupplementsPicker> {
     super.dispose();
   }
 
-  /// 입력어 기준 부분 매칭. 입력 없으면 빈 리스트 (초기 노이즈 방지).
-  /// 이미 선택된 항목은 제안에서 제외.
-  List<SupplementGuide> _matches() {
+  /// 검색 + 카테고리 + 미선택 필터를 모두 적용한 후보.
+  /// 검색어가 있으면 카테고리 무시 (전체 검색). 없으면 활성 카테고리 안에서.
+  List<Product> _matches() {
     final q = _query.text.trim().toLowerCase();
-    if (q.isEmpty) return const [];
-    final out = <SupplementGuide>[];
-    for (final s in widget.supplements) {
-      if (_selected.contains(s.nameKorean)) continue;
-      final ko = s.nameKorean.toLowerCase();
-      final en = s.nameEnglish.toLowerCase();
-      if (ko.contains(q) || en.contains(q)) {
-        out.add(s);
-        if (out.length >= 6) break;
-      }
-    }
-    return out;
+    final source = q.isEmpty
+        ? (_activeCategory == null
+            ? const <Product>[]
+            : widget.products.where((p) => p.category == _activeCategory))
+        : widget.products.where(
+            (p) => p.name.toLowerCase().contains(q),
+          );
+    return [for (final p in source) if (!_selectedIds.contains(p.id)) p];
   }
 
-  void _add(String name) {
+  void _toggle(Product p) {
     setState(() {
-      _selected.add(name);
-      _query.clear();
+      if (_selectedIds.contains(p.id)) {
+        _selectedIds.remove(p.id);
+      } else {
+        _selectedIds.add(p.id);
+      }
     });
   }
 
-  void _remove(String name) {
-    setState(() => _selected.remove(name));
+  void _remove(String id) {
+    setState(() => _selectedIds.remove(id));
+  }
+
+  Product? _byId(String id) {
+    for (final p in widget.products) {
+      if (p.id == id) return p;
+    }
+    return null;
   }
 
   @override
   Widget build(BuildContext context) {
     final matches = _matches();
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (_selected.isNotEmpty) ...[
-          Wrap(
-            spacing: 6,
-            runSpacing: 6,
-            children: [
-              for (final name in _selected)
-                _SelectedChip(name: name, onRemove: () => _remove(name)),
-            ],
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxHeight: 420),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (_selectedIds.isNotEmpty) ...[
+            Wrap(
+              spacing: 6,
+              runSpacing: 6,
+              children: [
+                for (final id in _selectedIds)
+                  if (_byId(id) != null)
+                    _SelectedChip(
+                      name: _byId(id)!.name,
+                      onRemove: () => _remove(id),
+                    ),
+              ],
+            ),
+            const SizedBox(height: 10),
+          ],
+          // 카테고리 필터.
+          SizedBox(
+            height: 36,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemCount: _categoryOrder.length,
+              separatorBuilder: (_, _) => const SizedBox(width: 6),
+              itemBuilder: (_, i) {
+                final cat = _categoryOrder[i];
+                final label = productCategoryDisplayName[cat] ?? cat;
+                final active = _activeCategory == cat;
+                return _CategoryChip(
+                  label: label,
+                  active: active,
+                  onTap: () => setState(() {
+                    _activeCategory = active ? null : cat;
+                  }),
+                );
+              },
+            ),
           ),
-          const SizedBox(height: 10),
-        ],
-        TextField(
-          controller: _query,
-          textInputAction: TextInputAction.search,
-          onChanged: (_) => setState(() {}),
-          decoration: InputDecoration(
-            hintText: AppStrings.currentSupplementsSearchHint,
-            hintStyle: TextStyle(
-              color: AppTheme.textSecondary.withValues(alpha: 0.5),
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
-            ),
-            filled: true,
-            fillColor: AppTheme.background,
-            isDense: true,
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 14,
-              vertical: 12,
-            ),
-            prefixIcon: const Icon(Icons.search, size: 20),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide.none,
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide.none,
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(
-                color: AppTheme.primary,
-                width: 2,
+          const SizedBox(height: 8),
+          TextField(
+            controller: _query,
+            textInputAction: TextInputAction.search,
+            onChanged: (_) => setState(() {}),
+            decoration: InputDecoration(
+              hintText: AppStrings.productPickerSearchHint,
+              hintStyle: TextStyle(
+                color: AppTheme.textSecondary.withValues(alpha: 0.5),
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+              ),
+              filled: true,
+              fillColor: AppTheme.background,
+              isDense: true,
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 14,
+                vertical: 12,
+              ),
+              prefixIcon: const Icon(Icons.search, size: 20),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide.none,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide.none,
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(
+                  color: AppTheme.primary,
+                  width: 2,
+                ),
               ),
             ),
           ),
-        ),
-        if (matches.isNotEmpty) ...[
           const SizedBox(height: 8),
-          Wrap(
-            spacing: 6,
-            runSpacing: 6,
-            children: [
-              for (final m in matches)
-                _SuggestionChip(
-                  name: m.nameKorean,
-                  onTap: () => _add(m.nameKorean),
-                ),
-            ],
+          Flexible(
+            child: matches.isEmpty
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 24),
+                    child: Text(
+                      AppStrings.productPickerEmpty,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 13,
+                        color: AppTheme.subtle,
+                      ),
+                    ),
+                  )
+                : ListView.separated(
+                    shrinkWrap: true,
+                    itemCount: matches.length,
+                    separatorBuilder: (_, _) => const SizedBox(height: 6),
+                    itemBuilder: (_, i) {
+                      final p = matches[i];
+                      return _ProductCard(
+                        product: p,
+                        selected: _selectedIds.contains(p.id),
+                        onTap: () => _toggle(p),
+                      );
+                    },
+                  ),
+          ),
+          const SizedBox(height: 12),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton(
+              onPressed: () => widget.onDone(_selectedIds.toList()),
+              child: const Text(AppStrings.currentSupplementsDone),
+            ),
           ),
         ],
-        const SizedBox(height: 12),
-        SizedBox(
-          width: double.infinity,
-          child: FilledButton(
-            onPressed: () => widget.onDone(_selected.toList()),
-            child: const Text(AppStrings.currentSupplementsDone),
+      ),
+    );
+  }
+}
+
+class _CategoryChip extends StatelessWidget {
+  const _CategoryChip({
+    required this.label,
+    required this.active,
+    required this.onTap,
+  });
+
+  final String label;
+  final bool active;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+        decoration: BoxDecoration(
+          color: active ? AppTheme.primary : AppTheme.background,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: active
+                ? AppTheme.primary
+                : AppTheme.primary.withValues(alpha: 0.25),
           ),
         ),
-      ],
+        child: Text(
+          label,
+          style: TextStyle(
+            color: active ? Colors.white : AppTheme.primary,
+            fontWeight: FontWeight.w700,
+            fontSize: 13,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ProductCard extends StatelessWidget {
+  const _ProductCard({
+    required this.product,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final Product product;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final brand = productBrandTypeLabel[product.brandType] ?? product.brandType;
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: selected ? AppTheme.cream : Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: selected ? AppTheme.primary : AppTheme.line,
+            width: selected ? 1.6 : 1,
+          ),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          product.name,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppTheme.background,
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Text(
+                          brand,
+                          style: const TextStyle(
+                            fontSize: 10,
+                            color: AppTheme.subtle,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    AppStrings.productCardPackage(
+                      product.packageSize,
+                      product.unit,
+                      product.packagePriceKrw,
+                    ),
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: AppTheme.ink,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    AppStrings.productCardDailyNoCost(
+                      product.dailyDose,
+                      product.unit,
+                    ),
+                    style: const TextStyle(
+                      fontSize: 11,
+                      color: AppTheme.subtle,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(
+              selected
+                  ? Icons.check_circle
+                  : Icons.radio_button_unchecked,
+              color: selected ? AppTheme.primary : AppTheme.subtle,
+              size: 22,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -946,9 +1219,230 @@ class _SelectedChip extends StatelessWidget {
   }
 }
 
-class _SuggestionChip extends StatelessWidget {
-  const _SuggestionChip({required this.name, required this.onTap});
-  final String name;
+/// 키 + 몸무게 동시 입력 위젯. 둘 다 비울 수도 있음 (전부 모르면 그냥 다음).
+/// 입력값에 따라 또래 대비 라벨을 그 자리에서 보여 준다.
+class _HeightWeightInput extends StatefulWidget {
+  const _HeightWeightInput({required this.input, required this.onSubmit});
+
+  final FamilyInput input;
+  final void Function(double? heightCm, double? weightKg) onSubmit;
+
+  @override
+  State<_HeightWeightInput> createState() => _HeightWeightInputState();
+}
+
+class _HeightWeightInputState extends State<_HeightWeightInput> {
+  final _heightCtrl = TextEditingController();
+  final _weightCtrl = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    final h = widget.input.heightCm;
+    final w = widget.input.weightKg;
+    if (h != null) _heightCtrl.text = h.toStringAsFixed(1);
+    if (w != null) _weightCtrl.text = w.toStringAsFixed(1);
+  }
+
+  @override
+  void dispose() {
+    _heightCtrl.dispose();
+    _weightCtrl.dispose();
+    super.dispose();
+  }
+
+  void _submit() {
+    final h = double.tryParse(_heightCtrl.text.trim());
+    final w = double.tryParse(_weightCtrl.text.trim());
+    widget.onSubmit(h, w);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final h = double.tryParse(_heightCtrl.text.trim());
+    final peerLabel = heightPeerLabel(
+      ageYears: widget.input.age,
+      sexStorage: widget.input.sex?.storage,
+      heightCm: h,
+    );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: TextField(
+                controller: _heightCtrl,
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                ),
+                onChanged: (_) => setState(() {}),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
+                ],
+                decoration: _hwDecoration(AppStrings.childHeightHint),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: TextField(
+                controller: _weightCtrl,
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                ),
+                onChanged: (_) => setState(() {}),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
+                ],
+                decoration: _hwDecoration(AppStrings.childWeightHint),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ],
+        ),
+        if (peerLabel != null) ...[
+          const SizedBox(height: 8),
+          Text(
+            peerLabel,
+            style: const TextStyle(
+              fontSize: 12,
+              color: AppTheme.primary,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ],
+        const SizedBox(height: 12),
+        SizedBox(
+          width: double.infinity,
+          child: FilledButton(
+            onPressed: _submit,
+            child: const Text(AppStrings.checkupNext),
+          ),
+        ),
+      ],
+    );
+  }
+
+  InputDecoration _hwDecoration(String hint) => InputDecoration(
+        hintText: hint,
+        hintStyle: TextStyle(
+          color: AppTheme.textSecondary.withValues(alpha: 0.5),
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+        ),
+        filled: true,
+        fillColor: AppTheme.background,
+        isDense: true,
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: AppTheme.primary, width: 2),
+        ),
+      );
+}
+
+/// 알레르기 항목 다중 선택. "없어요" 누르면 빈 리스트로 제출.
+class _AllergyPicker extends StatefulWidget {
+  const _AllergyPicker({required this.onDone});
+  final ValueChanged<List<String>> onDone;
+
+  @override
+  State<_AllergyPicker> createState() => _AllergyPickerState();
+}
+
+class _AllergyPickerState extends State<_AllergyPicker> {
+  static const _items = <String>[
+    AppStrings.allergyMilk,
+    AppStrings.allergyEgg,
+    AppStrings.allergyNuts,
+    AppStrings.allergyWheat,
+    AppStrings.allergyShrimp,
+    AppStrings.allergyFish,
+    AppStrings.allergySoy,
+  ];
+
+  final Set<String> _picked = <String>{};
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            for (final item in _items)
+              _AllergyChip(
+                label: item,
+                selected: _picked.contains(item),
+                onTap: () => setState(() {
+                  if (_picked.contains(item)) {
+                    _picked.remove(item);
+                  } else {
+                    _picked.add(item);
+                  }
+                }),
+              ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            Expanded(
+              child: OutlinedButton(
+                onPressed: () => widget.onDone(const []),
+                style: OutlinedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(44),
+                  side: const BorderSide(color: AppTheme.line),
+                  foregroundColor: AppTheme.subtle,
+                ),
+                child: const Text(AppStrings.allergyNone),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: FilledButton(
+                onPressed: () => widget.onDone(_picked.toList()),
+                style: FilledButton.styleFrom(
+                  minimumSize: const Size.fromHeight(44),
+                ),
+                child: const Text(AppStrings.checkupNext),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _AllergyChip extends StatelessWidget {
+  const _AllergyChip({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+  final String label;
+  final bool selected;
   final VoidCallback onTap;
 
   @override
@@ -957,16 +1451,20 @@ class _SuggestionChip extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(20),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
-          color: AppTheme.cream,
+          color: selected ? AppTheme.primary : AppTheme.background,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: AppTheme.primary.withValues(alpha: 0.3)),
+          border: Border.all(
+            color: selected
+                ? AppTheme.primary
+                : AppTheme.primary.withValues(alpha: 0.3),
+          ),
         ),
         child: Text(
-          '+ $name',
-          style: const TextStyle(
-            color: AppTheme.primary,
+          label,
+          style: TextStyle(
+            color: selected ? Colors.white : AppTheme.primary,
             fontWeight: FontWeight.w700,
             fontSize: 13,
           ),
@@ -975,3 +1473,4 @@ class _SuggestionChip extends StatelessWidget {
     );
   }
 }
+

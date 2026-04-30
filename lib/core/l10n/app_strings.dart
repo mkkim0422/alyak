@@ -254,6 +254,115 @@ class AppStrings {
       '예: 오메가3, 종합비타민, 마그네슘';
   static const String currentSupplementsDone = '완료';
   static const String currentSupplementsAnswerNone = '없음';
+
+  // 제품 picker (products.json 기반)
+  static const String productPickerTitle = '드시는 제품 선택';
+  static const String productPickerSearchHint = '제품명 검색';
+  static const String productPickerEmpty = '카테고리를 선택해 주세요';
+  static String productCardPackage(int size, String unit, int priceKrw) =>
+      '$size$unit / ${_krw(priceKrw)}';
+  static String productCardDaily(int dose, String unit, int dailyKrw) =>
+      '1일 복용: $dose$unit (약 ${_krw(dailyKrw)})';
+  static String productCardDailyNoCost(int dose, String unit) =>
+      '1일 복용: $dose$unit';
+
+  static String _krw(int v) {
+    final s = v.toString();
+    final buf = StringBuffer();
+    for (var i = 0; i < s.length; i++) {
+      if (i > 0 && (s.length - i) % 3 == 0) buf.write(',');
+      buf.write(s[i]);
+    }
+    return '${buf.toString()}원';
+  }
+
+  /// 화폐 표시. 외부에서도 사용할 수 있게 노출.
+  static String krw(int v) => _krw(v);
+
+  // ───────────────────────────────────────────────────────────── 검진 결과 입력
+  static const String checkupTitle = '검진 결과 입력';
+  static const String checkupBotIntro = '건강검진 결과지가 있으세요? 📋';
+  static const String checkupBotIntroSub = '최근 1년 이내 결과를 입력하면 추천이 훨씬 정확해져요';
+  static const String checkupYes = '있어요';
+  static const String checkupLater = '없어요 / 다음에';
+  static const String checkupBotDate = '검진 받으신 날짜를 알려주세요';
+  static const String checkupBotFields = '결과지 보면서 입력해주세요. 모르는 건 건너뛰어도 돼요 😊';
+  static const String checkupSkip = '건너뛰기';
+  static const String checkupNext = '다음';
+  static const String checkupDone = '✅ 입력 완료';
+  static const String checkupSaved = '검진 결과가 저장됐어요';
+  static const String checkupOpen = '검진 결과 입력 →';
+  static const String checkupOpenDone = '검진 결과 다시 입력 →';
+  static String checkupLastDate(int year, int month, int day) =>
+      '최근 검진: $year년 $month월 $day일';
+
+  // 검진 항목별 라벨 + 정상 범위 힌트.
+  static const String checkupCholTotal = '총콜레스테롤';
+  static const String checkupCholTotalHint = '정상 범위: 200 이하 (mg/dL)';
+  static const String checkupCholLdl = 'LDL 콜레스테롤';
+  static const String checkupCholLdlHint = '정상 범위: 130 이하 (mg/dL)';
+  static const String checkupCholHdl = 'HDL 콜레스테롤';
+  static const String checkupCholHdlHint = '정상 범위: 40 이상 (mg/dL)';
+  static const String checkupBloodSugar = '공복혈당';
+  static const String checkupBloodSugarHint = '정상 범위: 100 이하 (mg/dL)';
+  static const String checkupHemoglobin = '헤모글로빈';
+  static const String checkupHemoglobinHint =
+      '정상: 남 13 이상 / 여 12 이상 (g/dL)';
+  static const String checkupAlt = '간수치 ALT';
+  static const String checkupAltHint = '정상 범위: 40 이하 (U/L)';
+  static const String checkupAst = '간수치 AST';
+  static const String checkupAstHint = '정상 범위: 40 이하 (U/L)';
+  static const String checkupVitaminD = '비타민D 수치';
+  static const String checkupVitaminDHint = '정상 범위: 30 이상 (ng/mL)';
+  static const String checkupBpSystolic = '혈압 (수축기)';
+  static const String checkupBpSystolicHint = '정상 범위: 120 미만 (mmHg)';
+  static const String checkupBpDiastolic = '혈압 (이완기)';
+  static const String checkupBpDiastolicHint = '정상 범위: 80 미만 (mmHg)';
+
+  // ───────────────────────────────────────────────────────────── 아이 상세 입력
+  static const String qChildHeightWeight = '아이 키와 몸무게 알려주세요 📏';
+  static const String qChildHeightWeightSub = '성장 추적에 도움돼요';
+  static const String childHeightHint = '키 (cm)';
+  static const String childWeightHint = '몸무게 (kg)';
+
+  static const String qStool = '아이 변은 어떤 편이에요? 💩';
+  static const String qStoolSub = '건강 상태 파악에 도움돼요';
+  static const String qStoolFreq = '얼마나 자주 보나요?';
+  static const String qStoolForm = '변 형태는 어떤가요?';
+  static const String stoolDaily = '매일 보내요';
+  static const String stoolTwoToThree = '2-3일에 한 번';
+  static const String stoolWeekly = '일주일에 한 번';
+  static const String stoolLess = '거의 못 봐요';
+  static const String stoolHard = '딱딱해요 (변비)';
+  static const String stoolNormal = '보통이에요';
+  static const String stoolSoft = '무른 편이에요';
+  static const String stoolWatery = '설사 같아요';
+
+  static const String qAllergyItems = '알레르기 있는 음식이 있나요?';
+  static const String qAllergyItemsSub = '해당하는 것 모두 골라 주세요';
+  static const String allergyMilk = '우유';
+  static const String allergyEgg = '계란';
+  static const String allergyNuts = '견과류';
+  static const String allergyWheat = '밀';
+  static const String allergyShrimp = '새우';
+  static const String allergyFish = '생선';
+  static const String allergySoy = '콩';
+  static const String allergyNone = '없어요';
+
+  static const String qEatsVegetables = '채소를 잘 먹나요?';
+  static const String qEatsFish = '생선을 먹나요?';
+
+  // 추천 상세 - 제품 추천 섹션
+  static const String productSectionTitle = '💊 이런 제품 어떠세요?';
+  static String productRank(int rank) => '$rank순위';
+  static const String productAlternativesButton = '같은 성분 다른 제품 보기 →';
+  static const String productAlternativesSheetTitle = '같은 성분 다른 제품';
+  static const String productEmptyEnough = '💚 현재 복용 중인 영양제로 충분해요!';
+  static const String productEmptyEnoughSub = '추가 보충은 필요 없어 보여요';
+  static const String productMissingDataTitle = '💡 현재 복용 영양제를 입력하면';
+  static const String productMissingDataSub =
+      '더 정확한 제품 추천을 받을 수 있어요';
+  static const String productMissingDataAction = '지금 입력하기 →';
   /// 추천 결과 화면에서 "이미 드시는 것" 섹션 헤더.
   static const String recommendationSectionAlreadyTaking = '이미 드시는 것 ✅';
 

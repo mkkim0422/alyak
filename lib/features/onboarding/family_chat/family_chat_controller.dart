@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/data/nutrient_targets.dart';
+import '../../../core/data/product_repository.dart';
 import '../../../core/l10n/app_strings.dart';
 import '../../recommendation/engine/family_input.dart';
 import '../../recommendation/engine/recommendation_engine.dart';
@@ -47,9 +49,15 @@ class FamilyChatState {
 }
 
 class FamilyChatController extends Notifier<FamilyChatState> {
-  FamilyChatController(this._engine, {this.isOwn = false});
+  FamilyChatController(
+    this._engine, {
+    this.isOwn = false,
+    ProductRepository? productRepository,
+  }) : _productRepo = productRepository;
 
   final RecommendationEngine _engine;
+  final ProductRepository? _productRepo;
+
   /// 본인 등록 모드면 첫 질문에 `qNameOwn` 사용. 그 외엔 일반 `qName`.
   final bool isOwn;
   int _msgCounter = 0;
@@ -75,6 +83,13 @@ class FamilyChatController extends Notifier<FamilyChatState> {
     switch (step) {
       case ChatStep.currentSupplements:
         return AppStrings.qCurrentSupplementsSub;
+      case ChatStep.heightWeight:
+        return AppStrings.qChildHeightWeightSub;
+      case ChatStep.stoolFrequency:
+      case ChatStep.stoolForm:
+        return AppStrings.qStoolSub;
+      case ChatStep.allergyItems:
+        return AppStrings.qAllergyItemsSub;
       default:
         return null;
     }
@@ -120,6 +135,18 @@ class FamilyChatController extends Notifier<FamilyChatState> {
         return AppStrings.qCurrentSupplements;
       case ChatStep.currentSupplementsPick:
         return AppStrings.qCurrentSupplementsPick;
+      case ChatStep.heightWeight:
+        return AppStrings.qChildHeightWeight;
+      case ChatStep.stoolFrequency:
+        return AppStrings.qStool;
+      case ChatStep.stoolForm:
+        return AppStrings.qStoolForm;
+      case ChatStep.allergyItems:
+        return AppStrings.qAllergyItems;
+      case ChatStep.eatsVegetables:
+        return AppStrings.qEatsVegetables;
+      case ChatStep.eatsFish:
+        return AppStrings.qEatsFish;
       case ChatStep.done:
         return AppStrings.qDone;
     }
@@ -283,6 +310,64 @@ class FamilyChatController extends Notifier<FamilyChatState> {
     );
   }
 
+  /// 키/몸무게 — 한 번에 두 값을 받음.
+  Future<void> submitHeightWeight(double? heightCm, double? weightKg) async {
+    if (state.step != ChatStep.heightWeight) return;
+    final h = heightCm == null ? '' : '${heightCm.toStringAsFixed(0)}cm';
+    final w = weightKg == null ? '' : '${weightKg.toStringAsFixed(1)}kg';
+    final txt = [h, w].where((s) => s.isNotEmpty).join(' / ');
+    await _commit(
+      userText: txt.isEmpty ? '건너뛰기' : txt,
+      updated: state.input.copyWith(
+        heightCm: heightCm,
+        weightKg: weightKg,
+        heightWeightUpdated:
+            (heightCm != null || weightKg != null) ? DateTime.now() : null,
+      ),
+    );
+  }
+
+  Future<void> submitStoolFrequency(StoolFrequency f) async {
+    if (state.step != ChatStep.stoolFrequency) return;
+    await _commit(
+      userText: f.ko,
+      updated: state.input.copyWith(stoolFrequency: f),
+    );
+  }
+
+  Future<void> submitStoolForm(StoolForm f) async {
+    if (state.step != ChatStep.stoolForm) return;
+    await _commit(
+      userText: f.ko,
+      updated: state.input.copyWith(stoolForm: f),
+    );
+  }
+
+  Future<void> submitAllergyItems(List<String> items) async {
+    if (state.step != ChatStep.allergyItems) return;
+    final txt = items.isEmpty ? AppStrings.allergyNone : items.join(', ');
+    await _commit(
+      userText: txt,
+      updated: state.input.copyWith(allergyItems: items),
+    );
+  }
+
+  Future<void> submitEatsVegetables(bool eats) async {
+    if (state.step != ChatStep.eatsVegetables) return;
+    await _commit(
+      userText: eats ? AppStrings.yes : AppStrings.no,
+      updated: state.input.copyWith(eatsVegetables: eats),
+    );
+  }
+
+  Future<void> submitEatsFish(bool eats) async {
+    if (state.step != ChatStep.eatsFish) return;
+    await _commit(
+      userText: eats ? AppStrings.yes : AppStrings.no,
+      updated: state.input.copyWith(eatsFish: eats),
+    );
+  }
+
   /// "지금 드시는 영양제 있으세요?" 응답.
   /// `true` → currentSupplementsPick 으로 분기 (sub-step), `false` → 빈 리스트로
   /// done 직행.
@@ -303,14 +388,37 @@ class FamilyChatController extends Notifier<FamilyChatState> {
     }
   }
 
-  /// 검색-선택 picker 의 [완료] 결과 처리. 빈 리스트도 허용 (사용자가 안 골랐을 때).
-  Future<void> submitCurrentSupplementsList(List<String> picked) async {
+  /// 제품 picker(_ProductsPicker) 의 [완료] 결과 처리.
+  /// `productIds` 가 비면 "없음" 으로 처리하고 동시에 `currentSupplements` 도
+  /// 빈 리스트로 채운다 (alreadyTaking 스킵).
+  ///
+  /// 비어있지 않으면:
+  ///   1) 채팅 user bubble 에 노출할 한글 이름 = repo 에서 조회한 제품 이름들
+  ///   2) currentProductIds = 그대로 저장
+  ///   3) currentSupplements = 카테고리 기반으로 추론한 supplement 이름들 (중복 제거)
+  ///      → 기존 alreadyTaking 매칭 로직과 호환 유지.
+  Future<void> submitCurrentSupplementsList(List<String> productIds) async {
     if (state.step != ChatStep.currentSupplementsPick) return;
+    final repo = _productRepo;
+    final names = <String>[];
+    final supplementNames = <String>{};
+    if (repo != null) {
+      for (final id in productIds) {
+        final p = repo.getById(id);
+        if (p == null) continue;
+        names.add(p.name);
+        final mapped = productCategorySupplementName[p.category];
+        if (mapped != null) supplementNames.add(mapped);
+      }
+    }
     await _commit(
-      userText: picked.isEmpty
+      userText: productIds.isEmpty
           ? AppStrings.currentSupplementsAnswerNone
-          : picked.join(', '),
-      updated: state.input.copyWith(currentSupplements: picked),
+          : (names.isEmpty ? productIds.join(', ') : names.join(', ')),
+      updated: state.input.copyWith(
+        currentProductIds: productIds,
+        currentSupplements: supplementNames.toList(),
+      ),
       overrideNext: ChatStep.done,
     );
   }

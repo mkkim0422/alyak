@@ -8,6 +8,7 @@ import '../features/family/screens/family_edit_screen.dart';
 import '../features/family/screens/family_management_screen.dart';
 import '../features/family/screens/recommendation_detail_screen.dart';
 import '../features/family/screens/supplement_guide_screen.dart';
+import '../features/health_checkup/screens/health_checkup_input_screen.dart';
 import '../features/home/screens/home_screen.dart';
 import '../features/legal/privacy_policy_screen.dart';
 import '../features/notifications/screens/notification_settings_screen.dart';
@@ -107,6 +108,12 @@ class AppRouter {
           builder: (context, state) => SupplementGuideScreen(
             supplementId: state.pathParameters['supplementId']!,
             memberId: state.uri.queryParameters['member'],
+          ),
+        ),
+        GoRoute(
+          path: '${HealthCheckupInputScreen.routeName}/:memberId',
+          builder: (context, state) => HealthCheckupInputScreen(
+            memberId: state.pathParameters['memberId']!,
           ),
         ),
       ],
