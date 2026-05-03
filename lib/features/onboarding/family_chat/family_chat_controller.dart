@@ -77,6 +77,27 @@ class FamilyChatController extends Notifier<FamilyChatState> {
 
   int _nextId() => ++_msgCounter;
 
+  /// 단일 관계 (남편/아내/엄마/아빠) 처럼 한 명만 가능한 가족원은
+  /// 이름과 성별을 미리 채우고 ChatStep.age 부터 시작한다. build() 에서 만든
+  /// 이름 질문 봇 메시지를 age 질문으로 교체한다.
+  ///
+  /// 화면 측 [_FamilyChatBodyState.initState] 에서 첫 frame 직후 호출.
+  /// 이미 다른 단계로 진행됐다면 (재진입) 무시 — name 단계일 때만 적용.
+  void applyRelationShortcut({required String name, required Sex sex}) {
+    if (state.step != ChatStep.name) return;
+    final newInput = state.input.copyWith(name: name, sex: sex);
+    final ageBot = ChatMessage(
+      id: _nextId(),
+      author: ChatAuthor.bot,
+      text: AppStrings.qAge,
+    );
+    state = state.copyWith(
+      input: newInput,
+      step: ChatStep.age,
+      messages: [ageBot],
+    );
+  }
+
   /// 봇 메시지 본문 아래 작은 회색으로 노출되는 부가 안내. 해당 step 에
   /// 보조 설명이 없으면 null.
   static String? _subTextFor(ChatStep step) {

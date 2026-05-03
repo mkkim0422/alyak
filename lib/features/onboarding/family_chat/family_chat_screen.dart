@@ -100,6 +100,31 @@ class _FamilyChatBody extends ConsumerStatefulWidget {
 class _FamilyChatBodyState extends ConsumerState<_FamilyChatBody> {
   final _scrollCtrl = ScrollController();
 
+  /// 단일 관계 → (이름, 성별) 자동 채움 매핑.
+  /// family_select 에서 '남편'/'아내'/'엄마'/'아빠' 카드를 누르면 relation 으로
+  /// 라벨이 그대로 들어와 여기서 매칭. 그 외는 일반 흐름.
+  static const Map<String, (String name, Sex sex)> _singularRelations = {
+    AppStrings.relationHusband: ('남편', Sex.male),
+    AppStrings.relationWife: ('아내', Sex.female),
+    AppStrings.relationMom: ('엄마', Sex.female),
+    AppStrings.relationDad: ('아빠', Sex.male),
+  };
+
+  @override
+  void initState() {
+    super.initState();
+    final prefill = _singularRelations[widget.relation];
+    if (prefill != null) {
+      // controller build() 가 이미 첫 봇 메시지를 만든 직후, 첫 frame 그리기 전에
+      // shortcut 을 적용해 이름·성별 질문을 건너뛴다.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        ref.read(familyChatControllerProvider.notifier)
+            .applyRelationShortcut(name: prefill.$1, sex: prefill.$2);
+      });
+    }
+  }
+
   @override
   void dispose() {
     _scrollCtrl.dispose();

@@ -155,8 +155,11 @@ class _RelationGrid extends StatelessWidget {
   const _RelationGrid({required this.onTap});
   final void Function(String relation) onTap;
 
+  // 단일 관계 (남편/아내/엄마/아빠) 는 family_chat 진입 시 이름/성별을 자동
+  // 채워서 바로 나이부터 묻는다. 아들/딸/기타 는 이름을 묻는 일반 흐름.
   static const List<_Relation> _items = [
-    _Relation(AppStrings.relationSpouse, AppStrings.relationSpouseEmoji),
+    _Relation(AppStrings.relationHusband, AppStrings.relationHusbandEmoji),
+    _Relation(AppStrings.relationWife, AppStrings.relationWifeEmoji),
     _Relation(AppStrings.relationSon, AppStrings.relationSonEmoji),
     _Relation(AppStrings.relationDaughter, AppStrings.relationDaughterEmoji),
     _Relation(AppStrings.relationMom, AppStrings.relationMomEmoji),

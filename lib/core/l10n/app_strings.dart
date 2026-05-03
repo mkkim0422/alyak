@@ -200,18 +200,24 @@ class AppStrings {
   // ───────────────────────────────────────────────────────────── 가족 선택
   static const String familySelectQuestion = '누구를 먼저 등록할까요? 👨‍👩‍👧';
   static const String familySelectDone = '완료';
-  static const String relationSpouse = '배우자';
+  static const String relationHusband = '남편';
+  static const String relationWife = '아내';
   static const String relationSon = '아들';
   static const String relationDaughter = '딸';
   static const String relationMom = '엄마';
   static const String relationDad = '아빠';
   static const String relationOther = '다른 소중한 사람';
-  static const String relationSpouseEmoji = '👫';
+  static const String relationHusbandEmoji = '👨';
+  static const String relationWifeEmoji = '👩';
   static const String relationSonEmoji = '👦';
   static const String relationDaughterEmoji = '👧';
-  static const String relationMomEmoji = '👩';
-  static const String relationDadEmoji = '👨';
+  static const String relationMomEmoji = '👵';
+  static const String relationDadEmoji = '👴';
   static const String relationOtherEmoji = '💝';
+
+  // legacy: 기존 코드 호환을 위해 유지 (제거 시 다른 화면 깨짐 방지).
+  static const String relationSpouse = relationHusband;
+  static const String relationSpouseEmoji = relationHusbandEmoji;
 
   // ───────────────────────────────────────────────────────────── 등록 완료 (chat-style)
   static const String completionOwnMsg1 = '등록 완료예요 🎉';

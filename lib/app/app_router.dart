@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../core/security/auth_service.dart';
 import '../core/security/secure_storage.dart';
 import '../core/theme/app_theme.dart';
 import '../features/admin/admin_panel_screen.dart';
@@ -141,11 +140,14 @@ class AppRouter {
     );
   }
 
-  /// 첫 진입 시 동의/PIN/온보딩 완료 상태를 보고 진입점을 결정.
+  /// 첫 진입 시 동의/온보딩 완료 상태를 보고 진입점을 결정.
   ///
-  /// 진입 순서 (QA Round 3):
-  ///   privacy_consent → pin_setup → pin_lock(세션 만료 시) → welcome →
-  ///   family_add → notification → home
+  /// 진입 순서:
+  ///   privacy_consent → welcome → family_add → notification → home
+  ///
+  /// PIN 강제 단계는 사용자 요청으로 제거됨 — 의료법 대상 의료기기가 아니라
+  /// 영양제 가이드 일반 정보 제공이라 강제 잠금이 과도함. PIN 화면/AuthService
+  /// 코드는 유지 (향후 옵션으로 다시 노출 가능).
   static Future<String?> _redirect(
     BuildContext context,
     GoRouterState state,
@@ -156,14 +158,6 @@ class AppRouter {
     if (consent == null) return PrivacyConsentScreen.routeName;
     // TODO(legal): when PrivacyConsentScreen.consentVersion bumps, compare with
     // the stored kPrivacyConsentVersion and re-prompt if outdated.
-
-    // PIN 미설정 → 강제 설정 (의료 데이터 보호 필수).
-    final pinSet = await AuthService.instance.isPinSet();
-    if (!pinSet) return PinSetupScreen.routeName;
-
-    // PIN 은 설정됐지만 세션 만료 (5분 이상 background) → 잠금 화면.
-    final sessionActive = await AuthService.instance.isSessionActive();
-    if (!sessionActive) return PinLockScreen.routeName;
 
     final notif =
         await SecureStorage.read(SecureStorage.kNotificationSettings);
