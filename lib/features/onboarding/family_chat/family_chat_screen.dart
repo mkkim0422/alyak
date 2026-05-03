@@ -682,6 +682,10 @@ class _InputAreaState extends ConsumerState<_InputArea> {
             Expanded(
               child: TextField(
                 controller: _textCtrl,
+                // step 이 바뀌면 KeyedSubtree key 가 갱신돼 TextField 가 새로
+                // 만들어진다 → autofocus 가 매번 발동 → 사용자가 입력창을 다시
+                // 탭할 필요 없이 키보드가 즉시 떠오른다.
+                autofocus: true,
                 keyboardType: keyboardType,
                 textInputAction: TextInputAction.send,
                 inputFormatters: inputFormatters,
@@ -1326,6 +1330,8 @@ class _HeightWeightInputState extends State<_HeightWeightInput> {
             Expanded(
               child: TextField(
                 controller: _heightCtrl,
+                // 키몸무게 단계 진입 시 첫 칸(키) 에 자동 focus → 숫자 키패드 즉시 표시.
+                autofocus: true,
                 keyboardType: const TextInputType.numberWithOptions(
                   decimal: true,
                 ),
