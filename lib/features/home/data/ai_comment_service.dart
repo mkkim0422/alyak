@@ -4,7 +4,6 @@ import '../../../core/l10n/app_strings.dart';
 import '../../../core/security/secure_storage.dart';
 import '../../family/models/family_member.dart';
 import '../../recommendation/engine/family_input.dart';
-import 'checkin_service.dart';
 
 /// 하루 한 번, 가족 한 명마다 보여 줄 따뜻한 한 마디.
 ///
@@ -38,7 +37,12 @@ class AiCommentService {
     required List<RecommendationResult> recommendations,
     ClaudeApi? api,
   }) async {
-    final today = CheckinService.todayKey();
+    // 일일 캐시 키 — pivot 후 CheckinService 가 단순화돼 todayKey 제공 안 함.
+    // 인라인으로 yyyy-MM-dd 만들기.
+    final n = DateTime.now();
+    final today = '${n.year.toString().padLeft(4, '0')}-'
+        '${n.month.toString().padLeft(2, '0')}-'
+        '${n.day.toString().padLeft(2, '0')}';
     final cacheKey = SecureStorage.aiCommentKey(member.id, today);
 
     final cached = await SecureStorage.read(cacheKey);

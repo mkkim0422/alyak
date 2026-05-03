@@ -1,60 +1,52 @@
-import 'dart:convert';
-
 import '../../../core/security/secure_storage.dart';
 
-/// "어떤 가족이, 어떤 날짜에, 어떤 영양제를 먹었다고 체크했는지"를
-/// 영양제 한국어 이름 리스트로 보관한다.
+/// 제품 별 "복용 시작 날짜" 저장.
 ///
-/// 키 포맷: `checkin.<memberId>.<YYYY-MM-DD>` — 자정이 지나면 새 키가
-/// 만들어지므로 "오늘 체크" 상태는 자동으로 비워진다.
+/// Pivot 후 일일 체크인 (먹었어요) 트래킹은 제거되고, 이제 이 서비스는
+/// **재구매 알림 계산** 의 anchor 로만 쓰인다:
+///   started_date + (package_size / daily_dose - reminderDaysBefore) 가
+///   `NotificationService.scheduleReorderReminder` 의 트리거 시점.
+///
+/// 키 포맷: `started.<memberId>.<productId>` = ISO8601 (yyyy-MM-dd).
 class CheckinService {
   CheckinService._();
 
-  static String todayKey() {
-    final now = DateTime.now();
-    return '${now.year.toString().padLeft(4, '0')}-'
-        '${now.month.toString().padLeft(2, '0')}-'
-        '${now.day.toString().padLeft(2, '0')}';
+  static String _key(String memberId, String productId) =>
+      'started.$memberId.$productId';
+
+  static String _todayIso() {
+    final n = DateTime.now();
+    return '${n.year.toString().padLeft(4, '0')}-'
+        '${n.month.toString().padLeft(2, '0')}-'
+        '${n.day.toString().padLeft(2, '0')}';
   }
 
-  static Future<List<String>> readToday(String memberId) async {
-    final raw = await SecureStorage.read(
-      SecureStorage.checkinKey(memberId, todayKey()),
-    );
-    if (raw == null) return const [];
-    try {
-      final list = jsonDecode(raw) as List;
-      return list.map((e) => e.toString()).toList(growable: false);
-    } catch (_) {
-      return const [];
-    }
+  /// 제품 복용 시작일 기록. 이미 기록돼 있으면 그대로 유지 (덮어쓰기 안 함) —
+  /// 재구매 알림 시점이 매번 리셋되는 걸 막는다. 사용자가 명시적으로 재시작하면
+  /// [resetStarted] 사용.
+  static Future<void> markStarted(String memberId, String productId) async {
+    final existing = await SecureStorage.read(_key(memberId, productId));
+    if (existing != null && existing.isNotEmpty) return;
+    await SecureStorage.write(_key(memberId, productId), _todayIso());
   }
 
-  /// 카드 단위 일괄 체크 / 체크 해제. 기존 리스트에 합집합으로 더한다.
-  static Future<List<String>> markChecked(
+  /// 시작일을 명시적으로 갱신. 새 통을 개봉했을 때 사용.
+  static Future<void> resetStarted(String memberId, String productId) async {
+    await SecureStorage.write(_key(memberId, productId), _todayIso());
+  }
+
+  /// 시작일 조회. 없으면 null.
+  static Future<DateTime?> readStarted(
     String memberId,
-    Iterable<String> supplementKoNames,
+    String productId,
   ) async {
-    final current = await readToday(memberId);
-    final merged = {...current, ...supplementKoNames}.toList();
-    await SecureStorage.write(
-      SecureStorage.checkinKey(memberId, todayKey()),
-      jsonEncode(merged),
-    );
-    return merged;
+    final raw = await SecureStorage.read(_key(memberId, productId));
+    if (raw == null || raw.isEmpty) return null;
+    return DateTime.tryParse(raw);
   }
 
-  static Future<List<String>> clearChecks(
-    String memberId,
-    Iterable<String> supplementKoNames,
-  ) async {
-    final current = await readToday(memberId);
-    final remove = supplementKoNames.toSet();
-    final filtered = current.where((n) => !remove.contains(n)).toList();
-    await SecureStorage.write(
-      SecureStorage.checkinKey(memberId, todayKey()),
-      jsonEncode(filtered),
-    );
-    return filtered;
+  /// 제품 등록 해제 시 anchor 정리. 재구매 알림 cancel 과 짝.
+  static Future<void> clearStarted(String memberId, String productId) async {
+    await SecureStorage.delete(_key(memberId, productId));
   }
 }

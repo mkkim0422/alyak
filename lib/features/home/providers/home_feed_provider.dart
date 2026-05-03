@@ -6,7 +6,6 @@ import '../../../core/data/models/schedule_result.dart';
 import '../../../core/data/supplement_repository.dart';
 import '../../family/models/family_member.dart';
 import '../../family/providers/family_members_provider.dart';
-import '../data/checkin_service.dart';
 
 class HomeFeedEntry {
   HomeFeedEntry({
@@ -109,14 +108,15 @@ final homeFeedProvider = FutureProvider<List<HomeFeedEntry>>((ref) async {
     final scheduleRaw = repo.getSchedule(visibleNames);
     final schedule = _balanceMorning(scheduleRaw);
     final conflicts = repo.checkConflicts(visibleNames, const []);
-    final checks = await CheckinService.readToday(m.id);
+    // pivot 후 일일 체크인 트래킹 제거 — 빈 set 로 고정. 호출 측에서는 "체크된
+    // 항목" 이 항상 비어 있는 것으로 동작 (UX 변경 영향 없음).
     entries.add(
       HomeFeedEntry(
         member: m,
         recommendations: recs,
         schedule: schedule,
         conflicts: conflicts,
-        checkedToday: checks.toSet(),
+        checkedToday: const <String>{},
       ),
     );
   }

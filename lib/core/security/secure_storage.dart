@@ -46,8 +46,6 @@ class SecureStorage {
   /// drafts.index 와 동기화되지 않을 수 있어 화면에서 교집합으로 한 번 걸러 사용.
   static const kFamilyOrder = 'family.order';
   static const kNotificationSettings = 'notification.settings';
-  static String checkinKey(String memberId, String yyyymmdd) =>
-      'checkin.$memberId.$yyyymmdd';
   static String aiCommentKey(String memberId, String yyyymmdd) =>
       'ai_comment.$memberId.$yyyymmdd';
 
@@ -56,11 +54,6 @@ class SecureStorage {
 
   /// 날씨 캐시 (JSON, 6시간 TTL). [WeatherService] 가 관리.
   static const kWeatherCache = 'weather.cache';
-
-  /// 가족 전체 연속 챙김 일수 캐시. 자세한 갱신 규칙은 [StreakService] 참고.
-  static const kStreakCount = 'streak.count';
-  static const kStreakLastDate = 'streak.last_date';
-  static const kStreakBest = 'streak.best';
 
   // QA Round 2 — PIN / 생체 인증 / 세션 잠금 관련 키.
   // PIN 자체는 절대 평문 저장하지 않고, PBKDF2-HMAC-SHA256 100k iter 결과만 저장.

@@ -195,6 +195,114 @@ class NotificationService {
     await _plugin.cancel(id: reorderIdFor(memberId));
   }
 
+  /// 제품별 재구매 알림 — 사용자가 새 제품을 currentProducts 에 추가했을 때 호출.
+  /// `package_size / daily_dose` 기준으로 떨어질 시점을 계산해 그 [daysBefore]
+  /// 일 전 같은 시각에 1회 알림.
+  ///
+  /// 동일 (memberId, productId) 는 덮어씀.
+  static Future<void> scheduleProductReorderReminder({
+    required String memberId,
+    required String productId,
+    required String productName,
+    required DateTime startedDate,
+    required int packageSize,
+    required int dailyDose,
+    int daysBefore = 3,
+  }) async {
+    await ensureInitialized();
+    if (dailyDose <= 0 || packageSize <= 0) return;
+    final daysToFinish = packageSize ~/ dailyDose;
+    final estimatedFinish = startedDate.add(Duration(days: daysToFinish));
+    final reminder = estimatedFinish.subtract(Duration(days: daysBefore));
+    final now = DateTime.now();
+    if (!reminder.isAfter(now)) return;
+
+    final id = productReorderIdFor(memberId, productId);
+    await _plugin.cancel(id: id);
+    final scheduled = tz.TZDateTime.from(reminder, tz.local);
+    await _plugin.zonedSchedule(
+      id: id,
+      title: AppStrings.notifReorderProductTitle,
+      body: AppStrings.notifReorderProductBody(productName, daysBefore),
+      scheduledDate: scheduled,
+      notificationDetails: const NotificationDetails(
+        android: AndroidNotificationDetails(
+          _channelId,
+          _channelName,
+          channelDescription: _channelDescription,
+          importance: Importance.high,
+          priority: Priority.high,
+        ),
+        iOS: DarwinNotificationDetails(),
+      ),
+      payload: 'reorder:$memberId:$productId',
+      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+    );
+  }
+
+  static Future<void> cancelProductReorderReminder({
+    required String memberId,
+    required String productId,
+  }) async {
+    await ensureInitialized();
+    await _plugin.cancel(id: productReorderIdFor(memberId, productId));
+  }
+
+  /// 검진 1년 알림 — `HealthCheckup.checkupDate + 365일` 시점 동일 시각.
+  static Future<void> scheduleCheckupReminder({
+    required String memberId,
+    required DateTime lastCheckupDate,
+  }) async {
+    await ensureInitialized();
+    final reminder = lastCheckupDate.add(const Duration(days: 365));
+    if (!reminder.isAfter(DateTime.now())) return;
+
+    final id = checkupReminderIdFor(memberId);
+    await _plugin.cancel(id: id);
+    final scheduled = tz.TZDateTime.from(reminder, tz.local);
+    await _plugin.zonedSchedule(
+      id: id,
+      title: AppStrings.notifCheckupReminderTitle,
+      body: AppStrings.notifCheckupReminderBody,
+      scheduledDate: scheduled,
+      notificationDetails: const NotificationDetails(
+        android: AndroidNotificationDetails(
+          _channelId,
+          _channelName,
+          channelDescription: _channelDescription,
+          importance: Importance.high,
+          priority: Priority.high,
+        ),
+        iOS: DarwinNotificationDetails(),
+      ),
+      payload: 'checkup:$memberId',
+      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+    );
+  }
+
+  static Future<void> cancelCheckupReminder(String memberId) async {
+    await ensureInitialized();
+    await _plugin.cancel(id: checkupReminderIdFor(memberId));
+  }
+
+  /// memberId + productId → 3000~12999 범위 안 1회성 알림 id.
+  static int productReorderIdFor(String memberId, String productId) {
+    var hash = 0;
+    for (final c in '$memberId|$productId'.codeUnits) {
+      hash = (hash * 31 + c) & 0x3fffffff;
+    }
+    return 3000 + (hash % 10000);
+  }
+
+  /// memberId → 13000~22999 범위. 검진 알림 id.
+  static int checkupReminderIdFor(String memberId) {
+    var hash = 0;
+    for (final c in memberId.codeUnits) {
+      hash = (hash * 31 + c) & 0x3fffffff;
+    }
+    return 13000 + (hash % 10000);
+  }
+
   static tz.TZDateTime _nextInstanceOf(int hour, int minute) {
     final now = tz.TZDateTime.now(tz.local);
     var next = tz.TZDateTime(

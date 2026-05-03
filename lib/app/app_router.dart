@@ -5,6 +5,7 @@ import '../core/security/secure_storage.dart';
 import '../core/theme/app_theme.dart';
 import '../features/admin/admin_panel_screen.dart';
 import '../features/auth/screens/pin_change_screen.dart';
+import '../features/current_check/screens/current_check_screen.dart';
 import '../features/auth/screens/pin_lock_screen.dart';
 import '../features/auth/screens/pin_setup_screen.dart';
 import '../features/family/screens/family_edit_screen.dart';
@@ -133,6 +134,12 @@ class AppRouter {
         GoRoute(
           path: '${HealthCheckupInputScreen.routeName}/:memberId',
           builder: (context, state) => HealthCheckupInputScreen(
+            memberId: state.pathParameters['memberId']!,
+          ),
+        ),
+        GoRoute(
+          path: '${CurrentCheckScreen.routeName}/:memberId',
+          builder: (context, state) => CurrentCheckScreen(
             memberId: state.pathParameters['memberId']!,
           ),
         ),

@@ -516,20 +516,32 @@ class AppStrings {
   // ───────────────────────────────────────────────────────────── 로컬 알림 본문 (가족 통합)
   static const String notifChannelName = '하루 영양제 알림';
   static const String notifChannelDesc = '아침/저녁 가족 영양제 알림';
-  static const String notifFamilyMorningTitle = '💊 가족 영양제 챙길 시간이에요!';
-  /// 아침 알림 본문. 등록된 가족 이름들을 받아 한 줄로 엮어 준다.
-  /// 빈 리스트면 "오늘 가족 분량 준비해주세요" 같은 안전한 fallback.
+  // pivot 후 톤 변경 — '챙기세요' 류 압박 표현 제거, 부담 없는 안내체.
+  static const String notifFamilyMorningTitle = '💊 영양제 시간이에요';
   static String notifFamilyMorningBody(List<String> names) {
-    if (names.isEmpty) return '오늘 가족 분량 준비해주세요';
-    return '오늘 ${names.join(', ')} 분량 준비해주세요';
+    if (names.isEmpty) return '편하실 때 챙기세요';
+    return '${names.join(', ')} 분량이에요. 편하실 때 챙기세요';
   }
 
-  static const String notifFamilyEveningTitle = '🌙 저녁 영양제 잊지 마세요';
-  static const String notifFamilyEveningBody = '오늘 하루도 가족 건강 잘 챙기셨어요 💚';
+  static const String notifFamilyEveningTitle = '💊 영양제 시간이에요';
+  static const String notifFamilyEveningBody = '편하실 때 챙기세요';
 
-  static const String notifReorderTitle = '💊 영양제 재주문 시기가 됐어요';
-  static String notifReorderBody(int days) =>
-      '복용 기록 기준 약 $days일이 지났어요. 새로 주문해 두시면 좋아요.';
+  // 기존 reorder (memberId 단위, days 만 전달).
+  static const String notifReorderTitle = '📦 영양제 곧 떨어져요';
+  static String notifReorderBody(int days) => '약 $days일 후 떨어질 것 같아요';
+
+  // 신규: 제품별 reorder + 검진 알림.
+  static const String notifReorderProductTitle = '📦 영양제 곧 떨어져요';
+  static String notifReorderProductBody(String productName, int daysBefore) =>
+      '$productName이(가) 약 $daysBefore일 후 떨어질 것 같아요. 새로 주문하세요';
+
+  static const String notifCheckupReminderTitle = '🩺 검진받으신 지 1년 됐어요';
+  static const String notifCheckupReminderBody =
+      '새 검진 결과로 영양제 추천을 다시 받아보세요';
+
+  // 동의 알림 본문 / supplement_time_*: 별도 사용처를 위한 짧은 키.
+  static const String supplementTimeTitle = '💊 영양제 시간이에요';
+  static const String supplementTimeBody = '편하실 때 챙기세요';
 
   // ───────────────────────────────────────────────────────────── 날씨 / 계절 팁
   static const String weatherTipDust = '오늘 공기가 탁해요. 항산화제 챙기세요';

@@ -16,7 +16,6 @@ import '../../../core/notifications/notification_service.dart';
 import '../../../core/security/secure_storage.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../home/providers/home_feed_provider.dart';
-import '../../home/screens/home_screen.dart' show AccuracyPill;
 import '../../recommendation/engine/family_input.dart';
 import '../../recommendation/engine/recommendation_engine.dart' as engine;
 import '../../symptoms/screens/symptom_search_screen.dart';
@@ -182,7 +181,6 @@ class _Header extends StatelessWidget {
                     ),
                   ),
                 ),
-              AccuracyPill(member: member),
             ],
           ),
         ],
