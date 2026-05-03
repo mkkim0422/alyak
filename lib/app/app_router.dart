@@ -10,6 +10,7 @@ import '../features/auth/screens/pin_lock_screen.dart';
 import '../features/auth/screens/pin_setup_screen.dart';
 import '../features/family/screens/family_edit_screen.dart';
 import '../features/family/screens/family_management_screen.dart';
+import '../features/family/screens/manual_supplement_input_screen.dart';
 import '../features/family/screens/recommendation_detail_screen.dart';
 import '../features/family/screens/supplement_guide_screen.dart';
 import '../features/health_checkup/screens/health_checkup_input_screen.dart';
@@ -141,6 +142,12 @@ class AppRouter {
           path: '${CurrentCheckScreen.routeName}/:memberId',
           builder: (context, state) => CurrentCheckScreen(
             memberId: state.pathParameters['memberId']!,
+          ),
+        ),
+        GoRoute(
+          path: ManualSupplementInputScreen.routeName,
+          builder: (context, state) => ManualSupplementInputScreen(
+            memberId: state.uri.queryParameters['member_id'] ?? '',
           ),
         ),
       ],

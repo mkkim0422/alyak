@@ -11,6 +11,7 @@ import '../../../core/data/nutrient_targets.dart';
 import '../../../core/data/product_repository.dart';
 import '../../../core/data/supplement_repository.dart';
 import '../../../core/l10n/app_strings.dart';
+import '../../../core/notifications/notification_service.dart';
 import '../../../core/security/encryption_service.dart';
 import '../../../core/security/secure_storage.dart';
 import '../../../core/theme/app_theme.dart';
@@ -555,6 +556,16 @@ class _InputAreaState extends ConsumerState<_InputArea> {
           onDone: (picked) => ref
               .read(familyChatControllerProvider.notifier)
               .submitCurrentSupplementsList(picked),
+          onAddManual: () async {
+            // 온보딩 단계에서는 아직 memberId 가 없으므로 빈 문자열을 넘긴다.
+            // ManualSupplementInputScreen 은 멤버를 못 찾으면 멤버 업데이트를
+            // 스킵하고 repo 에만 저장한다.
+            await context.push<String>(
+              '/supplement/manual-input?member_id=',
+            );
+            // repo invalidate → 다시 watch 시 사용자 추가 항목까지 포함된 목록 노출.
+            ref.invalidate(productRepositoryProvider);
+          },
         );
       case ChatStep.heightWeight:
         return _HeightWeightInput(
@@ -831,6 +842,22 @@ class _InputAreaState extends ConsumerState<_InputArea> {
       );
       await SecureStorage.write(SecureStorage.familyDraftKey(id), cipher);
 
+      // 새 멤버가 가진 모든 currentProductIds 에 대해 재구매 알림을 자동 예약.
+      // (manual 입력 항목 포함 — 통 사이즈 / 1일 복용량만 있으면 알림 가능)
+      await _scheduleReordersForNewMember(id, input);
+
+      // 검진 결과가 함께 입력됐으면 1년 뒤 검진 알림도 예약.
+      final checkup = input.lastCheckup;
+      if (checkup != null) {
+        final notif = ref.read(notificationSettingsProvider);
+        if (notif.checkupEnabled) {
+          await NotificationService.scheduleCheckupReminder(
+            memberId: id,
+            lastCheckupDate: checkup.checkupDate,
+          );
+        }
+      }
+
       // TODO(supabase): user 인증 후 supabase의 family_members 테이블에 upsert.
       ref.invalidate(familyMembersProvider);
       ref.invalidate(homeFeedProvider);
@@ -868,6 +895,41 @@ class _InputAreaState extends ConsumerState<_InputArea> {
       if (mounted) setState(() => _saving = false);
     }
   }
+
+  /// 새로 저장된 멤버 [id] 의 currentProductIds 각각에 대해 재구매 알림을
+  /// 예약한다. 사용자가 설정 화면에서 reorder 토글을 끄면 예약을 스킵한다.
+  /// started_date 는 토글과 무관하게 항상 기록 — 나중에 켜졌을 때 재계산용.
+  Future<void> _scheduleReordersForNewMember(
+    String memberId,
+    FamilyInput input,
+  ) async {
+    final productIds = input.currentProductIds ?? const <String>[];
+    if (productIds.isEmpty) return;
+    final repoAsync = ref.read(productRepositoryProvider);
+    if (!repoAsync.hasValue) return;
+    final repo = repoAsync.requireValue;
+    final notif = ref.read(notificationSettingsProvider);
+    final now = DateTime.now();
+    for (final pid in productIds) {
+      final p = repo.getById(pid);
+      if (p == null) continue;
+      if (p.packageSize <= 0 || p.dailyDose <= 0) continue;
+      await SecureStorage.write(
+        'started.$memberId.$pid',
+        now.toIso8601String(),
+      );
+      if (!notif.reorderEnabled) continue;
+      await NotificationService.scheduleProductReorderReminder(
+        memberId: memberId,
+        productId: pid,
+        productName: p.name,
+        startedDate: now,
+        packageSize: p.packageSize,
+        dailyDose: p.dailyDose,
+        daysBefore: notif.reorderDaysBefore,
+      );
+    }
+  }
 }
 
 class _Choice {
@@ -886,10 +948,14 @@ class _ProductsPicker extends StatefulWidget {
   const _ProductsPicker({
     required this.products,
     required this.onDone,
+    this.onAddManual,
   });
 
   final List<Product> products;
   final ValueChanged<List<String>> onDone;
+
+  /// "위에 없는 영양제" 직접 추가 진입점. null 이면 버튼이 노출되지 않는다.
+  final Future<void> Function()? onAddManual;
 
   @override
   State<_ProductsPicker> createState() => _ProductsPickerState();
@@ -1078,6 +1144,30 @@ class _ProductsPickerState extends State<_ProductsPicker> {
                   ),
           ),
           const SizedBox(height: 12),
+          if (widget.onAddManual != null) ...[
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: () async {
+                  await widget.onAddManual!.call();
+                  if (mounted) setState(() {});
+                },
+                icon: const Icon(Icons.add, size: 18),
+                label: const Text(
+                  '+ 위에 없으면 직접 추가하기',
+                  style: TextStyle(fontWeight: FontWeight.w700),
+                ),
+                style: OutlinedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(44),
+                  side: BorderSide(
+                    color: AppTheme.primary.withValues(alpha: 0.4),
+                  ),
+                  foregroundColor: AppTheme.primary,
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+          ],
           SizedBox(
             width: double.infinity,
             child: FilledButton(

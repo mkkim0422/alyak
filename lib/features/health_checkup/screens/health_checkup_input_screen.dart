@@ -4,10 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/l10n/app_strings.dart';
+import '../../../core/notifications/notification_service.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../family/providers/family_members_provider.dart';
 import '../../family/services/family_service.dart';
 import '../../home/providers/home_feed_provider.dart';
+import '../../notifications/providers/notification_settings_provider.dart';
 import '../../recommendation/engine/health_checkup.dart';
 
 /// 토스 스타일 챗 형태의 검진 결과 입력 화면.
@@ -451,6 +453,18 @@ class _HealthCheckupInputScreenState
         );
         final updated = m.input.copyWith(lastCheckup: checkup);
         await FamilyService.updateMember(m.id, updated);
+
+        // 검진 1년 뒤 재검 알림 — 기존 알림 취소 후 새로 예약 (덮어쓰기).
+        // 설정에서 토글 OFF 면 예약 자체를 스킵 (취소만 한다).
+        await NotificationService.cancelCheckupReminder(m.id);
+        final notif = ref.read(notificationSettingsProvider);
+        if (notif.checkupEnabled) {
+          await NotificationService.scheduleCheckupReminder(
+            memberId: m.id,
+            lastCheckupDate: checkup.checkupDate,
+          );
+        }
+
         ref.invalidate(familyMembersProvider);
         ref.invalidate(homeFeedProvider);
       }

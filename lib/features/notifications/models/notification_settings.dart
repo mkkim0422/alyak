@@ -29,6 +29,9 @@ class NotificationSettings {
     required this.enabled,
     required this.earliestDepart,
     required this.evening,
+    this.reorderEnabled = true,
+    this.reorderDaysBefore = 3,
+    this.checkupEnabled = true,
   });
 
   final bool enabled;
@@ -36,10 +39,24 @@ class NotificationSettings {
   final TimeOfDayPersist earliestDepart;
   final TimeOfDayPersist evening;
 
+  /// 제품별 재구매 알림 활성. 사용자가 새 제품을 추가할 때 자동 예약된다.
+  /// off 로 바꾸면 다음 추가부터 예약하지 않고, 이미 예약된 알림은 그대로 둔다
+  /// (사용자가 직접 가족 삭제 / 제품 제거 시 정리됨).
+  final bool reorderEnabled;
+
+  /// 재구매 알림이 떨어지기 [reorderDaysBefore] 일 전에 울린다. 기본 3.
+  final int reorderDaysBefore;
+
+  /// 검진 1년 후 알림. 검진 입력 / 수정 시 자동 예약된다.
+  final bool checkupEnabled;
+
   static const defaults = NotificationSettings(
     enabled: true,
     earliestDepart: TimeOfDayPersist(7, 30),
     evening: TimeOfDayPersist(20, 0),
+    reorderEnabled: true,
+    reorderDaysBefore: 3,
+    checkupEnabled: true,
   );
 
   /// 실제 아침 알림이 울리는 시각 — `earliestDepart - 30분`.
@@ -50,11 +67,17 @@ class NotificationSettings {
     bool? enabled,
     TimeOfDayPersist? earliestDepart,
     TimeOfDayPersist? evening,
+    bool? reorderEnabled,
+    int? reorderDaysBefore,
+    bool? checkupEnabled,
   }) {
     return NotificationSettings(
       enabled: enabled ?? this.enabled,
       earliestDepart: earliestDepart ?? this.earliestDepart,
       evening: evening ?? this.evening,
+      reorderEnabled: reorderEnabled ?? this.reorderEnabled,
+      reorderDaysBefore: reorderDaysBefore ?? this.reorderDaysBefore,
+      checkupEnabled: checkupEnabled ?? this.checkupEnabled,
     );
   }
 
@@ -62,6 +85,9 @@ class NotificationSettings {
         'enabled': enabled,
         'earliestDepart': earliestDepart.toJson(),
         'evening': evening.toJson(),
+        'reorderEnabled': reorderEnabled,
+        'reorderDaysBefore': reorderDaysBefore,
+        'checkupEnabled': checkupEnabled,
       };
 
   /// v2 포맷 ('enabled' 키) 우선 파싱. v1 ('frequency' / 'morning') 발견 시
@@ -77,6 +103,10 @@ class NotificationSettings {
         evening: TimeOfDayPersist.fromJson(
           (json['evening'] as Map).cast<String, dynamic>(),
         ),
+        reorderEnabled: (json['reorderEnabled'] as bool?) ?? true,
+        reorderDaysBefore:
+            (json['reorderDaysBefore'] as num?)?.toInt() ?? 3,
+        checkupEnabled: (json['checkupEnabled'] as bool?) ?? true,
       );
     }
     final freq = json['frequency'] as String?;

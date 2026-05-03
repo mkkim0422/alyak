@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../security/secure_storage.dart';
+
 /// 단일 보충제 제품 — `assets/data/products.json` 한 항목과 1:1 매핑된다.
 ///
 /// `ingredients` 는 1 unit (정/캡슐/포) 기준 영양소 함량이고,
@@ -22,6 +24,10 @@ class Product {
   final List<String> alternatives;
   final String notes;
 
+  /// 사용자가 직접 추가한 항목인지 여부. id prefix `manual_` 와 1:1 대응한다.
+  /// true 인 경우 추천 알고리즘에서 신뢰 가중치를 낮추거나 함량 부족 안내를 띄운다.
+  final bool isManual;
+
   const Product({
     required this.id,
     required this.name,
@@ -36,12 +42,14 @@ class Product {
     required this.goodFor,
     required this.alternatives,
     required this.notes,
+    this.isManual = false,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
     final ing = (json['ingredients'] as Map<String, dynamic>? ?? const {});
+    final id = json['id'] as String? ?? '';
     return Product(
-      id: json['id'] as String? ?? '',
+      id: id,
       name: json['name'] as String? ?? '',
       brandType: json['brand_type'] as String? ?? 'brand',
       category: json['category'] as String? ?? '',
@@ -60,8 +68,26 @@ class Product {
           .map((e) => e.toString())
           .toList(),
       notes: json['notes'] as String? ?? '',
+      isManual: (json['is_manual'] as bool?) ?? id.startsWith('manual_'),
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'brand_type': brandType,
+        'category': category,
+        'price_per_unit_krw': pricePerUnitKrw,
+        'unit': unit,
+        'daily_dose': dailyDose,
+        'package_size': packageSize,
+        'package_price_krw': packagePriceKrw,
+        'ingredients': ingredients,
+        'good_for': goodFor,
+        'alternatives': alternatives,
+        'notes': notes,
+        'is_manual': isManual,
+      };
 
   /// 1일 복용 기준 영양소 합 (= ingredients * daily_dose).
   Map<String, double> get dailyIngredients => {
@@ -108,23 +134,76 @@ class ProductCombo {
 ///   • [getByCategory] / [search] / [getById]
 class ProductRepository {
   static const _asset = 'assets/data/products.json';
+  static const _manualEntriesKey = 'user.manual_supplements';
 
-  List<Product> _products = const [];
+  List<Product> _curated = const [];
+  List<Product> _userEntries = const [];
   bool _loaded = false;
 
   bool get isLoaded => _loaded;
-  List<Product> get products => List.unmodifiable(_products);
+
+  /// 사용자에게 노출되는 전체 제품 목록 — 큐레이션 + 사용자가 직접 추가한 것.
+  List<Product> get products =>
+      List.unmodifiable([..._curated, ..._userEntries]);
+
+  /// 큐레이션 (`assets/data/products.json`) 만 — 추천 후보군 계산에 사용.
+  List<Product> get curatedProducts => List.unmodifiable(_curated);
+
+  /// 사용자가 직접 추가한 manual 항목들.
+  List<Product> get userEntries => List.unmodifiable(_userEntries);
 
   Future<void> load({AssetBundle? bundle}) async {
     if (_loaded) return;
     final assetBundle = bundle ?? rootBundle;
     final raw = await assetBundle.loadString(_asset);
     final j = json.decode(raw) as Map<String, dynamic>;
-    _products = (j['products'] as List<dynamic>? ?? const [])
+    _curated = (j['products'] as List<dynamic>? ?? const [])
         .map((e) => Product.fromJson(e as Map<String, dynamic>))
         .toList();
+    await _reloadUserEntries();
     _loaded = true;
   }
+
+  Future<void> _reloadUserEntries() async {
+    try {
+      final raw = await SecureStorage.read(_manualEntriesKey);
+      if (raw == null || raw.isEmpty) {
+        _userEntries = const [];
+        return;
+      }
+      final list = (jsonDecode(raw) as List<dynamic>? ?? const [])
+          .map((e) => Product.fromJson(
+                Map<String, dynamic>.from(e as Map),
+              ))
+          .toList();
+      _userEntries = list;
+    } catch (_) {
+      _userEntries = const [];
+    }
+  }
+
+  /// 사용자가 직접 입력한 manual 항목을 저장하고 메모리에 반영한다.
+  /// 같은 id 가 이미 있으면 덮어쓴다.
+  Future<void> addUserEntry(Product entry) async {
+    final list = [..._userEntries.where((p) => p.id != entry.id), entry];
+    _userEntries = list;
+    await SecureStorage.write(
+      _manualEntriesKey,
+      jsonEncode(list.map((p) => p.toJson()).toList()),
+    );
+  }
+
+  Future<void> removeUserEntry(String id) async {
+    _userEntries = _userEntries.where((p) => p.id != id).toList();
+    await SecureStorage.write(
+      _manualEntriesKey,
+      jsonEncode(_userEntries.map((p) => p.toJson()).toList()),
+    );
+  }
+
+  /// `_products` 호환을 위한 deprecated 별칭 — 큐레이션만 반환.
+  /// 추천 알고리즘은 사용자 직접 추가 항목을 후보로 쓰지 않는다 (함량 신뢰도 부족).
+  List<Product> get _products => _curated;
 
   // ──────────────────────────────────────────────────────────────────────
   // findOptimalCombos
@@ -277,7 +356,10 @@ class ProductRepository {
 
   Product? getById(String id) {
     _ensureLoaded();
-    for (final p in _products) {
+    for (final p in _curated) {
+      if (p.id == id) return p;
+    }
+    for (final p in _userEntries) {
       if (p.id == id) return p;
     }
     return null;
@@ -294,6 +376,8 @@ class ProductRepository {
 
 /// 앱 전역에서 single-instance 로 쓰는 ProductRepository.
 /// 첫 watch 시 비동기 로드되며, supplement_repository 와 동일한 패턴.
+///
+/// 사용자가 직접 추가한 manual 항목이 바뀌면 [ref.invalidate] 로 다시 로드.
 final productRepositoryProvider =
     FutureProvider<ProductRepository>((ref) async {
   final repo = ProductRepository();

@@ -114,6 +114,22 @@ class _NotificationSettingsScreenState
                   time: settings.evening,
                   onChanged: ctrl.setEvening,
                 ),
+                if (!isOnboarding) ...[
+                  const SizedBox(height: 24),
+                  const Divider(color: AppTheme.line, height: 1),
+                  const SizedBox(height: 16),
+                  _ReorderToggleSection(
+                    enabled: settings.reorderEnabled,
+                    daysBefore: settings.reorderDaysBefore,
+                    onToggle: ctrl.setReorderEnabled,
+                    onDaysChanged: ctrl.setReorderDaysBefore,
+                  ),
+                  const SizedBox(height: 16),
+                  _CheckupToggle(
+                    enabled: settings.checkupEnabled,
+                    onChanged: ctrl.setCheckupEnabled,
+                  ),
+                ],
               ],
               const Spacer(),
               FilledButton(
@@ -310,5 +326,107 @@ class _TimeRow extends StatelessWidget {
     if (picked != null) {
       onChanged(TimeOfDayPersist(picked.hour, picked.minute));
     }
+  }
+}
+
+/// 재구매 알림 토글 + 며칠 전 슬라이더 (1~7일).
+class _ReorderToggleSection extends StatelessWidget {
+  const _ReorderToggleSection({
+    required this.enabled,
+    required this.daysBefore,
+    required this.onToggle,
+    required this.onDaysChanged,
+  });
+
+  final bool enabled;
+  final int daysBefore;
+  final ValueChanged<bool> onToggle;
+  final ValueChanged<int> onDaysChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            const Text('🛒', style: TextStyle(fontSize: 20)),
+            const SizedBox(width: 12),
+            const Expanded(
+              child: Text(
+                '재구매 알림 (떨어지기 전)',
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+              ),
+            ),
+            Switch(
+              value: enabled,
+              onChanged: onToggle,
+              activeThumbColor: AppTheme.primary,
+            ),
+          ],
+        ),
+        if (enabled) ...[
+          const SizedBox(height: 4),
+          Padding(
+            padding: const EdgeInsets.only(left: 32),
+            child: Text(
+              '$daysBefore일 전 알림',
+              style: const TextStyle(
+                fontSize: 12,
+                color: AppTheme.subtle,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          Slider(
+            value: daysBefore.toDouble().clamp(1, 7),
+            min: 1,
+            max: 7,
+            divisions: 6,
+            label: '$daysBefore일 전',
+            activeColor: AppTheme.primary,
+            onChanged: (v) => onDaysChanged(v.round()),
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+/// 검진 1년 후 알림 토글.
+class _CheckupToggle extends StatelessWidget {
+  const _CheckupToggle({required this.enabled, required this.onChanged});
+  final bool enabled;
+  final ValueChanged<bool> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Text('🩺', style: TextStyle(fontSize: 20)),
+        const SizedBox(width: 12),
+        const Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '검진 알림 (1년 후)',
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+              ),
+              SizedBox(height: 2),
+              Text(
+                '마지막 검진일 1년 뒤 자동 안내',
+                style: TextStyle(fontSize: 12, color: AppTheme.subtle),
+              ),
+            ],
+          ),
+        ),
+        Switch(
+          value: enabled,
+          onChanged: onChanged,
+          activeThumbColor: AppTheme.primary,
+        ),
+      ],
+    );
   }
 }

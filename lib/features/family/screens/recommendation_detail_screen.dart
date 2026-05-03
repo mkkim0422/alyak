@@ -7,10 +7,8 @@ import '../../../core/config/shop_config.dart';
 import '../../../core/data/models/conflict_warning.dart';
 import '../../../core/data/models/recommendation_result.dart';
 import '../../../core/data/models/schedule_result.dart';
-import '../../../core/data/models/supplement_guide_model.dart';
 import '../../../core/data/nutrient_targets.dart';
 import '../../../core/data/product_repository.dart';
-import '../../../core/data/supplement_repository.dart';
 import '../../../core/l10n/app_strings.dart';
 import '../../../core/notifications/notification_service.dart';
 import '../../../core/security/secure_storage.dart';
@@ -20,7 +18,6 @@ import '../../recommendation/engine/family_input.dart';
 import '../../recommendation/engine/recommendation_engine.dart' as engine;
 import '../../symptoms/screens/symptom_search_screen.dart';
 import '../models/family_member.dart';
-import 'supplement_guide_screen.dart';
 
 class RecommendationDetailScreen extends ConsumerWidget {
   const RecommendationDetailScreen({required this.memberId, super.key});
@@ -79,23 +76,21 @@ class _Body extends ConsumerWidget {
           const SizedBox(height: 12),
         ],
 
-        // ───── SECTION 1: 오늘의 영양제 스케줄
-        const _SectionTitle('오늘의 영양제 스케줄'),
-        const SizedBox(height: 8),
-        _ScheduleSection(entry: entry),
+        // ───── SECTION 1: 영양 상태 요약 (NEW summary card)
+        _StatusSummaryCard(member: member, recs: recs),
         const SizedBox(height: 16),
 
-        // ───── SECTION 2: 지금 드시는 영양제 (있으면)
-        _CurrentlyTakingSection(member: member, recs: recs),
-
-        // ───── SECTION 3: 부족한 영양소
+        // ───── SECTION 2: ❌ 부족한 영양소
         _MissingNutrientsSection(member: member, recs: recs),
 
-        // ───── SECTION 4: 추천 제품
+        // ───── SECTION 3: ✅ 충분히 챙기는 영양소 (with sources)
+        _CoveredNutrientsSection(member: member, recs: recs),
+
+        // ───── SECTION 4: 💊 추천 제품
         _ProductRecommendationsSection(member: member, recs: recs),
         const SizedBox(height: 16),
 
-        // ───── SECTION 5: 충돌 / 시너지
+        // ───── SECTION 5: ⚠️ 충돌 / 시너지
         if (entry.schedule.synergies.isNotEmpty) ...[
           const _SectionTitle('🤝 함께 드시면 좋아요'),
           const SizedBox(height: 8),
@@ -318,26 +313,6 @@ class _SectionTitle extends StatelessWidget {
       child: Text(
         text,
         style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w800),
-      ),
-    );
-  }
-}
-
-class _Empty extends StatelessWidget {
-  const _Empty();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppTheme.line),
-      ),
-      child: const Text(
-        AppStrings.recommendationEmpty,
-        style: TextStyle(color: AppTheme.subtle, height: 1.5),
       ),
     );
   }
@@ -1189,232 +1164,142 @@ class _AlternativeRow extends StatelessWidget {
 }
 
 // ════════════════════════════════════════════════════════════════════
-// SECTION 1 — 오늘의 영양제 스케줄 (시간대별 카드)
+// SECTION 1 — 영양 상태 요약 (NEW)
+// (구 "오늘의 영양제 스케줄" 트래킹 잔재는 Pivot 시점에 제거됨)
 // ════════════════════════════════════════════════════════════════════
 
-class _ScheduleSection extends ConsumerWidget {
-  const _ScheduleSection({required this.entry});
-  final HomeFeedEntry entry;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final s = entry.schedule;
-    final blocks = <Widget>[];
-    void addBlock(String emoji, String title, List<String> names) {
-      if (names.isEmpty) return;
-      blocks.add(_ScheduleBlock(
-        emoji: emoji,
-        title: title,
-        names: names,
-        recs: entry.recommendations,
-        memberId: entry.member.id,
-      ));
-    }
-
-    addBlock('☀️', '아침', s.morning);
-    addBlock('🌤️', '점심', s.lunch);
-    addBlock('🌙', '저녁', s.evening);
-    addBlock('🛌', '취침 전', s.beforeSleep);
-
-    if (blocks.isEmpty) {
-      return const _Empty();
-    }
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        for (var i = 0; i < blocks.length; i++) ...[
-          if (i > 0) const SizedBox(height: 16),
-          blocks[i],
-        ],
-      ],
-    );
-  }
-}
-
-class _ScheduleBlock extends ConsumerWidget {
-  const _ScheduleBlock({
-    required this.emoji,
-    required this.title,
-    required this.names,
-    required this.recs,
-    required this.memberId,
-  });
-
-  final String emoji;
-  final String title;
-  final List<String> names;
+/// 헤더 바로 아래에 노출되는 한 눈 요약 카드.
+///   • 잘 챙기는 영양소 개수
+///   • 부족한 영양소 개수
+///   • 추천 제품 개수
+class _StatusSummaryCard extends ConsumerWidget {
+  const _StatusSummaryCard({required this.member, required this.recs});
+  final FamilyMember member;
   final List<RecommendationResult> recs;
-  final String memberId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final repoAsync = ref.watch(supplementRepositoryProvider);
-    final repo = repoAsync.hasValue ? repoAsync.requireValue : null;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Text(emoji, style: const TextStyle(fontSize: 16)),
-            const SizedBox(width: 6),
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w800,
-                color: AppTheme.ink,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
-        for (final n in names)
-          _ScheduleSupplementCard(
-            name: n,
-            slotTitle: title,
-            guide: repo?.getSupplementGuide(n),
-            rec: _findRec(n),
-            memberId: memberId,
-          ),
-      ],
-    );
-  }
-
-  RecommendationResult? _findRec(String name) {
-    for (final r in recs) {
-      if (r.supplementName == name) return r;
+    final repoAsync = ref.watch(productRepositoryProvider);
+    if (!repoAsync.hasValue) {
+      return const SizedBox.shrink();
     }
-    return null;
-  }
-}
+    final repo = repoAsync.requireValue;
 
-class _ScheduleSupplementCard extends StatelessWidget {
-  const _ScheduleSupplementCard({
-    required this.name,
-    required this.slotTitle,
-    required this.guide,
-    required this.rec,
-    required this.memberId,
-  });
+    final visibleNames = recs
+        .where((r) => r.category != RecommendationCategory.alreadyTaking)
+        .map((r) => r.supplementName)
+        .toList();
+    final targets = targetsForSupplements(visibleNames);
+    final intake = member.input.getCurrentNutrientIntake(repo);
 
-  final String name;
-  final String slotTitle;
-  final SupplementGuide? guide;
-  final RecommendationResult? rec;
-  final String memberId;
+    int covered = 0;
+    int missing = 0;
+    for (final e in targets.entries) {
+      if ((intake[e.key] ?? 0) >= e.value) {
+        covered++;
+      } else {
+        missing++;
+      }
+    }
+    final recCount = recs
+        .where((r) => r.category != RecommendationCategory.alreadyTaking)
+        .length;
 
-  String _dosageText() {
-    final adult = guide?.dosage.adult;
-    if (adult == null || adult.unit.isEmpty) return '';
-    final amt = adult.amount;
-    final s = amt is int || amt == amt.toInt()
-        ? amt.toInt().toString()
-        : amt.toString();
-    return '$s${adult.unit}';
-  }
-
-  String _mealText() {
-    final mr = guide?.timing.mealRelation;
-    if (mr == null || mr.isEmpty) return '';
-    return mr;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final dosage = _dosageText();
-    final meal = _mealText();
-    final reason = rec?.reason.trim() ?? '';
-
-    final lineParts = [
-      slotTitle,
-      if (meal.isNotEmpty) meal,
-      if (dosage.isNotEmpty) dosage,
-    ];
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(14),
-        onTap: rec?.supplementId == null
-            ? null
-            : () => context.push(
-                  SupplementGuideScreen.pathFor(
-                    rec!.supplementId!,
-                    memberId,
-                  ),
-                ),
-        child: Container(
-          padding: const EdgeInsets.all(14),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: AppTheme.line),
+    return Container(
+      padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
+      decoration: BoxDecoration(
+        color: AppTheme.cream,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '📊 ${member.name}님의 영양 상태',
+            style: const TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w800,
+              color: AppTheme.ink,
+            ),
           ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('💊', style: TextStyle(fontSize: 20)),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            dosage.isEmpty ? name : '$name $dosage',
-                            style: const TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                        ),
-                        if (rec?.supplementId != null)
-                          const Icon(
-                            Icons.chevron_right,
-                            color: AppTheme.subtle,
-                            size: 18,
-                          ),
-                      ],
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      lineParts.join(' / '),
-                      style: const TextStyle(
-                        fontSize: 12,
-                        color: AppTheme.subtle,
-                      ),
-                    ),
-                    if (reason.isNotEmpty) ...[
-                      const SizedBox(height: 4),
-                      Text(
-                        reason,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          height: 1.4,
-                          color: AppTheme.ink,
-                        ),
-                      ),
-                    ],
-                  ],
-                ),
-              ),
-            ],
+          const SizedBox(height: 12),
+          _SummaryRow(
+            emoji: '✅',
+            label: '잘 챙기는 영양소',
+            count: covered,
+            unit: '종',
           ),
-        ),
+          const SizedBox(height: 6),
+          _SummaryRow(
+            emoji: '⚠️',
+            label: '부족한 영양소',
+            count: missing,
+            unit: '종',
+          ),
+          const SizedBox(height: 6),
+          _SummaryRow(
+            emoji: '💊',
+            label: '추천 영양제',
+            count: recCount,
+            unit: '개',
+          ),
+        ],
       ),
     );
   }
 }
 
+class _SummaryRow extends StatelessWidget {
+  const _SummaryRow({
+    required this.emoji,
+    required this.label,
+    required this.count,
+    required this.unit,
+  });
+
+  final String emoji;
+  final String label;
+  final int count;
+  final String unit;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text(emoji, style: const TextStyle(fontSize: 14)),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            label,
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w700,
+              color: AppTheme.ink,
+            ),
+          ),
+        ),
+        Text(
+          '$count$unit',
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w800,
+            color: AppTheme.primary,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 // ════════════════════════════════════════════════════════════════════
-// SECTION 2 — 지금 드시는 영양제 + 이미 충분한 영양소
+// SECTION 3 — ✅ 충분히 챙기는 영양소 (with source product names)
 // ════════════════════════════════════════════════════════════════════
 
-class _CurrentlyTakingSection extends ConsumerWidget {
-  const _CurrentlyTakingSection({required this.member, required this.recs});
+/// 사용자가 현재 복용 중인 제품으로 이미 100% 이상 채워진 영양소를
+/// "비타민C 100% (센트룸 우먼)" 형식으로 노출.
+class _CoveredNutrientsSection extends ConsumerWidget {
+  const _CoveredNutrientsSection({required this.member, required this.recs});
+
   final FamilyMember member;
   final List<RecommendationResult> recs;
 
@@ -1433,151 +1318,122 @@ class _CurrentlyTakingSection extends ConsumerWidget {
     }
     if (products.isEmpty) return const SizedBox.shrink();
 
-    final intake = member.input.getCurrentNutrientIntake(repo);
     final visibleNames = recs
         .where((r) => r.category != RecommendationCategory.alreadyTaking)
         .map((r) => r.supplementName)
         .toList();
     final targets = targetsForSupplements(visibleNames);
-    final covered = <String>[];
+    if (targets.isEmpty) return const SizedBox.shrink();
+
+    // key → (best %, source product name)
+    final coveredEntries = <_CoveredEntry>[];
     for (final e in targets.entries) {
-      if ((intake[e.key] ?? 0) >= e.value) covered.add(e.key);
+      double total = 0;
+      Product? topSource;
+      double topContribution = 0;
+      for (final p in products) {
+        final c = p.dailyIngredients[e.key] ?? 0;
+        if (c <= 0) continue;
+        total += c;
+        if (c > topContribution) {
+          topContribution = c;
+          topSource = p;
+        }
+      }
+      if (total >= e.value && topSource != null) {
+        final pct = ((total / e.value) * 100).clamp(0, 999).round();
+        coveredEntries.add(_CoveredEntry(
+          nutrientKey: e.key,
+          percent: pct,
+          sourceName: topSource.name,
+        ));
+      }
     }
+
+    if (coveredEntries.isEmpty) return const SizedBox.shrink();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const _SectionTitle('현재 복용 중인 제품'),
+        const _SectionTitle('✅ 충분히 챙기는 영양소'),
         const SizedBox(height: 8),
-        for (final p in products) _CurrentProductCard(product: p),
-        if (covered.isNotEmpty) ...[
-          const SizedBox(height: 8),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: AppTheme.primary.withValues(alpha: 0.06),
-              borderRadius: BorderRadius.circular(12),
-              border:
-                  Border.all(color: AppTheme.primary.withValues(alpha: 0.3)),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  '이미 충분한 영양소',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w800,
-                    color: AppTheme.primary,
-                  ),
-                ),
-                const SizedBox(height: 6),
-                Wrap(
-                  spacing: 6,
-                  runSpacing: 6,
-                  children: [
-                    for (final k in covered)
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: AppTheme.primary.withValues(alpha: 0.5),
+        Container(
+          padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
+          decoration: BoxDecoration(
+            color: AppTheme.primary.withValues(alpha: 0.06),
+            borderRadius: BorderRadius.circular(12),
+            border:
+                Border.all(color: AppTheme.primary.withValues(alpha: 0.3)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              for (final e in coveredEntries) ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Text(
+                          _nutrientLabel(e.nutrientKey),
+                          style: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w800,
+                            color: AppTheme.ink,
                           ),
                         ),
+                      ),
+                      Expanded(
+                        flex: 2,
                         child: Text(
-                          '✓ ${_nutrientLabel(k)}',
+                          '${e.percent}%',
                           style: const TextStyle(
-                            fontSize: 12,
+                            fontSize: 13,
                             color: AppTheme.primary,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
-                  ],
+                      Expanded(
+                        flex: 5,
+                        child: Text(
+                          '(${e.sourceName})',
+                          textAlign: TextAlign.right,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: AppTheme.subtle,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
-            ),
+            ],
           ),
-        ],
+        ),
         const SizedBox(height: 16),
       ],
     );
   }
 }
 
-class _CurrentProductCard extends StatelessWidget {
-  const _CurrentProductCard({required this.product});
-  final Product product;
+class _CoveredEntry {
+  const _CoveredEntry({
+    required this.nutrientKey,
+    required this.percent,
+    required this.sourceName,
+  });
 
-  String _ingredientList() {
-    final keys = product.ingredients.keys.toList();
-    if (keys.isEmpty) return '';
-    final names = keys.map(_nutrientLabel).toSet().toList();
-    if (names.length <= 6) return names.join(', ');
-    return '${names.take(6).join(', ')} 등 ${names.length}종';
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final ingredients = _ingredientList();
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: AppTheme.line),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    product.name,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                ),
-                Text(
-                  '${product.dailyDose}${product.unit}/일',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: AppTheme.subtle,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ],
-            ),
-            if (ingredients.isNotEmpty) ...[
-              const SizedBox(height: 4),
-              Text(
-                '포함: $ingredients',
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: AppTheme.subtle,
-                  height: 1.4,
-                ),
-              ),
-            ],
-          ],
-        ),
-      ),
-    );
-  }
+  final String nutrientKey;
+  final int percent;
+  final String sourceName;
 }
 
 // ════════════════════════════════════════════════════════════════════
-// SECTION 3 — 부족한 영양소
+// SECTION 2 — ❌ 부족한 영양소 (with reasons)
 // ════════════════════════════════════════════════════════════════════
 
 class _MissingNutrientsSection extends ConsumerWidget {

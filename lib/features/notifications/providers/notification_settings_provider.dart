@@ -37,6 +37,18 @@ class NotificationSettingsController extends Notifier<NotificationSettings> {
     state = state.copyWith(evening: t);
   }
 
+  void setReorderEnabled(bool enabled) {
+    state = state.copyWith(reorderEnabled: enabled);
+  }
+
+  void setReorderDaysBefore(int days) {
+    state = state.copyWith(reorderDaysBefore: days);
+  }
+
+  void setCheckupEnabled(bool enabled) {
+    state = state.copyWith(checkupEnabled: enabled);
+  }
+
   /// 1. 디스크 저장 (식별 정보 아님)
   /// 2. OS 알림 일정에 반영. 가족 이름은 현재 등록된 가족에서 읽어 본문에 박는다.
   /// 가족이 추가/삭제될 때 다시 호출해 주면 본문이 갱신된다.
