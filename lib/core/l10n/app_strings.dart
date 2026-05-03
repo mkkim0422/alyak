@@ -276,8 +276,9 @@ class AppStrings {
 
   // 제품 picker (products.json 기반)
   static const String productPickerTitle = '드시는 제품 선택';
-  static const String productPickerSearchHint = '제품명 검색';
-  static const String productPickerEmpty = '카테고리를 선택해 주세요';
+  static const String productPickerSearchHint = '제품명·성분(예: 유산균) 검색';
+  static const String productPickerEmpty =
+      '결과가 없어요. 위 카테고리 칩에서 골라보거나 다른 단어로 검색해주세요';
   static String productCardPackage(int size, String unit, int priceKrw) =>
       '$size$unit / ${_krw(priceKrw)}';
   static String productCardDaily(int dose, String unit, int dailyKrw) =>

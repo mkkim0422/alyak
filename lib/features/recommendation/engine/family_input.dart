@@ -361,15 +361,24 @@ class FamilyInput {
   }
 
   /// 나이대에 따라 필요한 필드가 모두 채워졌는지.
+  ///
+  /// 각 분기는 [stepsForAge] 의 흐름과 1:1 일치해야 한다 — 흐름에서 묻지 않는
+  /// 필드를 여기서 요구하면 사용자가 모든 단계를 끝내도 isComplete=false 가 되어
+  /// `FamilyChatScreen._finish()` 가 silent return → 완료 버튼이 죽은 듯이 보이는
+  /// 버그가 발생한다 (실제로 child/newborn 에서 발생했음).
   bool get isComplete {
     if (name == null || age == null || sex == null) return false;
     switch (ageGroup!) {
       case AgeGroup.newborn:
-        return allergies != null && feeding != null;
+        // 영아 흐름: allergyItems (다중 선택) + feeding. allergies (bool) 는
+        // legacy 필드라 흐름에서 안 묻는다 — 요구 대상에서 제외.
+        return feeding != null;
       case AgeGroup.toddler:
         return pickyEating != null;
       case AgeGroup.child:
-        return diet != null && pickyEating != null && exercise != null;
+        // 어린이 흐름: heightWeight + diet + eatsVegetables + eatsFish + exercise
+        // + stoolFrequency + stoolForm. pickyEating 은 흐름에 없으므로 제외.
+        return diet != null && exercise != null;
       case AgeGroup.teen:
         return diet != null &&
             exercise != null &&

@@ -771,7 +771,18 @@ class _InputAreaState extends ConsumerState<_InputArea> {
 
   Future<void> _finish() async {
     final input = widget.state.input;
-    if (!input.isComplete) return;
+    if (!input.isComplete) {
+      // silent return 대신 사용자에게 안내 — 어떤 필드가 빠졌는지 모르면 버튼이
+      // 죽은 것처럼 보임. 이전에 child/newborn 흐름에서 이 silent return 이
+      // 모든 단계 입력 후에도 발생해서 디버그가 어려웠음.
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('아직 답변하지 않은 항목이 있어요. 위로 올라가서 확인해주세요'),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+      return;
+    }
     setState(() => _saving = true);
     try {
       // 1. 평문은 메모리 밖으로 나가지 않음. 디스크 저장 시 AES-256.
@@ -878,15 +889,31 @@ class _ProductsPickerState extends State<_ProductsPicker> {
 
   /// 검색 + 카테고리 + 미선택 필터를 모두 적용한 후보.
   /// 검색어가 있으면 카테고리 무시 (전체 검색). 없으면 활성 카테고리 안에서.
+  ///
+  /// 검색 매칭 대상 (느슨한 contains):
+  ///   - product.name (브랜드/상품명)
+  ///   - product.category (예: 'probiotics')
+  ///   - 카테고리 한글 라벨 (예: '유산균') — 사용자가 "유산균" 으로 검색해도
+  ///     락토핏 등이 나오도록 (이전에는 이름에 '유산균' 글자 없으면 누락됐음)
+  ///   - product.goodFor 항목 (예: '면역', '장 건강')
   List<Product> _matches() {
     final q = _query.text.trim().toLowerCase();
     final source = q.isEmpty
         ? (_activeCategory == null
             ? const <Product>[]
             : widget.products.where((p) => p.category == _activeCategory))
-        : widget.products.where(
-            (p) => p.name.toLowerCase().contains(q),
-          );
+        : widget.products.where((p) {
+            if (p.name.toLowerCase().contains(q)) return true;
+            if (p.category.toLowerCase().contains(q)) return true;
+            final koLabel = productCategoryDisplayName[p.category];
+            if (koLabel != null && koLabel.toLowerCase().contains(q)) {
+              return true;
+            }
+            for (final g in p.goodFor) {
+              if (g.toLowerCase().contains(q)) return true;
+            }
+            return false;
+          });
     return [for (final p in source) if (!_selectedIds.contains(p.id)) p];
   }
 
